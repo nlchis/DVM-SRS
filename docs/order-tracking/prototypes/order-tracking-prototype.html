@@ -493,8 +493,8 @@
                                     <div id="node-2-line" class="w-[2px] bg-slate-200 flex-1"></div>
                                 </div>
                                 <div class="pb-6 pl-4 flex-1">
-                                    <p class="text-xs font-semibold text-slate-400">14:00</p>
-                                    <h5 class="text-sm font-semibold text-slate-900">Bưu tá đã lấy hàng</h5>
+                                    <p id="node-2-time" class="text-xs font-semibold text-slate-400">14:00</p>
+                                    <h5 id="node-2-title" class="text-sm font-semibold text-slate-900">Bưu tá đã lấy hàng</h5>
                                 </div>
                             </div>
                             
@@ -529,7 +529,7 @@
                                 </div>
                             </div>
                             <!-- Telegram -->
-                            <div class="flex items-start gap-3">
+                            <div id="notif-telegram-row" class="flex items-start gap-3">
                                 <div class="w-8 h-8 bg-blue-50 text-blue-500 rounded-lg flex items-center justify-center text-sm flex-shrink-0">
                                     <i class="fa-brands fa-telegram"></i>
                                 </div>
@@ -964,6 +964,9 @@
             const node3Time = document.getElementById('node-3-time');
             const node3Title = document.getElementById('node-3-title');
             const failedNotifRow = document.getElementById('failed-notif-row');
+            const node2Time = document.getElementById('node-2-time');
+            const node2Title = document.getElementById('node-2-title');
+            const telegramRow = document.getElementById('notif-telegram-row');
 
             if (o.status === 'FAILED' || o.status === 'RETURNED') {
                 // Show failed actions banner on top
@@ -973,6 +976,14 @@
                 node2Icon.innerHTML = `<i class="fa-solid fa-check"></i>`;
                 node2Icon.className = "w-6 h-6 rounded-full bg-emerald-50 border-2 border-emerald-500 flex items-center justify-center text-emerald-500 text-[10px] z-10";
                 node2Line.className = "w-[2px] bg-emerald-500 flex-1";
+
+                // Reset Node 2 text to checked state
+                if (node2Time) node2Time.innerText = "14:00";
+                if (node2Title) {
+                    node2Title.innerText = "Bưu tá đã lấy hàng";
+                    node2Title.className = "text-sm font-semibold text-slate-900";
+                }
+                if (telegramRow) telegramRow.classList.remove('hidden');
 
                 // Timeline Step 3 is a failure cross
                 node3Icon.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
@@ -1027,6 +1038,14 @@
                     node2Icon.className = "w-6 h-6 rounded-full bg-emerald-50 border-2 border-emerald-500 flex items-center justify-center text-emerald-500 text-[10px] z-10";
                     node2Line.className = "w-[2px] bg-emerald-500 flex-1";
 
+                    // Reset Node 2 text
+                    if (node2Time) node2Time.innerText = "14:00";
+                    if (node2Title) {
+                        node2Title.innerText = "Bưu tá đã lấy hàng";
+                        node2Title.className = "text-sm font-semibold text-slate-900";
+                    }
+                    if (telegramRow) telegramRow.classList.remove('hidden');
+
                     node3Icon.innerHTML = `<i class="fa-solid fa-check"></i>`;
                     node3Icon.className = "w-6 h-6 rounded-full bg-emerald-50 border-2 border-emerald-500 flex items-center justify-center text-emerald-500 text-[10px] z-10";
                     node3Time.innerText = "18:00";
@@ -1039,6 +1058,13 @@
                     node2Icon.className = "w-6 h-6 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center text-slate-300 text-[10px] z-10";
                     node2Line.className = "w-[2px] bg-slate-200 flex-1";
 
+                    if (node2Time) node2Time.innerText = "...";
+                    if (node2Title) {
+                        node2Title.innerText = "Chờ bưu tá lấy hàng (Chờ cập nhật)";
+                        node2Title.className = "text-sm font-semibold text-slate-500";
+                    }
+                    if (telegramRow) telegramRow.classList.add('hidden');
+
                     node3Icon.innerHTML = `<i class="fa-solid fa-ellipsis"></i>`;
                     node3Icon.className = "w-6 h-6 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center text-slate-300 text-[10px] z-10";
                     node3Time.innerText = "...";
@@ -1050,6 +1076,14 @@
                     node2Icon.innerHTML = `<i class="fa-solid fa-check"></i>`;
                     node2Icon.className = "w-6 h-6 rounded-full bg-emerald-50 border-2 border-emerald-500 flex items-center justify-center text-emerald-500 text-[10px] z-10";
                     node2Line.className = "w-[2px] bg-slate-200 flex-1";
+
+                    // Reset Node 2 text
+                    if (node2Time) node2Time.innerText = "14:00";
+                    if (node2Title) {
+                        node2Title.innerText = "Bưu tá đã lấy hàng";
+                        node2Title.className = "text-sm font-semibold text-slate-900";
+                    }
+                    if (telegramRow) telegramRow.classList.remove('hidden');
 
                     node3Icon.innerHTML = `<i class="fa-solid fa-ellipsis"></i>`;
                     node3Icon.className = "w-6 h-6 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center text-slate-300 text-[10px] z-10";
