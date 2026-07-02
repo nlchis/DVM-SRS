@@ -142,6 +142,10 @@
                 <i class="fa-solid fa-circle-plus w-5 text-center text-lg"></i>
                 <span>Tạo Đơn Vận Chuyển</span>
             </button>
+            <button onclick="switchTab('system-flow')" id="nav-system-flow" class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-left transition-all duration-200 hover:bg-slate-900 hover:text-white">
+                <i class="fa-solid fa-route w-5 text-center text-lg"></i>
+                <span>Sơ đồ Luồng Hệ thống</span>
+            </button>
         </nav>
 
         <!-- Edge Case / Scenario Controls in Sidebar Footer -->
@@ -566,6 +570,111 @@
                 </div>
             </section>
 
+            <!-- TAB 5: SYSTEM FLOW DIAGRAM -->
+            <section id="panel-system-flow" class="max-w-6xl mx-auto tab-panel hidden space-y-6">
+                <!-- Phase Selection Header Tabs -->
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex flex-wrap gap-2 items-center justify-between">
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="switchFlowPhase(1)" id="btn-phase-1" class="px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-lg shadow-md transition-all">
+                            1. Khởi Tạo & Đồng Bộ 247Express
+                        </button>
+                        <button onclick="switchFlowPhase(2)" id="btn-phase-2" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-lg transition-all">
+                            2. Cập Nhật Hành Trình & SMS/Telegram
+                        </button>
+                        <button onclick="switchFlowPhase(3)" id="btn-phase-3" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-lg transition-all">
+                            3. Lỗi Giao Hàng & Xử Lý Hoàn/Giao Lại
+                        </button>
+                    </div>
+                    <!-- View Mode (Visual vs PlantUML Source) -->
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-semibold text-slate-500">Chế độ xem:</span>
+                        <button onclick="setFlowViewMode('visual')" id="btn-view-visual" class="px-3 py-1 bg-slate-900 text-white text-[11px] font-bold rounded-md transition-all">Trực Quan</button>
+                        <button onclick="setFlowViewMode('plantuml')" id="btn-view-plantuml" class="px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-bold rounded-md transition-all">PlantUML</button>
+                    </div>
+                </div>
+
+                <!-- MAIN WORKSPACE: GRID OF DIAGRAM + STEP DETAIL CARD -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Left: Diagram Container (Spans 2 cols) -->
+                    <div id="flow-diagram-container" class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-6 min-h-[700px] overflow-x-auto relative flex flex-col justify-between">
+                        
+                        <!-- Participant Header Row (Absolute Aligned) -->
+                        <div class="h-12 relative border-b border-slate-800 pb-4 z-10 flex-shrink-0">
+                            <!-- Col 1 -->
+                            <div class="absolute left-[9%] -translate-x-1/2">
+                                <div class="bg-blue-600/90 text-white px-2 py-1.5 rounded-lg font-bold text-[10px] sm:text-xs flex items-center gap-1.5 shadow-md whitespace-nowrap">
+                                    <i class="fa-solid fa-user text-[10px]"></i> Sales/Admin
+                                </div>
+                            </div>
+                            <!-- Col 2 -->
+                            <div class="absolute left-[29%] -translate-x-1/2">
+                                <div class="bg-slate-800 border border-slate-700 text-slate-200 px-2 py-1.5 rounded-lg font-bold text-[10px] sm:text-xs flex items-center gap-1.5 shadow-md whitespace-nowrap">
+                                    <i class="fa-solid fa-laptop-code text-[10px]"></i> Web Portal
+                                </div>
+                            </div>
+                            <!-- Col 3 -->
+                            <div class="absolute left-[50%] -translate-x-1/2">
+                                <div class="bg-amber-600/90 text-white px-2 py-1.5 rounded-lg font-bold text-[10px] sm:text-xs flex items-center gap-1.5 shadow-md whitespace-nowrap">
+                                    <i class="fa-solid fa-truck-fast text-[10px]"></i> 247Express
+                                </div>
+                            </div>
+                            <!-- Col 4 -->
+                            <div class="absolute left-[71%] -translate-x-1/2">
+                                <div class="bg-indigo-600/90 text-white px-2 py-1.5 rounded-lg font-bold text-[10px] sm:text-xs flex items-center gap-1.5 shadow-md whitespace-nowrap">
+                                    <i class="fa-solid fa-comment-sms text-[10px]"></i> SMS/Telegram
+                                </div>
+                            </div>
+                            <!-- Col 5 -->
+                            <div class="absolute left-[91%] -translate-x-1/2">
+                                <div class="bg-emerald-600/90 text-white px-2 py-1.5 rounded-lg font-bold text-[10px] sm:text-xs flex items-center gap-1.5 shadow-md whitespace-nowrap">
+                                    <i class="fa-solid fa-user-check text-[10px]"></i> Khách hàng
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Interacting Message Arrows Wrapper -->
+                        <div id="flow-arrows-wrapper" class="flex-1 min-h-[580px] relative mt-6 z-10">
+                            <!-- Vertical lifelines (Perfect alignment with arrows) -->
+                            <div class="absolute inset-y-0 left-[9%] w-[1px] border-l border-dashed border-slate-800/80 pointer-events-none"></div>
+                            <div class="absolute inset-y-0 left-[29%] w-[1px] border-l border-dashed border-slate-800/80 pointer-events-none"></div>
+                            <div class="absolute inset-y-0 left-[50%] w-[1px] border-l border-dashed border-slate-800/80 pointer-events-none"></div>
+                            <div class="absolute inset-y-0 left-[71%] w-[1px] border-l border-dashed border-slate-800/80 pointer-events-none"></div>
+                            <div class="absolute inset-y-0 left-[91%] w-[1px] border-l border-dashed border-slate-800/80 pointer-events-none"></div>
+                            
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                        
+                        <!-- Participant Footer Row (Absolute Aligned) -->
+                        <div class="h-8 relative border-t border-slate-800 pt-3 z-10 flex-shrink-0">
+                            <div class="absolute left-[9%] -translate-x-1/2 text-[10px] text-slate-500 font-semibold whitespace-nowrap">Sales/Admin</div>
+                            <div class="absolute left-[29%] -translate-x-1/2 text-[10px] text-slate-500 font-semibold whitespace-nowrap">Web Portal</div>
+                            <div class="absolute left-[50%] -translate-x-1/2 text-[10px] text-slate-500 font-semibold whitespace-nowrap">247Express</div>
+                            <div class="absolute left-[71%] -translate-x-1/2 text-[10px] text-slate-500 font-semibold whitespace-nowrap">SMS/Telegram</div>
+                            <div class="absolute left-[91%] -translate-x-1/2 text-[10px] text-slate-500 font-semibold whitespace-nowrap">Khách hàng</div>
+                        </div>
+
+                    </div>
+
+                    <!-- Right: Step Detail Card -->
+                    <div id="flow-details-card" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between min-h-[700px]">
+                        <!-- Populated dynamically via JS -->
+                    </div>
+                </div>
+
+                <!-- PlantUML Code Preview Block (Hidden by default) -->
+                <div id="flow-plantuml-block" class="hidden bg-slate-900 border border-slate-800 rounded-2xl p-6 text-white space-y-4">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                        <h4 class="font-bold text-sm text-slate-200">Mã nguồn PlantUML (Sao chép trực tiếp vào Live Editor)</h4>
+                        <button onclick="copyPlantUMLCode()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded text-xs transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-copy"></i> <span id="copy-btn-text">Sao chép mã</span>
+                        </button>
+                    </div>
+                    <pre class="overflow-x-auto text-xs text-emerald-400 font-mono bg-slate-950 p-4 rounded-lg select-all max-h-96" id="plantuml-code-content">
+                        <!-- PlantUML text inserted via JS -->
+                    </pre>
+                </div>
+            </section>
+
         </div>
     </main>
 
@@ -687,7 +796,8 @@
                 'dashboard': 'Dashboard Tổng quan',
                 'order-list': 'Quản lý Đơn hàng',
                 'create-order': 'Tạo Đơn Vận Chuyển',
-                'order-details': 'Chi tiết Đơn hàng & Tracking'
+                'order-details': 'Chi tiết Đơn hàng & Tracking',
+                'system-flow': 'Sơ đồ Luồng Hệ thống'
             };
             document.getElementById('header-title').innerText = titles[tabId];
 
@@ -699,6 +809,8 @@
                 }
             } else if (tabId === 'order-details') {
                 renderOrderDetails();
+            } else if (tabId === 'system-flow') {
+                switchFlowPhase(1);
             }
         }
 
@@ -1253,6 +1365,326 @@
                 switchTab('order-list');
                 filterOrders();
             }, 2000);
+        }
+
+        // --- SYSTEM FLOW DIAGRAM LOGIC ---
+        const flowPhases = [
+            {
+                id: 1,
+                name: "Khởi tạo & Đồng bộ",
+                steps: [
+                    { id: "1.1", title: "1. Tạo đơn & Upload file", source: 1, target: 2, direction: 'right', description: "Nhân viên Sales hoặc Admin điền form tạo đơn vận chuyển mới và đính kèm tài liệu CO/CQ của hàng hóa.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-circle-check text-emerald-500 mr-1.5'></i> Họ tên, SĐT, Địa chỉ, Tên sản phẩm, Khối lượng bắt buộc điền.</li><li class='mb-1.5'><i class='fa-solid fa-circle-check text-emerald-500 mr-1.5'></i> Số điện thoại người nhận phải hợp lệ tại Việt Nam (10 số, bắt đầu bằng 0).</li><li class='mb-1.5'><i class='fa-solid fa-circle-check text-emerald-500 mr-1.5'></i> Dung lượng file CO/CQ tối đa 5MB.</li></ul>" },
+                    { id: "1.2", title: "2. Validate Form & File Size", source: 2, target: 2, direction: 'self', description: "Hệ thống Portal thực hiện validate dữ liệu nhập vào và kích thước file CO/CQ.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-circle-info text-blue-500 mr-1.5'></i> Nếu có lỗi xảy ra, Portal hiển thị thông báo lỗi inline dạng chữ đỏ ngay phía dưới trường bị lỗi.</li><li class='mb-1.5'><i class='fa-solid fa-circle-info text-blue-500 mr-1.5'></i> Nút 'Xác nhận tạo' bị vô hiệu hóa hoặc không thể thực thi thành công cho đến khi hết lỗi validation.</li></ul>" },
+                    { id: "1.3", title: "3. API Create Order", source: 2, target: 3, direction: 'right', description: "Portal thực hiện gửi request tạo vận đơn sang API 247Express sau khi các bước validate thành công.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-triangle-exclamation text-amber-500 mr-1.5'></i> Trường hợp API 247Express lỗi hoặc mất kết nối: Hệ thống Portal hiển thị banner thông báo lỗi màu đỏ kèm nút 'Thử Lại' để gửi lại yêu cầu và không làm mất dữ liệu đã nhập.</li></ul>" },
+                    { id: "1.4", title: "4. Trả về Tracking Number", source: 3, target: 2, direction: 'left', description: "Hệ thống 247Express tiếp nhận, tạo đơn thành công và trả về mã vận đơn (Tracking ID).", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-database text-slate-500 mr-1.5'></i> Portal tiếp nhận mã vận đơn để làm cơ sở ánh xạ dữ liệu hành trình với đối tác 247Express.</li></ul>" },
+                    { id: "1.5", title: "5. Lưu đơn & đặt PENDING", source: 2, target: 2, direction: 'self', description: "Portal thực hiện lưu thông tin và đổi trạng thái của đơn thành PENDING.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-circle-notch text-blue-500 mr-1.5 animate-spin'></i> Cập nhật cơ sở dữ liệu và chuyển trạng thái đơn hàng của hệ thống sang PENDING (Chờ bưu tá lấy hàng).</li></ul>" },
+                    { id: "1.6", title: "6. Trigger SMS tạo đơn", source: 2, target: 4, direction: 'right', description: "Portal gọi dịch vụ thông báo để gửi tin nhắn cho khách hàng nhằm tăng độ tin cậy.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-shield text-emerald-500 mr-1.5'></i> Áp dụng cơ chế idempotency dựa trên ID đơn hàng để đảm bảo tin nhắn không bao giờ bị gửi lặp (ngăn chặn spam).</li></ul>" },
+                    { id: "1.7", title: "7. SMS gửi Khách hàng", source: 4, target: 5, direction: 'right', description: "Hệ thống gửi SMS Brandname thành công đến thiết bị di động của khách hàng.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-envelope text-indigo-500 mr-1.5'></i> Tin nhắn mẫu: <i>'VietMec da tiep nhan don hang cua ban. Ma van don: 247XYZ123.'</i></li></ul>" },
+                    { id: "1.8", title: "8. Hiển thị thông tin đơn mới", source: 2, target: 1, direction: 'left', description: "Portal hoàn tất luồng và hiển thị chi tiết đơn hàng cho Sales/Admin xem.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-desktop text-blue-500 mr-1.5'></i> Chuyển hướng người dùng về màn hình danh sách hoặc chi tiết đơn kèm thông báo thành công.</li></ul>" }
+                ]
+            },
+            {
+                id: 2,
+                name: "Cập nhật hành trình",
+                steps: [
+                    { id: "2.1", title: "1. Bưu tá lấy hàng & quét mã", source: 3, target: 3, direction: 'self', description: "Bưu tá của 247Express đến kho VietMec lấy hàng vật lý và thực hiện quét mã vận đơn.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-qrcode text-slate-500 mr-1.5'></i> Thiết bị bưu tá cập nhật trạng thái đơn trên hệ thống 247Express thành 'Đang vận chuyển'.</li></ul>" },
+                    { id: "2.2", title: "2. Webhook: Đang vận chuyển", source: 3, target: 2, direction: 'left', description: "Hệ thống 247Express bắn webhook trạng thái DELIVERING về Web Portal của VietMec.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-server text-blue-500 mr-1.5'></i> <b>Cơ chế dự phòng:</b> Nếu webhook lỗi, hệ thống chạy cronjob quét API 247Express 15 phút một lần để đồng bộ.</li></ul>" },
+                    { id: "2.3", title: "3. Cập nhật DB: DELIVERING", source: 2, target: 2, direction: 'self', description: "Portal ghi nhận webhook và cập nhật trạng thái đơn trong DB thành DELIVERING.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-database text-slate-500 mr-1.5'></i> Ghi log lịch sử trạng thái mới.</li></ul>" },
+                    { id: "2.4", title: "4. Trigger SMS & Telegram Alert", source: 2, target: 4, direction: 'right', description: "Portal gọi các service để trigger gửi tin nhắn hành trình và alert Telegram.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-list-check text-blue-500 mr-1.5'></i> Đảm bảo kiểm tra trạng thái trước khi bắn tin để tránh gửi lặp.</li></ul>" },
+                    { id: "2.5", title: "5. SMS gửi Khách hàng", source: 4, target: 5, direction: 'right', description: "Hệ thống SMS gửi tin nhắn báo cho khách hàng biết đơn hàng đang được đi giao.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-mobile-screen text-indigo-500 mr-1.5'></i> Nội dung SMS: <i>'Don hang 247XYZ123 dang duoc giao den ban. Vui long chu y dien thoai.'</i></li></ul>" },
+                    { id: "2.6", title: "6. Telegram gửi nhóm Sales", source: 4, target: 1, direction: 'left', description: "Bot Telegram gửi alert tự động tới group chat nội bộ của Sales.", rules: "<ul><li class='mb-1.5'><i class='fa-brands fa-telegram text-blue-400 mr-1.5'></i> Mẫu tin nhắn: <i>'[VẬN CHUYỂN] Đơn hàng #247-00123 của KH Nguyen Van A đang được đi giao. Mã vận đơn: 247XYZ123.'</i></li></ul>" },
+                    { id: "2.7", title: "7. Phản hồi Webhook 200 OK", source: 2, target: 3, direction: 'right', description: "Portal trả về status HTTP 200 OK cho 247Express để kết thúc luồng nhận webhook.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-check text-emerald-500 mr-1.5'></i> Trả về response nhanh tránh gây nghẽn hàng đợi webhook bên đối tác.</li></ul>" }
+                ]
+            },
+            {
+                id: 3,
+                name: "Lỗi giao hàng & Xử lý",
+                steps: [
+                    { id: "3.1", title: "1. Webhook: Giao thất bại", source: 3, target: 2, direction: 'left', description: "Bưu tá báo giao lỗi lần 1, 247Express gửi Webhook báo giao thất bại kèm lý do.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-circle-xmark text-rose-500 mr-1.5'></i> Portal cập nhật trạng thái đơn thành <b>FAILED</b> (Tạm tính là Thất bại).</li><li class='mb-1.5'><i class='fa-solid fa-align-left text-slate-500 mr-1.5'></i> Ghi nhận và hiển thị chi tiết lý do lỗi từ bưu tá (Ví dụ: <i>'Khách thuê bao không nghe máy'</i>).</li></ul>" },
+                    { id: "3.2", title: "2. Trigger Telegram Alert sự cố", source: 2, target: 4, direction: 'right', description: "Hệ thống ghi nhận sự cố, trigger Telegram alert khẩn.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-triangle-exclamation text-rose-500 mr-1.5'></i> <b>Xử lý lỗi gửi:</b> Nếu tin nhắn SMS Brandname gửi đi bị lỗi (do nhà mạng), hệ thống hiển thị nút 'Gửi lại' màu đỏ trong trang chi tiết để gửi lại thủ công.</li></ul>" },
+                    { id: "3.3", title: "3. Telegram Alert gửi Sales", source: 4, target: 1, direction: 'left', description: "Bot Telegram bắn alert sự cố kèm lý do chi tiết và SĐT khách cho nhóm Sales.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-phone text-blue-500 mr-1.5'></i> Tin nhắn Telegram chứa số điện thoại khách để Sales bấm gọi hỗ trợ ngay lập tức.</li></ul>" },
+                    { id: "3.4", title: "4. Phản hồi Webhook 200 OK", source: 2, target: 3, direction: 'right', description: "Portal trả về status HTTP 200 OK cho 247Express để xác nhận nhận webhook.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-check text-emerald-500 mr-1.5'></i> Phản hồi nhanh để đối tác đóng transaction webhook.</li></ul>" },
+                    { id: "3.5", title: "5. Sales xem chi tiết đơn", source: 1, target: 2, direction: 'right', description: "Sales truy cập Portal kiểm tra thông tin đơn lỗi.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-search text-slate-500 mr-1.5'></i> Tìm kiếm đơn hoặc click trực tiếp từ link Telegram.</li></ul>" },
+                    { id: "3.6", title: "6. Hiển thị Banner xử lý khẩn", source: 2, target: 1, direction: 'left', description: "Portal hiển thị trang chi tiết đơn kèm Banner cảnh báo có 2 nút [Yêu cầu giao lại] và [Xác nhận hoàn hàng].", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-flag text-rose-500 mr-1.5'></i> Banner nổi bật giúp hướng dẫn người dùng điều phối khẩn cấp.</li></ul>" },
+                    { id: "3.7a", title: "7a. [Giao lại] Gọi API giao lại", source: 2, target: 3, direction: 'right', description: "Nếu Sales chọn giao lại, Portal gọi API điều phối của 247Express và đưa đơn về trạng thái DELIVERING.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-rotate text-blue-500 mr-1.5'></i> Hệ thống chuyển đổi trạng thái của đơn về <b>DELIVERING</b>.</li></ul>" },
+                    { id: "3.7b", title: "7b. [Hoàn hàng] Gọi API hoàn trả", source: 2, target: 3, direction: 'right', description: "Nếu Sales chọn hoàn hàng, Portal gọi API hoàn trả của 247Express và chuyển đơn sang trạng thái RETURNED.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-reply text-red-500 mr-1.5'></i> Hệ thống chuyển đổi trạng thái của đơn về <b>RETURNED</b> (Chờ hoàn về kho).</li></ul>" }
+                ]
+            }
+        ];
+
+        function renderFlowDiagram(phaseId) {
+            const wrapper = document.getElementById('flow-arrows-wrapper');
+            if (!wrapper) return;
+            wrapper.innerHTML = '';
+            
+            // Re-render vertical lifelines to ensure clean layer order
+            wrapper.innerHTML = `
+                <div class="absolute inset-y-0 left-[9%] w-[1px] border-l border-dashed border-slate-800/80 pointer-events-none"></div>
+                <div class="absolute inset-y-0 left-[29%] w-[1px] border-l border-dashed border-slate-800/80 pointer-events-none"></div>
+                <div class="absolute inset-y-0 left-[50%] w-[1px] border-l border-dashed border-slate-800/80 pointer-events-none"></div>
+                <div class="absolute inset-y-0 left-[71%] w-[1px] border-l border-dashed border-slate-800/80 pointer-events-none"></div>
+                <div class="absolute inset-y-0 left-[91%] w-[1px] border-l border-dashed border-slate-800/80 pointer-events-none"></div>
+            `;
+            
+            const steps = flowPhases[phaseId - 1].steps;
+            
+            steps.forEach((step, idx) => {
+                const topOffset = 15 + idx * 68; // vertical spacing
+                const colPositions = [0, 9, 29, 50, 71, 91]; // 1-indexed for columns
+                
+                let left, width, arrowClass, lineClass;
+                
+                if (step.direction === 'right') {
+                    const startCol = step.source;
+                    const endCol = step.target;
+                    left = colPositions[startCol];
+                    width = colPositions[endCol] - colPositions[startCol];
+                    arrowClass = "fa-solid fa-caret-right absolute right-[-2px] top-1/2 -translate-y-1/2 text-blue-500 text-sm";
+                    lineClass = "bg-blue-500";
+                } else if (step.direction === 'left') {
+                    const startCol = step.source;
+                    const endCol = step.target;
+                    left = colPositions[endCol];
+                    width = colPositions[startCol] - colPositions[endCol];
+                    arrowClass = "fa-solid fa-caret-left absolute left-[-2px] top-1/2 -translate-y-1/2 text-amber-500 text-sm";
+                    lineClass = "bg-amber-500";
+                } else if (step.direction === 'self') {
+                    left = colPositions[step.source];
+                    width = 8; // small loop width %
+                    arrowClass = "";
+                }
+
+                let innerArrowHTML = '';
+                if (step.direction === 'self') {
+                    // Render a small looping bracket
+                    innerArrowHTML = `
+                        <div class="absolute left-0 top-[2px] w-8 h-[40px] border-t-2 border-r-2 border-b-2 border-slate-500 rounded-r-md pointer-events-none"></div>
+                        <i class="fa-solid fa-caret-left absolute left-[-2px] top-[37px] text-slate-400 text-xs"></i>
+                        <span class="absolute left-10 top-[12px] text-[10px] font-bold text-slate-200 bg-slate-800 px-2 py-1 rounded border border-slate-700 shadow-md whitespace-nowrap hover:text-white transition-all cursor-pointer">
+                            ${step.title}
+                        </span>
+                    `;
+                } else {
+                    // Render horizontal line with arrowhead
+                    innerArrowHTML = `
+                        <div class="w-full h-[2px] ${lineClass} relative">
+                            <i class="${arrowClass}"></i>
+                            <span class="absolute left-1/2 -translate-x-1/2 -top-5 text-[10px] font-bold text-slate-200 bg-slate-800 px-2 py-1 rounded border border-slate-700 shadow-md whitespace-nowrap hover:text-white transition-all cursor-pointer">
+                                ${step.title}
+                            </span>
+                        </div>
+                    `;
+                }
+
+                const stepDiv = document.createElement('div');
+                stepDiv.className = `absolute h-12 cursor-pointer transition-all duration-200 hover:scale-[1.02]`;
+                stepDiv.style.top = `${topOffset}px`;
+                stepDiv.style.left = `${left}%`;
+                stepDiv.style.width = `${width}%`;
+                stepDiv.id = `flow-step-${step.id}`;
+                stepDiv.onclick = () => selectFlowStep(step.id, phaseId);
+                
+                stepDiv.innerHTML = innerArrowHTML;
+                wrapper.appendChild(stepDiv);
+            });
+
+            // Select first step by default
+            if (steps.length > 0) {
+                selectFlowStep(steps[0].id, phaseId);
+            }
+        }
+
+        function selectFlowStep(stepId, phaseId) {
+            // Remove active/selected highlights from all arrows
+            document.querySelectorAll('#flow-arrows-wrapper > div').forEach(div => {
+                if (div.id.startsWith('flow-step-')) {
+                    div.classList.remove('opacity-100');
+                    div.classList.add('opacity-50');
+                }
+            });
+            
+            // Highlight the selected step arrow
+            const activeDiv = document.getElementById(`flow-step-${stepId}`);
+            if (activeDiv) {
+                activeDiv.classList.remove('opacity-50');
+                activeDiv.classList.add('opacity-100');
+            }
+
+            // Find the step details
+            const phase = flowPhases[phaseId - 1];
+            const step = phase.steps.find(s => s.id === stepId);
+            if (!step) return;
+
+            const detailsEl = document.getElementById('flow-details-card');
+            if (detailsEl) {
+                detailsEl.innerHTML = `
+                    <div class="space-y-6 flex-1 flex flex-col justify-between h-full">
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-2.5 border-b border-slate-100 pb-3">
+                                <span class="w-6 h-6 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xs">
+                                    ${step.id}
+                                </span>
+                                <h4 class="font-bold text-slate-900 text-sm font-title leading-tight">${step.title}</h4>
+                            </div>
+                            
+                            <div class="space-y-1.5">
+                                <h5 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Mô tả Nghiệp vụ</h5>
+                                <p class="text-xs text-slate-600 leading-relaxed">${step.description}</p>
+                            </div>
+                            
+                            <div class="space-y-1.5">
+                                <h5 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Quy tắc & Kiểm tra (Rules)</h5>
+                                <div class="text-xs text-slate-600 leading-relaxed max-h-48 overflow-y-auto pr-1">
+                                    ${step.rules}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-[10px] text-slate-400 font-medium">
+                            <span>Nguồn: <strong class="text-slate-600">${getParticipantName(step.source)}</strong></span>
+                            <span>Đích: <strong class="text-slate-650">${getParticipantName(step.target)}</strong></span>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function getParticipantName(colId) {
+            const names = ["", "Sales / Admin", "Web Portal", "247Express", "SMS & Telegram", "Khách hàng"];
+            return names[colId] || "";
+        }
+
+        function switchFlowPhase(phaseId) {
+            // Update button styles
+            for (let i = 1; i <= 3; i++) {
+                const btn = document.getElementById(`btn-phase-${i}`);
+                if (btn) {
+                    if (i === phaseId) {
+                        btn.className = "px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-lg shadow-md transition-all";
+                    } else {
+                        btn.className = "px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-lg transition-all";
+                    }
+                }
+            }
+            renderFlowDiagram(phaseId);
+        }
+
+        function setFlowViewMode(mode) {
+            const visualBtn = document.getElementById('btn-view-visual');
+            const umlBtn = document.getElementById('btn-view-plantuml');
+            const container = document.getElementById('flow-diagram-container');
+            const details = document.getElementById('flow-details-card');
+            const umlBlock = document.getElementById('flow-plantuml-block');
+
+            if (mode === 'visual') {
+                if (visualBtn) visualBtn.className = "px-3 py-1 bg-slate-900 text-white text-[11px] font-bold rounded-md transition-all";
+                if (umlBtn) umlBtn.className = "px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-bold rounded-md transition-all";
+                if (container) container.classList.remove('hidden');
+                if (details) details.classList.remove('hidden');
+                if (umlBlock) umlBlock.classList.add('hidden');
+            } else {
+                if (visualBtn) visualBtn.className = "px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-bold rounded-md transition-all";
+                if (umlBtn) umlBtn.className = "px-3 py-1 bg-slate-900 text-white text-[11px] font-bold rounded-md transition-all";
+                if (container) container.classList.add('hidden');
+                if (details) details.classList.add('hidden');
+                if (umlBlock) umlBlock.classList.remove('hidden');
+                
+                // Populate PlantUML code content
+                const codeEl = document.getElementById('plantuml-code-content');
+                if (codeEl) codeEl.innerText = getPlantUMLCodeText();
+            }
+        }
+
+        function getPlantUMLCodeText() {
+            return `@startuml
+autonumber
+skinparam BoxPadding 10
+skinparam ParticipantPadding 10
+
+actor "Sales / Admin" as User
+participant "Web Portal VietMec" as System
+participant "Hệ thống 247Express" as Courier
+participant "SMS & Telegram Bot" as Notif
+actor "Khách hàng" as Cust
+
+== 1. TẠO ĐƠN & ĐỒNG BỘ VẬN CHUYỂN ==
+User -> System: Điền form tạo đơn + Upload file CO/CQ
+activate System
+System -> System: Validate thông tin bắt buộc\\n& dung lượng file (< 5MB)
+System -> Courier: Gửi yêu cầu khởi tạo đơn hàng (Create Order API)
+activate Courier
+Courier --> System: Phản hồi thành công + Trả về Mã vận đơn (Tracking Number)
+deactivate Courier
+System -> System: Lưu thông tin đơn & đặt Trạng thái: PENDING
+System -> Notif: Gửi SMS thông báo tạo đơn
+activate Notif
+Notif -> Cust: SMS Brandname: "Đơn hàng đã được tạo thành công"
+deactivate Notif
+System --> User: Hiển thị thông tin đơn hàng mới tạo
+deactivate System
+
+== 2. THEO DÕI HÀNH TRÌNH TỰ ĐỘNG ==
+Courier -> Courier: Bưu tá lấy hàng & quét mã
+Courier -> System: Gửi Webhook cập nhật trạng thái: ĐANG VẬN CHUYỂN
+activate System
+System -> System: Cập nhật Trạng thái đơn: DELIVERING
+System -> Notif: Gửi tin nhắn cập nhật hành trình đơn
+activate Notif
+Notif -> Cust: SMS Brandname: "Đơn hàng đang được giao..."
+Notif -> User: Alert Telegram nhóm Sales: "Đơn hàng bắt đầu giao"
+deactivate Notif
+System --> Courier: Phản hồi nhận webhook thành công (200 OK)
+deactivate System
+
+== 3. XỬ LÝ LỖI GIAO HÀNG (EDGE CASE) ==
+Courier -> Courier: Giao hàng thất bại lần 1 (Không liên lạc được)
+Courier -> System: Gửi Webhook cập nhật trạng thái: GIAO THẤT BẠI
+activate System
+System -> System: Cập nhật Trạng thái đơn: FAILED\\n& Lưu lý do giao lỗi
+System -> Notif: Gửi cảnh báo sự cố
+activate Notif
+Notif -> User: Alert Telegram nhóm Sales: "Đơn hàng giao lỗi lần 1: Khách không liên lạc được"
+deactivate Notif
+System --> Courier: Phản hồi nhận webhook thành công (200 OK)
+deactivate System
+
+...
+User -> System: Truy cập trang chi tiết đơn hàng #247-xxx
+activate System
+System --> User: Hiển thị chi tiết đơn + Banner đề xuất hành động nhanh
+deactivate System
+
+alt Lựa chọn 1: Yêu cầu giao lại
+    User -> System: Nhấn nút [Yêu cầu Giao Lại]
+    activate System
+    System -> Courier: Gửi API yêu cầu giao lại lần 2
+    Courier --> System: Xác nhận yêu cầu giao lại thành công
+    System -> System: Chuyển trạng thái đơn về DELIVERING
+    System --> User: Thông báo cập nhật thành công
+    deactivate System
+else Lựa chọn 2: Xác nhận hoàn hàng
+    User -> System: Nhấn nút [Xác nhận Hoàn Hàng]
+    activate System
+    System -> Courier: Gửi API yêu cầu hoàn hàng
+    Courier --> System: Xác nhận chuyển trạng thái hoàn
+    System -> System: Cập nhật trạng thái đơn: RETURNED (Chờ hoàn hàng)
+    System --> User: Thông báo cập nhật thành công
+    deactivate System
+end
+@endum`;
+        }
+
+        function copyPlantUMLCode() {
+            const codeText = getPlantUMLCodeText();
+            navigator.clipboard.writeText(codeText).then(() => {
+                const btnText = document.getElementById('copy-btn-text');
+                if (btnText) {
+                    btnText.innerText = "Đã sao chép!";
+                    setTimeout(() => {
+                        btnText.innerText = "Sao chép mã";
+                    }, 2000);
+                }
+            });
         }
     </script>
 </body>
