@@ -98,7 +98,95 @@ Table Users {
 }
 ```
 
-## 4. Câu hỏi Mở cần làm rõ (Next Steps)
+## 4. Luồng Người Dùng (User Flow)
+
+*Sơ đồ hoạt động (Activity Diagram) mô tả các luồng tương tác của Người dùng (Sales/Admin) trên giao diện Portal:*
+
+```plantuml
+@startuml
+skinparam ActivityBackgroundColor #F8FAFC
+skinparam ActivityBorderColor #475569
+skinparam ActivityFontColor #0F172A
+skinparam ArrowColor #334155
+skinparam SymbolColor #475569
+skinparam ConditionBackgroundColor #EFF6FF
+skinparam ConditionBorderColor #3B82F6
+
+start
+
+partition "1. Luồng Tạo Đơn Hàng" {
+  :Truy cập Danh sách Đơn hàng;
+  :Nhấn nút [Tạo đơn mới];
+  :Điền thông tin form & Upload file CO/CQ;
+  :Nhấn [Xác nhận tạo];
+  
+  if (Validate form & kích thước file?) then (Thất bại)
+    :Hiển thị lỗi inline màu đỏ dưới ô nhập;
+    stop
+  else (Thành công)
+    :Hệ thống gọi API 247Express;
+    if (Kết nối API thành công?) then (Thất bại)
+      :Hiển thị Banner lỗi màu đỏ;
+      :Nhấn nút [Thử lại] để gửi lại;
+      stop
+    else (Thành công)
+      :Nhận Tracking ID từ đối tác;
+      :Lưu DB & đổi trạng thái PENDING;
+      :Hệ thống gửi SMS Brandname tự động;
+      :Hiển thị thông báo Tạo đơn thành công;
+    endif
+  endif
+}
+
+partition "2. Luồng Cập Nhật Hành Trình" {
+  :Nhận Webhook DELIVERING từ 247Express;
+  note right: Nếu Webhook lỗi, Cron job quét API mỗi 15 phút
+  :Cập nhật trạng thái đơn thành DELIVERING;
+  :Trigger gửi SMS Khách hàng & Telegram Group Sales;
+}
+
+partition "3. Luồng Xử Lý Sự Cố (FAILED)" {
+  :Nhận Webhook GIAO THẤT BẠI từ 247Express;
+  :Cập nhật trạng thái đơn thành FAILED;
+  :Bot Telegram bắn alert tới Group Sales;
+  :Nhân viên Sales click link từ Telegram\nhoặc tìm kiếm đơn hàng trên Portal;
+  :Truy cập chi tiết đơn hàng;
+  :Hiển thị Banner Cảnh báo sự cố;
+  
+  if (Lựa chọn hành động xử lý?) then (Yêu cầu Giao lại)
+    :Nhấn [Yêu cầu Giao Lại];
+    :Hệ thống gọi API điều phối 247Express;
+    :Chuyển trạng thái đơn về DELIVERING;
+  else (Xác nhận Hoàn hàng)
+    :Nhấn [Xác nhận Hoàn Hàng];
+    :Hệ thống gọi API chuyển hoàn 247Express;
+    :Chuyển trạng thái đơn thành RETURNED;
+    :Gửi Alert cho Ban cung ứng;
+  endif
+  
+  if (Gửi SMS cập nhật bị lỗi mạng?) then (Có)
+    :Hiển thị nút [Gửi lại] màu đỏ cạnh dòng lịch sử;
+    :Sales nhấn [Gửi lại] để kích hoạt gửi thủ công;
+  else (Không)
+  endif
+}
+
+stop
+@endum
+```
+
+### Mô tả chi tiết hành vi người dùng:
+1. **Luồng tạo đơn mới:**
+   * Người dùng thao tác trên form tạo đơn. Nếu nhập thiếu trường bắt buộc hoặc upload file CO/CQ quá dung lượng (5MB), hệ thống chặn lại ngay tại giao diện và hiển thị thông báo lỗi bằng chữ đỏ phía dưới ô nhập liệu.
+   * Khi nhấn gửi và gặp lỗi hệ thống (API 247Express lỗi hoặc mất kết nối), Portal giữ nguyên dữ liệu đã nhập và hiển thị banner thông báo lỗi màu đỏ kèm nút **"Thử lại"** để người dùng có thể gửi lại yêu cầu mà không phải điền lại thông tin.
+2. **Luồng cập nhật hành trình:**
+   * Trạng thái đơn được cập nhật tự động qua Webhook hoặc Cronjob đồng bộ của hệ thống. Người dùng không cần thao tác trực tiếp, nhưng sẽ nhận tin nhắn báo hành trình qua thiết bị di động (Khách hàng) và Telegram (nhóm Sales).
+3. **Luồng xử lý sự cố giao hàng:**
+   * Khi bưu tá báo giao lỗi (trạng thái FAILED), Sales nhận cảnh báo chứa SĐT khách qua Telegram, click thẳng vào liên kết để mở trang chi tiết đơn hàng.
+   * Tại trang chi tiết, một **Banner màu đỏ nổi bật** đề xuất hai hành động nhanh: **[Yêu cầu giao lại]** và **[Xác nhận hoàn hàng]**.
+   * Ngoài ra, nếu có lỗi gửi SMS Brandname do nhà mạng, một nút **"Gửi lại"** màu đỏ sẽ hiển thị bên cạnh nhật ký sự cố để Sales có thể chủ động kích hoạt gửi lại bằng tay sau khi kiểm tra thông tin.
+
+## 5. Câu hỏi Mở cần làm rõ (Next Steps)
 > [!IMPORTANT]
 > Để có thể lên kế hoạch triển khai chi tiết (Implementation Plan), chúng ta cần thống nhất một số điểm sau:
 
