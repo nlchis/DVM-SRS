@@ -1,0 +1,1954 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bản Xem Trước SRS - Theo Dõi Đơn Hàng VietMec</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Pako (for PlantUML client-side encoding) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            850: '#1e293b',
+                            950: '#0b1329',
+                        },
+                        brand: {
+                            50: '#f0f5ff',
+                            100: '#e0eaff',
+                            600: '#0052cc',
+                            700: '#0041a3',
+                            900: '#0b1c30'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        title: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans flex h-screen overflow-hidden">
+
+    <!-- Left Sidebar (Navigation Menu) -->
+    <aside class="w-72 bg-slate-900 text-slate-400 flex flex-col border-r border-slate-800 flex-shrink-0">
+        <!-- Sidebar Header Logo -->
+        <div class="h-20 flex items-center px-6 border-b border-slate-800 gap-3">
+            <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white text-xl shadow-lg shadow-blue-500/20">
+                <i class="fa-solid fa-file-invoice"></i>
+            </div>
+            <div>
+                <h1 class="text-white font-bold font-title text-base leading-tight">VietMec Portal</h1>
+                <p class="text-[10px] text-slate-500">SRS Document Preview</p>
+            </div>
+        </div>
+
+        <!-- Sidebar Navigation Menu -->
+        <nav class="flex-1 py-6 px-4 space-y-6 overflow-y-auto">
+            <div class="space-y-1">
+                <h4 class="text-[10px] font-bold text-slate-500 uppercase tracking-wider px-3 mb-2">1. Giới thiệu</h4>
+                <a href="#intro" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm hover:bg-slate-800 hover:text-white transition">
+                    <i class="fa-solid fa-circle-info w-4 text-center"></i> <span>1. Giới Thiệu Chung</span>
+                </a>
+                <div class="space-y-0.5 pl-6 border-l border-slate-800">
+                    <a href="#purpose" class="flex items-center gap-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition text-slate-500">1.1 Mục đích</a>
+                    <a href="#scope" class="flex items-center gap-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition text-slate-500">1.2 Phạm vi hệ thống</a>
+                    <a href="#glossary" class="flex items-center gap-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition text-slate-500">1.3 Thuật ngữ & Viết tắt</a>
+                </div>
+            </div>
+
+            <div class="space-y-1">
+                <h4 class="text-[10px] font-bold text-slate-500 uppercase tracking-wider px-3 mb-2">2. Tác Nhân Hệ Thống</h4>
+                <a href="#actors" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm hover:bg-slate-800 hover:text-white transition">
+                    <i class="fa-solid fa-users w-4 text-center"></i> <span>2. Tác nhân (Actors)</span>
+                </a>
+            </div>
+
+            <div class="space-y-1">
+                <h4 class="text-[10px] font-bold text-slate-500 uppercase tracking-wider px-3 mb-2">3. Sơ Đồ Hệ Thống</h4>
+                <a href="#flows" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm hover:bg-slate-800 hover:text-white transition">
+                    <i class="fa-solid fa-diagram-project w-4 text-center"></i> <span>3. Sơ đồ hệ thống</span>
+                </a>
+            </div>
+
+            <div class="space-y-1">
+                <h4 class="text-[10px] font-bold text-slate-500 uppercase tracking-wider px-3 mb-2">4. Yêu Cầu Chức Năng</h4>
+                <a href="#fr" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm hover:bg-slate-800 hover:text-white transition">
+                    <i class="fa-solid fa-list-check w-4 text-center"></i> <span>4. Danh sách chức năng FR</span>
+                </a>
+            </div>
+
+            <div class="space-y-1">
+                <h4 class="text-[10px] font-bold text-slate-500 uppercase tracking-wider px-3 mb-2">5. Đặc Tả Chi Tiết Use Cases</h4>
+                <div class="space-y-0.5 pl-2 border-l border-slate-800">
+                    <a href="#uc-01" class="flex items-center gap-2 px-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition">UC-01: Đặt hàng Web</a>
+                    <a href="#uc-02" class="flex items-center gap-2 px-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition">UC-02: Tạo đơn tay</a>
+                    <a href="#uc-03" class="flex items-center gap-2 px-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition">UC-03: Duyệt/Từ chối đơn</a>
+                    <a href="#uc-04" class="flex items-center gap-2 px-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition">UC-04: Xem chi tiết & Timeline</a>
+                    <a href="#uc-05" class="flex items-center gap-2 px-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition">UC-05: Chỉnh sửa đơn Chờ Duyệt</a>
+                    <a href="#uc-06" class="flex items-center gap-2 px-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition">UC-06: Xử lý giao lỗi</a>
+                    <a href="#uc-07" class="flex items-center gap-2 px-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition">UC-07: Xuất hóa đơn VAT</a>
+                    <a href="#uc-08" class="flex items-center gap-2 px-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition">UC-08: Đối soát COD</a>
+                    <a href="#uc-09" class="flex items-center gap-2 px-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition">UC-09: Nhập bổ sung kho</a>
+                </div>
+            </div>
+
+            <div class="space-y-1">
+                <h4 class="text-[10px] font-bold text-slate-500 uppercase tracking-wider px-3 mb-2">6. Phác thảo Giao diện</h4>
+                <a href="#wireframes" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm hover:bg-slate-800 hover:text-white transition">
+                    <i class="fa-solid fa-window-restore w-4 text-center"></i> <span>6. Phác thảo Giao diện</span>
+                </a>
+                <div class="space-y-0.5 pl-6 border-l border-slate-800 max-h-48 overflow-y-auto">
+                    <a href="#screen-6.1" class="flex items-center gap-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition text-slate-500">6.1 Dashboard Tổng quan</a>
+                    <a href="#screen-6.2" class="flex items-center gap-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition text-slate-500">6.2 Danh sách Đơn hàng</a>
+                    <a href="#screen-6.3" class="flex items-center gap-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition text-slate-500">6.3 Tạo Đơn mới</a>
+                    <a href="#screen-6.4" class="flex items-center gap-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition text-slate-500">6.4 Chi tiết & Tracking</a>
+                    <a href="#screen-6.5" class="flex items-center gap-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition text-slate-500">6.5 Lỗi Tạo Đơn (API)</a>
+                    <a href="#screen-6.6" class="flex items-center gap-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition text-slate-500">6.6 Giao lỗi & Hoàn hàng</a>
+                    <a href="#screen-6.7" class="flex items-center gap-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition text-slate-500">6.7 Phê duyệt đơn hàng</a>
+                    <a href="#screen-6.8" class="flex items-center gap-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition text-slate-500">6.8 Phiếu in xuất kho</a>
+                    <a href="#screen-6.9" class="flex items-center gap-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition text-slate-500">6.9 Hóa đơn điện tử VAT</a>
+                    <a href="#screen-6.10" class="flex items-center gap-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition text-slate-500">6.10 Đối soát COD Excel</a>
+                    <a href="#screen-6.11" class="flex items-center gap-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition text-slate-500">6.11 Quản lý Tồn kho</a>
+                    <a href="#screen-6.12" class="flex items-center gap-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition text-slate-500">6.12 Popup Sửa Đơn</a>
+                    <a href="#screen-6.13" class="flex items-center gap-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition text-slate-500">6.13 Cảnh báo Telegram</a>
+                </div>
+            </div>
+
+            <div class="space-y-1">
+                <h4 class="text-[10px] font-bold text-slate-500 uppercase tracking-wider px-3 mb-2">7. Yêu cầu Phi chức năng</h4>
+                <a href="#nfr" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm hover:bg-slate-800 hover:text-white transition">
+                    <i class="fa-solid fa-gauge-high w-4 text-center"></i> <span>7. Yêu cầu Phi chức năng</span>
+                </a>
+            </div>
+
+            <div class="space-y-1">
+                <h4 class="text-[10px] font-bold text-slate-500 uppercase tracking-wider px-3 mb-2">8. Phụ Lục & Quy Tắc Nghiệp Vụ</h4>
+                <a href="#appendix" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm hover:bg-slate-800 hover:text-white transition">
+                    <i class="fa-solid fa-paperclip w-4 text-center"></i> <span>8. Phụ Lục Nghiệp Vụ</span>
+                </a>
+                <div class="space-y-0.5 pl-6 border-l border-slate-800">
+                    <a href="#sec-8.1" class="flex items-center gap-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition text-slate-500">8.1 Mã lỗi nghiệp vụ</a>
+                    <a href="#sec-8.2" class="flex items-center gap-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition text-slate-500">8.2 Quy tắc cốt lõi</a>
+                    <a href="#sec-8.3" class="flex items-center gap-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition text-slate-500">8.3 Vòng đời đơn hàng</a>
+                    <a href="#sec-8.4" class="flex items-center gap-2 py-1 rounded text-xs hover:bg-slate-800 hover:text-white transition text-slate-500">8.4 Vòng đời tồn kho</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="p-4 border-t border-slate-800 bg-slate-950/40 text-center text-xs text-slate-500">
+            BA Owner: <strong class="text-slate-400">@nlchis</strong>
+        </div>
+    </aside>
+
+    <!-- Main Content Panel -->
+    <main class="flex-1 flex flex-col min-w-0 overflow-hidden">
+        <!-- Top Toolbar Header -->
+        <header class="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-8 flex-shrink-0">
+            <div class="flex items-center gap-3">
+                <span class="bg-blue-100 text-blue-800 text-xs px-2.5 py-1 rounded-full font-semibold">v1.0.5</span>
+                <h2 class="text-lg font-bold text-slate-800 font-title">Hồ Sơ Đặc Tả Yêu Cầu Phần Mềm (SRS)</h2>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="prototypes/order-tracking-prototype.html" target="_blank" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg text-sm transition flex items-center gap-1.5 shadow-md shadow-blue-500/10">
+                    <i class="fa-solid fa-paper-plane"></i> Chạy Bản Tương Tác Prototype
+                </a>
+            </div>
+        </header>
+
+        <!-- Scrollable Document body -->
+        <div class="flex-1 overflow-y-auto p-12 max-w-5xl mx-auto space-y-16">
+
+            <!-- Title Header -->
+            <section class="text-center space-y-3 pb-8 border-b border-slate-200">
+                <h1 class="text-4xl font-extrabold text-slate-900 font-title leading-tight">ĐẶC TẢ YÊU CẦU PHẦN MỀM (SRS)</h1>
+                <h2 class="text-xl text-slate-500 font-medium">PHÂN HỆ THEO DÕI ĐƠN HÀNG (ORDER TRACKING SYSTEM)</h2>
+                <div class="flex justify-center gap-6 pt-4 text-sm text-slate-400">
+                    <span><i class="fa-solid fa-user mr-1.5"></i>Tác giả: <strong>@nlchis</strong></span>
+                    <span><i class="fa-solid fa-calendar-check mr-1.5"></i>Cập nhật: <strong>2026-07-02</strong></span>
+                    <span><i class="fa-solid fa-tag mr-1.5"></i>Trạng thái: <strong class="text-emerald-500">Đã phê duyệt</strong></span>
+                </div>
+            </section>
+
+
+            <!-- 1. GIỚI THIỆU -->
+            <section id="intro" class="space-y-6">
+                <h2 class="text-2xl font-bold text-slate-900 font-title flex items-center gap-2.5 pb-2 border-b border-slate-100">
+                    <span class="text-blue-600">1.</span> Giới Thiệu (Introduction)
+                </h2>
+                
+                <div class="space-y-6 text-slate-600 leading-relaxed">
+                    <div>
+                        <h3 id="purpose" class="text-lg font-bold text-slate-800 mb-2">1.1 Mục đích (Purpose)</h3>
+                        <p>Tài liệu này đặc tả chi tiết toàn bộ các yêu cầu chức năng, phi chức năng, quy tắc nghiệp vụ và luồng tương tác thực tế của hệ thống theo dõi đơn hàng tích hợp hãng vận chuyển đối tác 247Express. Đây là tài liệu duy nhất làm cơ sở để phát triển mã nguồn và kiểm định chất lượng sản phẩm.</p>
+                    </div>
+
+                    <div>
+                        <h3 id="scope" class="text-lg font-bold text-slate-800 mb-2">1.2 Phạm vi hệ thống (Scope)</h3>
+                        <p>Phân hệ chịu trách nhiệm tiếp nhận đơn đặt hàng trực tiếp từ Website VietMec (tự động) hoặc đơn hàng bán sỉ/trực tiếp Offline (nhập tay bởi Sales) rồi đẩy tự động sang hãng vận chuyển đối tác 247Express, quản lý gán kệ kho xuất hàng, đồng bộ trạng thái tự động qua cổng webhook, điều phối giao lại hoặc hoàn trả hàng, xuất hóa đơn giá trị gia tăng (VAT) điện tử và đối soát chênh lệch COD tự động.</p>
+                    </div>
+
+                    <div>
+                        <h3 id="glossary" class="text-lg font-bold text-slate-800 mb-3">1.3 Thuật ngữ & Từ viết tắt (Glossary)</h3>
+                        <div class="overflow-hidden border border-slate-200 rounded-xl">
+                            <table class="w-full border-collapse text-left text-sm bg-white">
+                                <thead class="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold">
+                                    <tr>
+                                        <th class="p-4 w-48">Thuật ngữ viết tắt</th>
+                                        <th class="p-4">Ý nghĩa giải thích chi tiết</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-200 text-slate-600">
+                                    <tr>
+                                        <td class="p-4 font-bold text-slate-800">PO (Purchase Order)</td>
+                                        <td class="p-4">Phiếu đặt hàng. Đây là chứng từ nội bộ của hệ thống dùng để theo dõi thông tin giao dịch sản phẩm của khách.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-4 font-bold text-slate-800">VAT (Value Added Tax)</td>
+                                        <td class="p-4">Hóa đơn giá trị gia tăng. Chứng từ thuế xuất điện tử bắt buộc cho mọi đơn giao hàng thành công.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-4 font-bold text-slate-800">COD (Cash on Delivery)</td>
+                                        <td class="p-4">Thu hộ tiền mặt. Bưu tá của 247Express sẽ nhận tiền mặt từ người mua tại thời điểm giao hàng vật lý.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-4 font-bold text-slate-800">SMS Brandname</td>
+                                        <td class="p-4">Tin nhắn thương hiệu. Dịch vụ tự động bắn tin nhắn hiển thị tên VietMec làm người gửi đến điện thoại khách hàng.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-4 font-bold text-slate-800">API</td>
+                                        <td class="p-4">Giao diện lập trình ứng dụng. Phương thức kết nối kỹ thuật giúp đồng bộ thông tin đơn hàng giữa VietMec và 247Express.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-4 font-bold text-slate-800">Webhook</td>
+                                        <td class="p-4">Cổng nhận dữ liệu tự động thời gian thực từ hãng vận chuyển 247Express đẩy về VietMec.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-4 font-bold text-slate-800">Maker/Checker</td>
+                                        <td class="p-4">Quy trình kiểm soát hai bước: Nhân viên Sales tạo đơn (Maker), Admin duyệt đơn (Checker) mới kích hoạt xuất kho.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-4 font-bold text-slate-800">Hệ thống quản lý nội bộ</td>
+                                        <td class="p-4">Giao diện Web Portal nội bộ chỉ dành riêng cho cán bộ nhân viên của VietMec truy cập sử dụng.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. TÁC NHÂN -->
+            <section id="actors" class="space-y-6">
+                <h2 class="text-2xl font-bold text-slate-900 font-title flex items-center gap-2.5 pb-2 border-b border-slate-100">
+                    <span class="text-blue-600">2.</span> Tác Nhân Hệ Thống (Actors)
+                </h2>
+                <div class="overflow-hidden border border-slate-200 rounded-xl">
+                    <table class="w-full border-collapse text-left text-sm bg-white">
+                        <thead class="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold">
+                            <tr>
+                                <th class="p-4 w-48">Tên tác nhân</th>
+                                <th class="p-4">Mô tả vai trò nghiệp vụ</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-slate-600">
+                            <tr>
+                                <td class="p-4 font-bold text-slate-800">Khách hàng</td>
+                                <td class="p-4">Khách mua hàng trực tuyến trên VietMec, thanh toán, nhận tin nhắn thương hiệu (SMS) thông báo hành trình đơn.</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-bold text-slate-800">Sales phụ trách (Maker)</td>
+                                <td class="p-4">Nhân viên tạo đơn hàng thủ công trên hệ thống nội bộ, chỉnh sửa đơn chờ duyệt và xử lý điều phối đơn giao lỗi qua Telegram.</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-bold text-slate-800">Admin (Checker)</td>
+                                <td class="p-4">Quản trị viên hệ thống nội bộ, phê duyệt hoặc từ chối đơn hàng thủ công do Sales tạo kèm lý do từ chối.</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-bold text-slate-800">Thủ kho</td>
+                                <td class="p-4">Thực hiện xuất hóa đơn nhặt hàng, in nhãn vận đơn 247Express, đóng gói và bàn giao bưu tá lấy hàng.</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-bold text-slate-800">Kế toán</td>
+                                <td class="p-4">Thực hiện xuất hóa đơn VAT trong 24 giờ kể từ khi đơn thành công, nạp file đối soát COD và tất toán công nợ đơn hàng.</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-bold text-slate-800">Hệ thống đối tác (247Express)</td>
+                                <td class="p-4">Hệ thống của đối tác vận chuyển bên thứ 3, nhận thông tin tạo đơn, trả Tracking ID, gửi Webhook cập nhật trạng thái.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+
+            <!-- 3. SƠ ĐỒ HỆ THỐNG -->
+            <section id="flows" class="space-y-8">
+                <h2 class="text-2xl font-bold text-slate-900 font-title flex items-center gap-2.5 pb-2 border-b border-slate-100">
+                    <span class="text-blue-600">3.</span> Sơ Đồ Hệ Thống (System Diagrams)
+                </h2>
+
+                <div class="space-y-6">
+                    <h3 class="text-lg font-bold text-slate-800"><i class="fa-solid fa-project-diagram mr-2 text-blue-500"></i>3.1 Sơ đồ Use Case tổng thể</h3>
+                    <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl flex justify-center overflow-x-auto min-h-[350px]">
+                        <img class="plantuml-diagram select-none rounded-xl shadow-lg" data-puml="@startuml
+left to right direction
+skinparam RoundCorner 10
+skinparam UsecaseBackgroundColor #F8FAFC
+skinparam UsecaseBorderColor #475569
+skinparam UsecaseFontColor #0F172A
+skinparam ActorBackgroundColor #F8FAFC
+skinparam ActorBorderColor #475569
+skinparam ActorFontColor #0F172A
+skinparam ArrowColor #334155
+
+actor &quot;Khách hàng&quot; as KH
+actor &quot;Sales phụ trách&quot; as Sales
+actor &quot;Admin (Checker)&quot; as Admin
+actor &quot;Thủ kho&quot; as WH
+actor &quot;Kế toán&quot; as Accountant
+actor &quot;247Express\n(External System)&quot; as Courier
+
+rectangle &quot;Hệ thống Theo dõi Đơn hàng (VietMec Portal)&quot; {
+
+  rectangle &quot;Bán hàng (Sales / CRM)&quot; {
+    usecase &quot;Đặt hàng tự động từ Website&quot; as UC1
+    usecase &quot;Tạo đơn hàng thủ công&quot; as UC2
+    usecase &quot;Điều phối xử lý giao hàng lỗi&quot; as UC6
+  }
+
+  rectangle &quot;Phê duyệt (Approval)&quot; {
+    usecase &quot;Phê duyệt / Từ chối đơn hàng&quot; as UC3
+  }
+
+  rectangle &quot;Quản lý kho (Inventory)&quot; {
+    usecase &quot;Đóng gói &amp; Bàn giao vận chuyển&quot; as UC4
+    usecase &quot;Nhập bổ sung tồn kho&quot; as UC9
+  }
+
+  rectangle &quot;Giao hàng (custom module)&quot; {
+    usecase &quot;Cập nhật hành trình tự động&quot; as UC5
+  }
+
+  rectangle &quot;Kế toán (Accounting)&quot; {
+    usecase &quot;Phát hành hóa đơn VAT&quot; as UC7
+    usecase &quot;Đối soát công nợ COD&quot; as UC8
+  }
+}
+
+&#039; Actor to Use Case Associations (Standard UML solid lines)
+KH -- UC1
+Sales -- UC2
+Sales -- UC6
+Admin -- UC3
+WH -- UC4
+WH -- UC9
+Accountant -- UC7
+Accountant -- UC8
+Courier -- UC5
+
+&#039; Connections representing flows/relationships between operations
+UC1 --&gt; UC4 : &quot;Tự động gán kệ xuất kho&quot;
+UC2 --&gt; UC3 : &quot;Yêu cầu duyệt đơn&quot;
+UC3 --&gt; UC4 : &quot;Phê duyệt xuất kho&quot;
+UC4 --&gt; Courier : &quot;Bàn giao vật lý&quot;
+Courier --&gt; UC5 : &quot;Cập nhật hành trình&quot;
+UC5 --&gt; UC6 : &quot;Giao hàng thất bại&quot;
+UC5 --&gt; UC7 : &quot;Giao hàng thành công&quot;
+UC7 --&gt; UC8 : &quot;Đối soát công nợ&quot;
+
+@enduml">
+                    </div>
+
+                    <h3 class="text-lg font-bold text-slate-800"><i class="fa-solid fa-clock-rotate-left mr-2 text-blue-500"></i>3.2 Sơ đồ Sequence toàn luồng</h3>
+                    <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl flex justify-center overflow-x-auto min-h-[450px]">
+                        <img class="plantuml-diagram select-none rounded-xl shadow-lg" data-puml="@startuml
+autonumber
+skinparam BoxPadding 10
+skinparam ParticipantPadding 15
+skinparam MaxMessageSize 180
+skinparam RoundCorner 10
+
+skinparam SequenceLifeLineBorderColor #64748B
+skinparam SequenceLifeLineBackgroundColor #F1F5F9
+skinparam SequenceActorBorderColor #475569
+skinparam SequenceActorBackgroundColor #F8FAFC
+skinparam SequenceParticipantBorderColor #475569
+skinparam SequenceParticipantBackgroundColor #F8FAFC
+skinparam SequenceArrowColor #334155
+
+actor &quot;Khách hàng&quot; as KH
+participant &quot;Website VietMec&quot; as Web
+participant &quot;Web Portal (Hệ thống)&quot; as Portal
+actor &quot;Sales phụ trách&quot; as Sales
+actor &quot;Admin&quot; as Admin
+participant &quot;247Express&quot; as Courier
+actor &quot;Thủ kho&quot; as WH
+actor &quot;Kế toán&quot; as Accountant
+
+box &quot;Kênh Khách Hàng&quot; #F0F9FF
+    participant KH
+    participant Web
+end box
+
+box &quot;Hệ Thống &amp; Nhân Sự Nội Bộ&quot; #FFFBEB
+    participant Portal
+    participant Sales
+    participant Admin
+    participant WH
+    participant Accountant
+end box
+
+box &quot;Đối Tác Vận Chuyển&quot; #ECFDF5
+    participant Courier
+end box
+
+== Luồng 1: Đặt hàng tự động từ Website VietMec (Tự động Duyệt) ==
+KH -&gt; Web: Đặt hàng &amp; Nhấn Thanh toán
+activate Web
+Web -&gt; Portal: Yêu cầu tạm khóa tồn kho
+Portal -&gt; Portal: Tạm giữ hàng trong kho (Stock Lock 10 phút)
+Web -&gt; KH: Hiển thị cổng thanh toán
+alt Khách hàng không thanh toán sau 10 phút (Edge Case 1)
+    Portal -&gt; Portal: Background Worker giải phóng tồn kho (Hết 10 phút)
+    Portal --&gt; Web: Báo hết hạn giữ hàng
+    Web -&gt; KH: Hiển thị popup &quot;Hết thời gian thanh toán&quot; &amp; tự động điều hướng về Trang Chủ
+else Thanh toán thành công
+    KH -&gt; Web: Xác nhận thanh toán thành công
+    Web -&gt; Portal: Gửi thông tin đơn hàng mới
+    deactivate Web
+    activate Portal
+    Portal -&gt; Portal: Tự động phân công Sales phụ trách
+    Portal -&gt; Portal: Trừ tồn kho thực tế &amp; gán vị trí xuất kho
+    Portal -&gt; Portal: Tự động sinh Phiếu đặt hàng (Purchase Order) lưu nội bộ
+    Portal -&gt; KH: Gửi SMS thông báo Đặt hàng thành công &amp; tạo đơn
+    Portal -&gt; Courier: Gọi API tạo vận đơn giao hàng
+    activate Courier
+    Courier --&gt; Portal: Trả về mã vận đơn (Tracking ID)
+    deactivate Courier
+    Portal -&gt; Portal: Cập nhật trạng thái đơn (AWAITING_SHIPPING) &amp; lưu mã vận đơn
+    deactivate Portal
+end
+
+== Luồng 2: Tạo đơn thủ công (Đơn Offline/B2B - Maker/Checker) ==
+Sales -&gt; Portal: Tạo đơn thủ công (Chọn hàng, CO/CQ tùy chọn, hình thức mặc định SHIP COD)
+activate Portal
+Portal -&gt; Portal: Tạm giữ tồn kho (Trạng thái đơn: PENDING_APPROVAL)
+Portal --&gt; Sales: Báo tạo đơn thành công (Chưa gửi SMS cho khách, cho phép Sales sửa đơn)
+deactivate Portal
+
+alt Admin phê duyệt đơn hàng
+    Admin -&gt; Portal: Phê duyệt đơn (Approve)
+    activate Portal
+    Portal -&gt; Portal: Trừ tồn kho thực tế, sinh Phiếu đặt hàng (PO)
+    Portal -&gt; KH: Gửi SMS thông báo Đặt hàng thành công cho khách
+    Portal -&gt; Courier: Gọi API tạo vận đơn giao hàng (Ship COD)
+    activate Courier
+    Courier --&gt; Portal: Trả về mã vận đơn (Tracking ID)
+    deactivate Courier
+    Portal -&gt; Portal: Chuyển đơn sang AWAITING_SHIPPING
+    deactivate Portal
+else Admin từ chối phê duyệt (Edge Case 2)
+    Admin -&gt; Portal: Từ chối đơn (Reject) + Nhập lý do từ chối
+    activate Portal
+    Portal -&gt; Portal: Hủy giữ kho, cộng lại tồn kho khả dụng
+    Portal -&gt; Portal: Chuyển trạng thái đơn thành REJECTED (Khóa đơn vĩnh viễn, cấm sửa)
+    Portal -&gt; Sales: Báo từ chối duyệt kèm lý do
+    deactivate Portal
+    Sales -&gt; Sales: Bắt buộc tạo một đơn hàng mới thay thế
+end
+
+== Luồng 3: Đóng gói &amp; Bàn giao (Thủ kho) ==
+WH -&gt; Portal: Xem danh sách đơn trạng thái AWAITING_SHIPPING (Đã có mã vận đơn)
+WH -&gt; Portal: Nhấn In Phiếu xuất kho &amp; nhãn dán vận đơn
+Portal --&gt; WH: File in (Có vị trí kệ chứa hàng &amp; nhãn vận đơn 247Express)
+WH -&gt; WH: Lấy hàng vật lý theo vị trí kệ, đóng gói, dán nhãn vận đơn
+WH -&gt; Courier: Bàn giao gói hàng cho bưu tá 247Express
+
+== Luồng 4: Giao hàng &amp; Cập nhật hành trình ==
+Courier -&gt; Portal: Bưu tá lấy hàng &amp; cập nhật (Webhook: DELIVERING)
+activate Portal
+Portal -&gt; Portal: Cập nhật trạng thái DELIVERING
+Portal -&gt; KH: Gửi SMS thông báo &quot;Đang giao hàng&quot;
+Portal -&gt; Sales: Bắn cảnh báo Telegram &quot;Đang giao hàng&quot;
+deactivate Portal
+
+alt Trường hợp A: Giao hàng thành công (Khách nhận toàn bộ)
+    Courier -&gt; Portal: Cập nhật thành công (Webhook: SUCCESS)
+    activate Portal
+    Portal -&gt; Portal: Cập nhật trạng thái SUCCESS
+    Portal -&gt; KH: Gửi SMS thông báo &quot;Giao hàng thành công&quot;
+    Portal -&gt; Sales: Bắn cảnh báo Telegram &quot;Giao thành công&quot;
+    deactivate Portal
+else Trường hợp B: Giao hàng thất bại / Khách từ chối nhận toàn bộ (Edge Case 3)
+    Courier -&gt; Portal: Cập nhật thất bại (Webhook: FAILED + Lý do)
+    activate Portal
+    Portal -&gt; Portal: Cập nhật trạng thái FAILED + Lưu lý do
+    Portal -&gt; Sales: Bắn cảnh báo Telegram khẩn cấp kèm link xử lý
+    deactivate Portal
+    Sales -&gt; Portal: Mở chi tiết đơn hàng giao lỗi
+    alt Sales xử lý: Yêu cầu Giao lại lần 2
+        Sales -&gt; Portal: Nhấn nút [Yêu cầu Giao Lại]
+        activate Portal
+        Portal -&gt; Courier: Gọi API yêu cầu giao lại
+        Portal -&gt; Portal: Chuyển trạng thái đơn về DELIVERING
+        deactivate Portal
+    else Sales xử lý: Xác nhận Hoàn Hàng toàn bộ (Không giao bán phần)
+        Sales -&gt; Portal: Nhấn nút [Xác nhận Hoàn Hàng]
+        activate Portal
+        Portal -&gt; Courier: Gọi API yêu cầu chuyển hoàn toàn bộ
+        Portal -&gt; Portal: Chuyển trạng thái đơn thành RETURNED
+        Portal -&gt; Portal: Tự động cộng lại toàn bộ số lượng sp vào tồn kho tại vị trí cũ
+        deactivate Portal
+    end
+end
+
+== Luồng 5: Kế toán đối soát &amp; Xuất hóa đơn ==
+Accountant -&gt; Portal: Xem đơn hàng trạng thái SUCCESS
+Accountant -&gt; Portal: Phát hành Hóa đơn VAT (Lưu thông tin lên Portal)
+Portal -&gt; Portal: Ghi nhận công nợ đơn hàng
+Portal -&gt; Courier: Đối soát COD thu hộ định kỳ
+activate Courier
+Courier --&gt; Portal: Trả về dữ liệu thực nhận tiền COD
+deactivate Courier
+alt Số tiền COD khớp hóa đơn
+    Portal -&gt; Portal: Tự động tất toán công nợ đơn hàng
+else Lệch tiền COD đối soát (Edge Case 4)
+    Portal -&gt; Portal: Đổi trạng thái sang Reconciliation Discrepancy + Gắn cờ cảnh báo đỏ
+    Accountant -&gt; Portal: Kiểm tra chênh lệch, xử lý thủ công với 247Express và Tất toán
+end
+@enduml">
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- 4. DANH SÁCH CHỨC NĂNG FR -->
+            <section id="fr" class="space-y-6">
+                <h2 class="text-2xl font-bold text-slate-900 font-title flex items-center gap-2.5 pb-2 border-b border-slate-100">
+                    <span class="text-blue-600">4.</span> Yêu Cầu Chức Năng (Functional Requirements)
+                </h2>
+                <div class="overflow-hidden border border-slate-200 rounded-xl"><table class="w-full border-collapse text-left text-sm bg-white"><thead class="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold"><tr><th class="p-4">ID</th><th class="p-4">Tên yêu cầu chức năng</th><th class="p-4">Mô tả nghiệp vụ</th><th class="p-4">Độ ưu tiên</th></tr></thead><tbody class="divide-y divide-slate-200 text-slate-600"><tr><td class="p-4 font-bold text-slate-800"><strong>FR-order-tracking-001</strong></td><td class="p-4 font-semibold text-slate-900">Đồng bộ đơn hàng từ Website VietMec</td><td class="p-4">Hệ thống tự động nhận và lưu dữ liệu đơn hàng từ Website VietMec ngay khi khách đặt hàng thành công (mặc định hình thức thanh toán SHIP COD, tự động gửi SMS) qua cổng kết nối API đồng bộ.</td><td class="p-4">P0</td></tr><tr><td class="p-4 font-bold text-slate-800"><strong>FR-order-tracking-002</strong></td><td class="p-4 font-semibold text-slate-900">Tạo đơn hàng thủ công</td><td class="p-4">Cho phép nhân viên Sales tạo mới đơn hàng B2B/Offline trực tiếp trên Portal thông qua Form nhập liệu, hỗ trợ đính kèm CO/CQ tùy chọn.</td><td class="p-4">P0</td></tr><tr><td class="p-4 font-bold text-slate-800"><strong>FR-order-tracking-003</strong></td><td class="p-4 font-semibold text-slate-900">Phê duyệt đơn hàng thủ công</td><td class="p-4">Cung cấp giao diện và tính năng cho Admin phê duyệt các đơn hàng thủ công Chờ Duyệt sang trạng thái Chờ Giao.</td><td class="p-4">P0</td></tr><tr><td class="p-4 font-bold text-slate-800"><strong>FR-order-tracking-004</strong></td><td class="p-4 font-semibold text-slate-900">Từ chối đơn hàng thủ công</td><td class="p-4">Cho phép Admin từ chối phê duyệt đơn thủ công, yêu cầu nhập lý do và tự động khóa đơn hàng ở trạng thái <strong>Từ Chối Duyệt</strong>.</td><td class="p-4">P0</td></tr><tr><td class="p-4 font-bold text-slate-800"><strong>FR-order-tracking-005</strong></td><td class="p-4 font-semibold text-slate-900">Chỉnh sửa đơn Chờ Duyệt</td><td class="p-4">Cho phép nhân viên Sales sửa đổi thông tin đơn hàng khi đơn đang ở trạng thái Chờ Duyệt (<strong>Chờ Phê Duyệt</strong>).</td><td class="p-4">P0</td></tr><tr><td class="p-4 font-bold text-slate-800"><strong>FR-order-tracking-006</strong></td><td class="p-4 font-semibold text-slate-900">In chứng từ và nhãn vận đơn</td><td class="p-4">Hỗ trợ Thủ kho in Phiếu xuất kho (kèm vị trí kệ) và in nhãn dán vận đơn của 247Express để dán lên kiện hàng thực tế.</td><td class="p-4">P0</td></tr><tr><td class="p-4 font-bold text-slate-800"><strong>FR-order-tracking-007</strong></td><td class="p-4 font-semibold text-slate-900">Đồng bộ hành trình từ 247Express</td><td class="p-4">Tự động cập nhật hành trình và trạng thái giao hàng từ đối tác 247Express thông qua Webhook (hoặc Polling cron job).</td><td class="p-4">P0</td></tr><tr><td class="p-4 font-bold text-slate-800"><strong>FR-order-tracking-008</strong></td><td class="p-4 font-semibold text-slate-900">Gửi SMS tự động cho khách hàng</td><td class="p-4">Tự động gửi SMS Brandname thông báo đặt hàng thành công, đang giao hàng, và giao hàng thành công tới số điện thoại của người nhận.</td><td class="p-4">P0</td></tr><tr><td class="p-4 font-bold text-slate-800"><strong>FR-order-tracking-009</strong></td><td class="p-4 font-semibold text-slate-900">Gửi cảnh báo Telegram Group</td><td class="p-4">Tự động gửi tin nhắn cảnh báo sự cố giao lỗi hoặc hành trình cập nhật tới group Telegram của bộ phận Sales phụ trách.</td><td class="p-4">P0</td></tr><tr><td class="p-4 font-bold text-slate-800"><strong>FR-order-tracking-010</strong></td><td class="p-4 font-semibold text-slate-900">Điều phối xử lý giao lỗi</td><td class="p-4">Cung cấp tính năng cho Sales nhấn yêu cầu Giao lại lần 2 hoặc Xác nhận Hoàn hàng trên trang chi tiết đơn hàng giao lỗi.</td><td class="p-4">P0</td></tr><tr><td class="p-4 font-bold text-slate-800"><strong>FR-order-tracking-011</strong></td><td class="p-4 font-semibold text-slate-900">Xuất hóa đơn VAT</td><td class="p-4">Cho phép Kế toán thực hiện phát hành và lưu trữ hóa đơn VAT cho các đơn hàng giao thành công.</td><td class="p-4">P0</td></tr><tr><td class="p-4 font-bold text-slate-800"><strong>FR-order-tracking-012</strong></td><td class="p-4 font-semibold text-slate-900">Đối soát COD bán tự động</td><td class="p-4">Cho phép Kế toán tải lên (nạp) thủ công tệp đối soát Excel từ đối tác vận chuyển, hệ thống tự động so khớp chênh lệch số tiền COD thực thu để tất toán công nợ.</td><td class="p-4">P0</td></tr><tr><td class="p-4 font-bold text-slate-800"><strong>FR-order-tracking-013</strong></td><td class="p-4 font-semibold text-slate-900">Nhập bổ sung tồn kho</td><td class="p-4">Cho phép Thủ kho thực hiện nhập bổ sung số lượng tồn kho khả dụng trực tiếp cho từng sản phẩm trên Portal nội bộ.</td><td class="p-4">P0</td></tr></tbody></table></div>
+            </section>
+
+
+            <!-- 5. CHI TIẾT 8 USE CASES -->
+            <section class="space-y-12">
+                <h2 class="text-2xl font-bold text-slate-900 font-title flex items-center gap-2.5 pb-2 border-b border-slate-100">
+                    <span class="text-blue-600">5.</span> Đặc Tả Chi Tiết Use Cases
+                </h2>
+
+                <!-- UC-01 -->
+
+                <div id="uc-01" class="p-8 bg-white border border-slate-200 rounded-2xl space-y-6 shadow-sm">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                        <h3 class="text-lg font-bold text-slate-900 font-title">UC-order-01 - Đặt hàng tự động từ Website VietMec</h3>
+                        <span class="px-2.5 py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-lg">N/A (P0)</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm bg-slate-50 p-4 rounded-xl">
+                        <div><strong>Tiền điều kiện:</strong>
+                            <ul class="list-disc pl-4 mt-1 space-y-1 text-slate-600">
+                                <li>Website VietMec đã tích hợp thành công API kết nối với hệ thống quản lý nội bộ.</li>
+                                <li>Sản phẩm hiển thị trên VietMec còn đủ số lượng tồn kho khả dụng.</li>
+                                <li>Kết nối API giữa hệ thống quản lý nội bộ và đối tác 247Express hoạt động bình thường.</li>
+                            </ul>
+                        </div>
+                        <div><strong>Hậu điều kiện:</strong>
+                            <ul class="list-disc pl-4 mt-1 space-y-1 text-slate-600">
+                                <li>Đơn hàng được khởi tạo thành công trên hệ thống quản lý nội bộ ở trạng thái <strong>Chờ Giao Hàng</strong> (mặc định SHIP COD).</li>
+                                <li>Mã vận đơn (Tracking ID) từ đối tác 247Express được cập nhật vào đơn hàng.</li>
+                                <li>Số lượng tồn kho sản phẩm bị khấu trừ thực tế, gán vị trí kệ xuất kho dự kiến theo quy tắc.</li>
+                                <li>Phiếu đặt hàng (PO) được sinh tự động và lưu trữ nội bộ.</li>
+                                <li>Khách hàng nhận được tin nhắn thương hiệu (SMS) xác nhận đặt hàng thành công ngay khi đồng bộ đơn.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <h4 class="font-bold text-slate-800 text-sm">Sơ đồ luồng xử lý (Flowchart)</h4>
+                    <div class="bg-slate-900 p-4 rounded-xl flex justify-center overflow-x-auto min-h-[250px]">
+                        <img class="plantuml-diagram select-none rounded-lg" data-puml="@startuml
+start
+:Khách hàng nhấn [Đặt hàng] trên Website;
+:Đồng bộ đơn hàng sang hệ thống quản lý nội bộ;
+:Tự động phân bổ Sales phụ trách;
+:Trừ tồn kho thực tế &amp; Gán vị trí kệ xuất kho;
+:Sinh Phiếu đặt hàng (PO) lưu nội bộ;
+:Gửi SMS &quot;Đặt hàng thành công&quot; (SHIP COD) cho khách;
+:Gọi API 247Express khởi tạo đơn vận chuyển;
+if (Kết nối API thành công?) then (Có - Thành công)
+  :Nhận Tracking ID từ đối tác;
+  :Cập nhật trạng thái Chờ Giao Hàng;
+else (Không - Giao dịch lỗi)
+  :Cập nhật trạng thái Lỗi đồng bộ đối tác;
+  :Cảnh báo lỗi lên giao diện của Sales;
+endif
+stop
+@enduml">
+                    </div>
+        
+                    <h4 class="font-bold text-slate-800 text-sm">Luồng sự kiện (Course of Events)</h4>
+                    <div class="space-y-3 text-sm text-slate-600">
+                        
+<h5 class="font-bold text-slate-850 text-base mt-4 mb-2">Luồng sự kiện thông thường (Normal Course)</h5>
+<ol class="list-decimal pl-6 space-y-2 my-2.5 text-slate-655">
+<li class="pl-1">Khách hàng hoàn tất chọn sản phẩm và bấm nút [Đặt Hàng] (chọn hình thức thanh toán khi nhận hàng SHIP COD) trên Website VietMec.</li>
+<li class="pl-1">Hệ thống Website gửi thông tin đơn hàng đồng bộ trực tiếp sang hệ thống quản lý nội bộ.</li>
+<li class="pl-1">Hệ thống tự động phân bổ đơn hàng cho Sales phụ trách theo quy tắc.</li>
+<li class="pl-1">Hệ thống thực hiện khấu trừ tồn kho thực tế, gán vị trí xuất kệ kho xuất dự kiến, và sinh Phiếu đặt hàng (PO) lưu nội bộ.</li>
+<li class="pl-1">Hệ thống gọi API đối tác 247Express để tạo đơn vận chuyển.</li>
+<li class="pl-1">Đối tác 247Express phản hồi mã vận đơn (Tracking ID) thành công.</li>
+<li class="pl-1">Hệ thống cập nhật trạng thái đơn hàng sang <strong>Chờ Giao Hàng</strong> và lưu mã vận đơn.</li>
+<li class="pl-1">Hệ thống kích hoạt gửi tin nhắn thương hiệu (SMS Brandname) đặt hàng thành công kèm mã vận đơn tới Khách hàng.</li>
+</ol>
+<h5 class="font-bold text-slate-850 text-base mt-4 mb-2">Luồng ngoại lệ (Exceptions)</h5>
+<ul class="list-disc pl-6 space-y-2 my-2.5 text-slate-655">
+<li class="pl-1"><strong>UC-order-01.EX.1: Lỗi kết nối API đối tác 247Express</strong>
+  <ul class="list-disc pl-6 space-y-1 my-1.5 text-slate-655">
+    <li class="pl-1">Tại bước 5 của luồng chính, cuộc gọi API tới 247Express bị lỗi hoặc timeout.</li>
+    <li class="pl-1">Hệ thống giữ trạng thái đơn hàng là <strong>Chờ Giao Hàng</strong> nhưng gắn cờ vận chuyển là *Lỗi đồng bộ đối tác*.</li>
+    <li class="pl-1">Hệ thống gửi thông báo lỗi lên giao diện của Sales phụ trách để chuẩn bị xử lý thủ công (nhấn Thử lại).</li>
+  </ul>
+</li>
+</ul>
+<p class="mt-2 text-slate-650">---</p>
+
+                    </div>
+        
+                    <h4 class="font-bold text-slate-800 text-sm">Đặc tả trường thông tin giao diện (Screen Fields)</h4>
+                    <div class="overflow-hidden border border-slate-200 rounded-xl"><table class="w-full border-collapse text-left text-sm bg-white"><thead class="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold"><tr><th class="p-4">STT</th><th class="p-4">Trường thông tin</th><th class="p-4">Loại dữ liệu</th><th class="p-4">Bắt buộc</th><th class="p-4">Mô tả chi tiết</th></tr></thead><tbody class="divide-y divide-slate-200 text-slate-600"><tr><td class="p-4 font-bold text-slate-800">1</td><td class="p-4 font-semibold text-slate-900">Mã đơn hàng từ Web</td><td class="p-4">String</td><td class="p-4">Y</td><td class="p-4">Mã đơn gốc do hệ thống Website VietMec sinh ra.</td></tr><tr><td class="p-4 font-bold text-slate-800">2</td><td class="p-4 font-semibold text-slate-900">Họ tên khách hàng</td><td class="p-4">String</td><td class="p-4">Y</td><td class="p-4">Họ tên người mua hàng.</td></tr><tr><td class="p-4 font-bold text-slate-800">3</td><td class="p-4 font-semibold text-slate-900">Số điện thoại</td><td class="p-4">String</td><td class="p-4">Y</td><td class="p-4">SĐT người nhận hàng (10 chữ số).</td></tr><tr><td class="p-4 font-bold text-slate-800">4</td><td class="p-4 font-semibold text-slate-900">Địa chỉ giao hàng</td><td class="p-4">String</td><td class="p-4">Y</td><td class="p-4">Địa chỉ chi tiết nhận hàng (Tỉnh/Huyện/Xã và số nhà).</td></tr><tr><td class="p-4 font-bold text-slate-800">5</td><td class="p-4 font-semibold text-slate-900">Danh mục sản phẩm</td><td class="p-4">Array</td><td class="p-4">Y</td><td class="p-4">Danh sách sản phẩm mua gồm: Mã sản phẩm, số lượng, đơn giá.</td></tr><tr><td class="p-4 font-bold text-slate-800">6</td><td class="p-4 font-semibold text-slate-900">Tổng giá trị đơn</td><td class="p-4">Number</td><td class="p-4">Y</td><td class="p-4">Số tiền hàng thực tế phải thanh toán.</td></tr><tr><td class="p-4 font-bold text-slate-800">7</td><td class="p-4 font-semibold text-slate-900">Hình thức thanh toán</td><td class="p-4">String</td><td class="p-4">Y</td><td class="p-4">Mặc định là "SHIP_COD" (Thu tiền mặt khi giao hàng).</td></tr></tbody></table></div>
+        
+                </div>
+                <!-- UC-02 -->
+
+                <div id="uc-02" class="p-8 bg-white border border-slate-200 rounded-2xl space-y-6 shadow-sm">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                        <h3 class="text-lg font-bold text-slate-900 font-title">UC-order-02 - Tạo đơn hàng thủ công (Maker)</h3>
+                        <span class="px-2.5 py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-lg">N/A (P0)</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm bg-slate-50 p-4 rounded-xl">
+                        <div><strong>Tiền điều kiện:</strong>
+                            <ul class="list-disc pl-4 mt-1 space-y-1 text-slate-600">
+                                <li>Sales đăng nhập thành công vào hệ thống quản lý nội bộ và có quyền "Tạo đơn hàng".</li>
+                                <li>Sản phẩm trong kho khả dụng còn đủ số lượng đặt.</li>
+                            </ul>
+                        </div>
+                        <div><strong>Hậu điều kiện:</strong>
+                            <ul class="list-disc pl-4 mt-1 space-y-1 text-slate-600">
+                                <li>Đơn hàng được tạo thành công trên hệ thống nội bộ ở trạng thái <strong>Chờ Phê Duyệt</strong>.</li>
+                                <li>Tồn kho khả dụng của sản phẩm bị tạm giữ tương ứng.</li>
+                                <li>Tài liệu chứng từ đính kèm (CO/CQ) được lưu trữ cùng đơn hàng (nếu có tải lên).</li>
+                                <li>Hệ thống chưa gửi tin nhắn SMS cho Khách hàng và chưa gọi API sang đối tác vận chuyển 247Express.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <h4 class="font-bold text-slate-800 text-sm">Sơ đồ luồng xử lý (Flowchart)</h4>
+                    <div class="bg-slate-900 p-4 rounded-xl flex justify-center overflow-x-auto min-h-[250px]">
+                        <img class="plantuml-diagram select-none rounded-lg" data-puml="@startuml
+start
+:Mở Form tạo đơn hàng thủ công;
+:Nhập thông tin nhận hàng, sản phẩm, tải CO/CQ;
+note right: Hệ thống mặc định thanh toán SHIP COD
+:Bấm [Xác nhận tạo đơn];
+if (Validate thông tin &amp; check kho khả dụng?) then (Thất bại)
+  :Hiển thị lỗi và highlight trường bị sai;
+  stop
+else (Thành công)
+  :Tạo đơn hàng trạng thái Chờ Phê Duyệt;
+  :Tạm giữ tồn kho khả dụng tương ứng;
+  :Báo tạo đơn thành công cho Sales;
+endif
+stop
+@enduml">
+                    </div>
+        
+                    <h4 class="font-bold text-slate-800 text-sm">Luồng sự kiện (Course of Events)</h4>
+                    <div class="space-y-3 text-sm text-slate-600">
+                        
+<h5 class="font-bold text-slate-850 text-base mt-4 mb-2">Luồng sự kiện thông thường (Normal Course)</h5>
+<ol class="list-decimal pl-6 space-y-2 my-2.5 text-slate-655">
+<li class="pl-1">Sales truy cập phân hệ Quản lý Đơn hàng trên hệ thống quản lý nội bộ và nhấn nút [+ Tạo Đơn Mới].</li>
+<li class="pl-1">Hệ thống hiển thị form nhập liệu tạo đơn hàng mới.</li>
+<li class="pl-1">Sales điền thông tin người nhận (Họ tên, SĐT, Địa chỉ chi tiết chọn theo dropdown Tỉnh/Huyện/Phường).</li>
+<li class="pl-1">Sales chọn sản phẩm, nhập số lượng, khối lượng đơn hàng. Hệ thống tự động đặt hình thức vận chuyển là thu hộ (SHIP COD).</li>
+<li class="pl-1">Sales tải lên tài liệu chứng từ chất lượng CO/CQ (nếu có - tùy chọn).</li>
+<li class="pl-1">Sales nhấn nút [Xác nhận tạo đơn].</li>
+<li class="pl-1">Hệ thống thực hiện kiểm tra dữ liệu nhập (Quy tắc kiểm tra) và đối chiếu tồn kho khả dụng.</li>
+<li class="pl-1">Hệ thống khởi tạo đơn hàng ở trạng thái <strong>Chờ Phê Duyệt</strong>, thực hiện tạm giữ tồn kho khả dụng của sản phẩm.</li>
+<li class="pl-1">Hệ thống hiển thị thông báo tạo đơn thành công và đưa Sales về trang chi tiết đơn hàng Chờ Duyệt.</li>
+</ol>
+<h5 class="font-bold text-slate-850 text-base mt-4 mb-2">Luồng thay thế (Alternative Courses)</h5>
+<p class="mt-2 text-slate-650">Không có.</p>
+<h5 class="font-bold text-slate-850 text-base mt-4 mb-2">Luồng ngoại lệ (Exceptions)</h5>
+<ul class="list-disc pl-6 space-y-2 my-2.5 text-slate-655">
+<li class="pl-1"><strong>UC-order-02.EX.1: Kiểm tra dữ liệu thất bại hoặc Hết hàng khả dụng</strong>
+  <ul class="list-disc pl-6 space-y-1 my-1.5 text-slate-655">
+    <li class="pl-1">Tại bước 7 của luồng chính, nếu dữ liệu nhập sai định dạng số điện thoại hoặc thiếu trường bắt buộc, hoặc tài liệu CO/CQ vượt quá dung lượng 5MB, hoặc kho đã hết hàng.</li>
+    <li class="pl-1">Hệ thống chặn lại không cho tạo đơn, giữ nguyên dữ liệu đã nhập, viền đỏ các trường lỗi và hiển thị thông báo lỗi (ví dụ: *"Số điện thoại phải đủ 10 chữ số"*, *"Dung lượng file vượt quá giới hạn 5MB"*).</li>
+  </ul>
+</li>
+</ul>
+<p class="mt-2 text-slate-650">---</p>
+
+                    </div>
+        
+                    <h4 class="font-bold text-slate-800 text-sm">Đặc tả trường thông tin giao diện (Screen Fields)</h4>
+                    <div class="overflow-hidden border border-slate-200 rounded-xl"><table class="w-full border-collapse text-left text-sm bg-white"><thead class="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold"><tr><th class="p-4">STT</th><th class="p-4">Tên trường dữ liệu</th><th class="p-4">Định dạng</th><th class="p-4">Bắt buộc?</th><th class="p-4">Mô tả chi tiết ràng buộc</th></tr></thead><tbody class="divide-y divide-slate-200 text-slate-600"><tr><td class="p-4 font-bold text-slate-800">1</td><td class="p-4 font-semibold text-slate-900">Họ Tên</td><td class="p-4">Textbox</td><td class="p-4">Y</td><td class="p-4">Nhập họ tên đầy đủ của người nhận hàng.</td></tr><tr><td class="p-4 font-bold text-slate-800">2</td><td class="p-4 font-semibold text-slate-900">Số Điện Thoại</td><td class="p-4">Textbox</td><td class="p-4">Y</td><td class="p-4">Bắt buộc nhập. Số điện thoại di động Việt Nam gồm đúng 10 chữ số, bắt đầu bằng số <code class="bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded font-mono text-xs">0</code> (ví dụ: <code class="bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded font-mono text-xs">0901234567</code>).</td></tr><tr><td class="p-4 font-bold text-slate-800">3</td><td class="p-4 font-semibold text-slate-900">Tỉnh/Thành</td><td class="p-4">Droplist</td><td class="p-4">Y</td><td class="p-4">Lựa chọn Tỉnh/Thành phố trực thuộc Trung ương.</td></tr><tr><td class="p-4 font-bold text-slate-800">4</td><td class="p-4 font-semibold text-slate-900">Quận/Huyện</td><td class="p-4">Droplist</td><td class="p-4">Y</td><td class="p-4">Lựa chọn Quận/Huyện theo Tỉnh/Thành đã chọn.</td></tr><tr><td class="p-4 font-bold text-slate-800">5</td><td class="p-4 font-semibold text-slate-900">Phường/Xã</td><td class="p-4">Droplist</td><td class="p-4">Y</td><td class="p-4">Lựa chọn Phường/Xã theo Quận/Huyện đã chọn.</td></tr><tr><td class="p-4 font-bold text-slate-800">6</td><td class="p-4 font-semibold text-slate-900">Địa chỉ chi tiết</td><td class="p-4">Textbox</td><td class="p-4">Y</td><td class="p-4">Nhập số nhà, ngõ/ngách, tên đường/thôn/xóm.</td></tr><tr><td class="p-4 font-bold text-slate-800">7</td><td class="p-4 font-semibold text-slate-900">Tên sản phẩm</td><td class="p-4">Searchbox</td><td class="p-4">Y</td><td class="p-4">Chọn sản phẩm từ danh mục sản phẩm của VietMec.</td></tr><tr><td class="p-4 font-bold text-slate-800">8</td><td class="p-4 font-semibold text-slate-900">Số lượng sản phẩm</td><td class="p-4">Number</td><td class="p-4">Y</td><td class="p-4">Bắt buộc. Số lượng sản phẩm phải > 0. Validate theo tồn kho khả dụng thời gian thực tế tại thời điểm lưu đơn (nếu số lượng đặt đơn > số tồn kho khả dụng -> chặn và báo lỗi).</td></tr><tr><td class="p-4 font-bold text-slate-800">9</td><td class="p-4 font-semibold text-slate-900">Đơn giá sản phẩm</td><td class="p-4">Number</td><td class="p-4">Y</td><td class="p-4">Bắt buộc. Giá bán của một đơn vị sản phẩm (VNĐ).</td></tr><tr><td class="p-4 font-bold text-slate-800">10</td><td class="p-4 font-semibold text-slate-900">Khối lượng</td><td class="p-4">Number</td><td class="p-4">Y</td><td class="p-4">Đơn vị: kg. Phải lớn hơn 0.</td></tr><tr><td class="p-4 font-bold text-slate-800">11</td><td class="p-4 font-semibold text-slate-900">Thu hộ (COD)</td><td class="p-4">Number</td><td class="p-4">Y</td><td class="p-4">Bắt buộc nhập. Số tiền thu hộ COD = Đơn giá * Số lượng (hệ thống tự động tính toán, không cho sửa trực tiếp).</td></tr><tr><td class="p-4 font-bold text-slate-800">12</td><td class="p-4 font-semibold text-slate-900">File CO/CQ</td><td class="p-4">Upload</td><td class="p-4">N</td><td class="p-4">Đính kèm file CO/CQ của đơn hàng (tùy chọn). Dung lượng tệp phải ≤ 5 MB và có định dạng hỗ trợ là .pdf, .png, hoặc .jpg.</td></tr><tr></tr></tbody></table></div>
+        
+                    
+        
+                </div>
+                <!-- UC-03 -->
+
+                <div id="uc-03" class="p-8 bg-white border border-slate-200 rounded-2xl space-y-6 shadow-sm">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                        <h3 class="text-lg font-bold text-slate-900 font-title">UC-order-03 - Duyệt hoặc từ chối đơn hàng (Checker)</h3>
+                        <span class="px-2.5 py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-lg">N/A (P0)</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm bg-slate-50 p-4 rounded-xl">
+                        <div><strong>Tiền điều kiện:</strong>
+                            <ul class="list-disc pl-4 mt-1 space-y-1 text-slate-600">
+                                <li>Admin đăng nhập thành công vào hệ thống quản lý nội bộ và có quyền "Phê duyệt đơn hàng".</li>
+                                <li>Có đơn hàng đang ở trạng thái <strong>Chờ Phê Duyệt</strong> trên hệ thống.</li>
+                            </ul>
+                        </div>
+                        <div><strong>Hậu điều kiện:</strong>
+                            <ul class="list-disc pl-4 mt-1 space-y-1 text-slate-600">
+                                <li>Nếu duyệt:* Đơn chuyển sang trạng thái <strong>Chờ Giao Hàng</strong>, tồn kho bị trừ thực tế, gán vị trí xuất kệ, hệ thống gọi API đối tác 247Express lấy mã vận đơn thành công và gửi SMS đặt hàng thành công cho khách hàng.</li>
+                                <li>Nếu từ chối:* Đơn chuyển sang trạng thái <strong>Từ Chối Duyệt</strong> (khóa đơn vĩnh viễn), tồn kho khả dụng được giải phóng, ghi nhận lý do từ chối và báo động cho Sales phụ trách.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <h4 class="font-bold text-slate-800 text-sm">Sơ đồ luồng xử lý (Flowchart)</h4>
+                    <div class="bg-slate-900 p-4 rounded-xl flex justify-center overflow-x-auto min-h-[250px]">
+                        <img class="plantuml-diagram select-none rounded-lg" data-puml="@startuml
+start
+:Xem đơn hàng Chờ Duyệt;
+if (Quyết định của Admin?) then (Duyệt)
+  :Trừ tồn kho thực tế &amp; Gán vị trí kệ xuất;
+  :Sinh Phiếu đặt hàng (PO) lưu nội bộ;
+  :Gửi SMS Đặt hàng thành công cho Khách hàng;
+  :Gọi API 247Express tạo đơn vận chuyển;
+  if (Kết nối API thành công?) then (Có)
+    :Nhận Tracking ID &amp; Đổi đơn sang Chờ Giao Hàng;
+  else (Không)
+    :Cập nhật trạng thái kết nối Lỗi đồng bộ đối tác;
+    :Báo lỗi kết nối cho Sales để gửi lại API thủ công;
+  endif
+else (Từ chối)
+  :Nhập lý do từ chối duyệt đơn (10-200 ký tự);
+  :Hủy giữ kho, cộng lại tồn kho khả dụng;
+  :Chuyển trạng thái đơn sang Từ Chối Duyệt (khóa đơn);
+  :Thông báo lý do từ chối cho Sales phụ trách;
+endif
+stop
+@enduml">
+                    </div>
+        
+                    <h4 class="font-bold text-slate-800 text-sm">Luồng sự kiện (Course of Events)</h4>
+                    <div class="space-y-3 text-sm text-slate-600">
+                        
+<h5 class="font-bold text-slate-850 text-base mt-4 mb-2">Luồng sự kiện thông thường (Normal Course)</h5>
+<ol class="list-decimal pl-6 space-y-2 my-2.5 text-slate-655">
+<li class="pl-1">Admin truy cập trang Danh sách Đơn hàng Chờ Duyệt trên hệ thống quản lý nội bộ.</li>
+<li class="pl-1">Admin chọn một đơn hàng cần duyệt để xem thông tin chi tiết.</li>
+<li class="pl-1">Admin nhấn nút [Phê Duyệt] đơn hàng.</li>
+<li class="pl-1">Hệ thống thực hiện khấu trừ tồn kho thực tế và gán vị trí kệ kho xuất dự kiến theo nguyên tắc.</li>
+<li class="pl-1">Hệ thống tự động tạo tệp Phiếu đặt hàng (PO) lưu nội bộ.</li>
+<li class="pl-1">Hệ thống gửi tin nhắn thương hiệu (SMS) đặt hàng thành công cho Khách hàng.</li>
+<li class="pl-1">Hệ thống gọi API đối tác 247Express tạo đơn giao hàng.</li>
+<li class="pl-1">Đối tác 247Express phản hồi mã vận đơn (Tracking ID) thành công.</li>
+<li class="pl-1">Hệ thống lưu mã vận đơn và cập nhật trạng thái đơn hàng sang <strong>Chờ Giao Hàng</strong>.</li>
+</ol>
+<h5 class="font-bold text-slate-850 text-base mt-4 mb-2">Luồng thay thế (Alternative Courses)</h5>
+<p class="mt-2 text-slate-650"><strong>UC-order-03.AC.1: Admin từ chối phê duyệt đơn hàng</strong></p>
+<ol class="list-decimal pl-6 space-y-2 my-2.5 text-slate-655">
+<li class="pl-1">Tại bước 3 của luồng chính, Admin nhấn nút [Từ Chối].</li>
+<li class="pl-1">Hệ thống hiển thị popup yêu cầu nhập lý do từ chối duyệt đơn.</li>
+<li class="pl-1">Admin nhập lý do từ chối nghiệp vụ và nhấn [Xác nhận từ chối].</li>
+<li class="pl-1">Hệ thống chuyển trạng thái đơn sang <strong>Từ Chối Duyệt</strong> (khóa đơn vĩnh viễn, cấm sửa).</li>
+<li class="pl-1">Hệ thống giải phóng tồn kho khả dụng đã tạm giữ.</li>
+<li class="pl-1">Hệ thống gửi thông báo từ chối kèm lý do cho Sales phụ trách qua Telegram.</li>
+</ol>
+<h5 class="font-bold text-slate-850 text-base mt-4 mb-2">Luồng ngoại lệ (Exceptions)</h5>
+<ul class="list-disc pl-6 space-y-2 my-2.5 text-slate-655">
+<li class="pl-1"><strong>UC-order-03.EX.1: Xung đột thao tác đồng thời (Maker/Checker Race Condition)</strong>
+  <ul class="list-disc pl-6 space-y-1 my-1.5 text-slate-655">
+    <li class="pl-1">Tại bước 3 của luồng chính, khi Admin nhấn Phê duyệt đúng lúc Sales đang thực hiện Lưu chỉnh sửa đơn hàng đó.</li>
+    <li class="pl-1">Hệ thống đối chiếu phiên bản dữ liệu (Kiểm soát phiên bản ghi) và phát hiện phiên bản đã bị thay đổi.</li>
+    <li class="pl-1">Hệ thống chặn hành động phê duyệt của Admin, hiển thị thông báo lỗi: *"Đơn hàng đã được duyệt hoặc thay đổi bởi người khác. Vui lòng tải lại trang"* và rollback giao dịch.</li>
+  </ul>
+</li>
+<li class="pl-1"><strong>UC-order-03.EX.2: Lỗi API đối tác 247Express khi duyệt đơn</strong>
+  <ul class="list-disc pl-6 space-y-1 my-1.5 text-slate-655">
+    <li class="pl-1">Tại bước 7 của luồng chính, API kết nối đối tác 247Express gặp sự cố mất mạng hoặc sập hệ thống.</li>
+    <li class="pl-1">Đơn hàng vẫn chuyển sang trạng thái <strong>Chờ Giao Hàng</strong> nhưng trạng thái kết nối vận chuyển là *Lỗi đồng bộ đối tác*. Tồn kho thực tế vẫn bị trừ.</li>
+    <li class="pl-1">Hệ thống cảnh báo lỗi trên giao diện của Sales phụ trách để xử lý thủ công (nhấn Thử lại).</li>
+  </ul>
+</li>
+</ul>
+<p class="mt-2 text-slate-650">---</p>
+
+                    </div>
+        
+                    <h4 class="font-bold text-slate-800 text-sm">Đặc tả trường thông tin giao diện (Screen Fields)</h4>
+                    <div class="overflow-hidden border border-slate-200 rounded-xl"><table class="w-full border-collapse text-left text-sm bg-white"><thead class="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold"><tr><th class="p-4">STT</th><th class="p-4">Tên trường dữ liệu</th><th class="p-4">Định dạng</th><th class="p-4">Bắt buộc?</th><th class="p-4">Mô tả chi tiết ràng buộc</th></tr></thead><tbody class="divide-y divide-slate-200 text-slate-600"><tr><td class="p-4 font-bold text-slate-800">1</td><td class="p-4 font-semibold text-slate-900">Nút Phê duyệt</td><td class="p-4">Button</td><td class="p-4">Y</td><td class="p-4">Nhấn để chuyển trạng thái sang <strong>Chờ Giao Hàng</strong>.</td></tr><tr><td class="p-4 font-bold text-slate-800">2</td><td class="p-4 font-semibold text-slate-900">Nút Từ chối</td><td class="p-4">Button</td><td class="p-4">Y</td><td class="p-4">Nhấn để mở popup từ chối duyệt đơn.</td></tr><tr><td class="p-4 font-bold text-slate-800">3</td><td class="p-4 font-semibold text-slate-900">Lý do từ chối</td><td class="p-4">Textarea</td><td class="p-4">Y (khi từ chối)</td><td class="p-4">Nhập lý do từ chối nghiệp vụ, từ 10 đến 200 ký tự.</td></tr><tr><td class="p-4 font-bold text-slate-800">4</td><td class="p-4 font-semibold text-slate-900">Nút Xác nhận từ chối</td><td class="p-4">Button</td><td class="p-4">Y (trong popup)</td><td class="p-4">Hoàn tất lưu lý do và cập nhật đơn sang <strong>Từ Chối Duyệt</strong>.</td></tr></tbody></table></div>
+        
+                    
+        
+                </div>
+                <!-- UC-04 -->
+
+                <div id="uc-04" class="p-8 bg-white border border-slate-200 rounded-2xl space-y-6 shadow-sm">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                        <h3 class="text-lg font-bold text-slate-900 font-title">UC-order-04 - Xem chi tiết đơn hàng và theo dõi hành trình</h3>
+                        <span class="px-2.5 py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-lg">N/A (P0)</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm bg-slate-50 p-4 rounded-xl">
+                        <div><strong>Tiền điều kiện:</strong>
+                            <ul class="list-disc pl-4 mt-1 space-y-1 text-slate-600">
+                                <li>Người dùng đăng nhập thành công vào Portal nội bộ và được phân quyền truy cập danh sách đơn hàng.</li>
+                            </ul>
+                        </div>
+                        <div><strong>Hậu điều kiện:</strong>
+                            <ul class="list-disc pl-4 mt-1 space-y-1 text-slate-600">
+                                <li>Thông tin chi tiết đơn hàng, timeline hành trình, và lịch sử thay đổi được hiển thị chính xác.</li>
+                                <li>Với Thủ kho: In thành công chứng từ xuất kho và nhãn vận đơn 247Express để đóng gói.</li>
+                                <li>Với Kế toán: Kích hoạt màn hình xuất hóa đơn VAT đối với đơn hàng có trạng thái <strong>Giao Thành Công</strong>.</li>
+                                <li>Với Hệ thống: Nhận webhook từ đối tác 247Express và cập nhật tức thời hành trình lên giao diện.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <h4 class="font-bold text-slate-800 text-sm">Sơ đồ luồng xử lý (Flowchart)</h4>
+                    <div class="bg-slate-900 p-4 rounded-xl flex justify-center overflow-x-auto min-h-[250px]">
+                        <img class="plantuml-diagram select-none rounded-lg" data-puml="@startuml
+start
+:Chọn đơn hàng trong danh sách;
+:Hiển thị màn hình chi tiết đơn hàng;
+fork
+  :Xem thông tin chung và timeline hành trình;
+  if (Nhận Webhook từ 247Express?) then (Có)
+    :Cập nhật hành trình lên timeline;
+  endif
+fork again
+  :Xem tab Lịch sử thay đổi đơn hàng;
+fork again
+  if (Role là Thủ kho và có mã vận đơn?) then (Có)
+    :Bấm [In Phiếu và Nhãn Vận Đơn];
+    :In Phiếu xuất kho và Nhãn dán;
+  endif
+fork again
+  if (Role là Kế toán và đơn giao thành công Giao Thành Công?) then (Có)
+    :Bấm [Xuất hoá đơn VAT];
+    :Chuyển sang màn hình tạo hoá đơn;
+  endif
+end fork
+stop
+@enduml">
+                    </div>
+        
+                    <h4 class="font-bold text-slate-800 text-sm">Luồng sự kiện (Course of Events)</h4>
+                    <div class="space-y-3 text-sm text-slate-600">
+                        
+<h5 class="font-bold text-slate-850 text-base mt-4 mb-2">Luồng sự kiện thông thường (Normal Course)</h5>
+<ol class="list-decimal pl-6 space-y-2 my-2.5 text-slate-655">
+<li class="pl-1">Người dùng chọn một đơn hàng từ trang Danh sách Đơn hàng.</li>
+<li class="pl-1">Hệ thống hiển thị giao diện Chi tiết Đơn hàng gồm các khu vực chính:</li>
+</ol>
+<ul class="list-disc pl-6 space-y-2 my-2.5 text-slate-655">
+<li class="pl-1"><strong>Thông tin chung:</strong> Họ tên khách, SĐT, Địa chỉ, Sản phẩm, Khối lượng, Tiền COD, Trạng thái hiện tại.</li>
+<li class="pl-1"><strong>Timeline hành trình:</strong> Nhật ký bưu tá lấy hàng, đang trung chuyển, giao hàng...</li>
+<li class="pl-1"><strong>Tab Lịch sử thay đổi:</strong> Ghi nhận nhật ký chỉnh sửa của Sales đối với đơn.</li>
+</ul>
+<ol class="list-decimal pl-6 space-y-2 my-2.5 text-slate-655">
+<li class="pl-1">Người dùng chuyển đổi giữa các tab để xem thông tin chi tiết tương ứng.</li>
+</ol>
+<h5 class="font-bold text-slate-850 text-base mt-4 mb-2">Luồng phụ 1: Thủ kho in phiếu & dán nhãn vận đơn</h5>
+<ol class="list-decimal pl-6 space-y-2 my-2.5 text-slate-655">
+<li class="pl-1">Thủ kho xem chi tiết đơn hàng có trạng thái <strong>Chờ Giao Hàng</strong> (đơn đã có mã vận đơn 247Express).</li>
+<li class="pl-1">Thủ kho nhấn nút <strong>[In Phiếu & Nhãn Vận Đơn]</strong>.</li>
+<li class="pl-1">Hệ thống sinh file in chứa Phiếu xuất kho (ghi rõ sản phẩm, vị trí kệ xuất đã gán) và Nhãn dán vận đơn của 247Express.</li>
+<li class="pl-1">Thủ kho thực hiện in ấn ra máy in nhiệt chuyên dụng, nhặt hàng từ kệ và đóng gói kiện hàng vật lý.</li>
+</ol>
+<h5 class="font-bold text-slate-850 text-base mt-4 mb-2">Luồng phụ 2: Kế toán kích hoạt xuất hóa đơn VAT</h5>
+<ol class="list-decimal pl-6 space-y-2 my-2.5 text-slate-655">
+<li class="pl-1">Kế toán xem chi tiết đơn hàng có trạng thái <strong>Thành Công</strong> (<strong>Giao Thành Công</strong>).</li>
+<li class="pl-1">Kế toán nhấn nút <strong>[Xuất hóa đơn VAT]</strong> (Nút này chỉ khả dụng cho vai trò Kế toán, đối với các vai trò khác sẽ hiển thị trạng thái disabled).</li>
+<li class="pl-1">Hệ thống điều hướng Kế toán sang giao diện phát hành hóa đơn VAT điện tử (Màn hình 9).</li>
+</ol>
+<h5 class="font-bold text-slate-850 text-base mt-4 mb-2">Luồng phụ 3: Hệ thống đồng bộ Webhook hành trình</h5>
+<ol class="list-decimal pl-6 space-y-2 my-2.5 text-slate-655">
+<li class="pl-1">Khi bưu tá 247Express quét nhận hàng hoặc cập nhật trạng thái trên đường đi, hệ thống của 247Express gửi Webhook chứa mã vận đơn và mô tả trạng thái về cổng tiếp nhận của VietMec.</li>
+<li class="pl-1">Hệ thống kiểm tra tính hợp lệ của Webhook, cập nhật trạng thái đơn hàng tương ứng (ví dụ: sang <strong>Đang Giao Hàng</strong>, <strong>Giao Thành Công</strong>, hoặc <strong>Giao Thất Bại</strong>) và ghi thêm dòng trạng thái mới vào Timeline hành trình chi tiết của đơn.</li>
+</ol>
+<p class="mt-2 text-slate-650">---</p>
+
+                    </div>
+        
+                    <h4 class="font-bold text-slate-800 text-sm">Đặc tả trường thông tin giao diện (Screen Fields)</h4>
+                    <div class="overflow-hidden border border-slate-200 rounded-xl"><table class="w-full border-collapse text-left text-sm bg-white"><thead class="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold"><tr><th class="p-4">STT</th><th class="p-4">Trường thông tin</th><th class="p-4">Loại dữ liệu</th><th class="p-4">Thao tác</th><th class="p-4">Mô tả chi tiết ràng buộc</th></tr></thead><tbody class="divide-y divide-slate-200 text-slate-600"><tr><td class="p-4 font-bold text-slate-800">1</td><td class="p-4 font-semibold text-slate-900">Mã đơn hàng</td><td class="p-4">String</td><td class="p-4">Chỉ đọc</td><td class="p-4">Mã đơn hàng nội bộ VietMec (ví dụ: <code class="bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded font-mono text-xs">247-00123</code>).</td></tr><tr><td class="p-4 font-bold text-slate-800">2</td><td class="p-4 font-semibold text-slate-900">Mã vận đơn</td><td class="p-4">String</td><td class="p-4">Chỉ đọc</td><td class="p-4">Mã vận đơn do 247Express cấp (ví dụ: <code class="bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded font-mono text-xs">247XYZ123</code>).</td></tr><tr><td class="p-4 font-bold text-slate-800">3</td><td class="p-4 font-semibold text-slate-900">Họ tên & SĐT</td><td class="p-4">String</td><td class="p-4">Chỉ đọc</td><td class="p-4">Thông tin khách nhận hàng.</td></tr><tr><td class="p-4 font-bold text-slate-800">4</td><td class="p-4 font-semibold text-slate-900">Địa chỉ nhận</td><td class="p-4">String</td><td class="p-4">Chỉ đọc</td><td class="p-4">Địa chỉ chi tiết nhận hàng của khách.</td></tr><tr><td class="p-4 font-bold text-slate-800">5</td><td class="p-4 font-semibold text-slate-900">Sản phẩm & Khối lượng</td><td class="p-4">String</td><td class="p-4">Chỉ đọc</td><td class="p-4">Chi tiết tên sản phẩm, số lượng và cân nặng.</td></tr><tr><td class="p-4 font-bold text-slate-800">6</td><td class="p-4 font-semibold text-slate-900">Số tiền thu hộ COD</td><td class="p-4">Number</td><td class="p-4">Chỉ đọc</td><td class="p-4">Tiền thu hộ, định dạng VNĐ.</td></tr><tr><td class="p-4 font-bold text-slate-800">7</td><td class="p-4 font-semibold text-slate-900">Nút In Phiếu & Nhãn</td><td class="p-4">Button</td><td class="p-4">Click</td><td class="p-4">Chỉ khả dụng cho Thủ kho khi đơn ở trạng thái <strong>Chờ Giao Hàng</strong>.</td></tr><tr><td class="p-4 font-bold text-slate-800">8</td><td class="p-4 font-semibold text-slate-900">Nút Xuất hóa đơn VAT</td><td class="p-4">Button</td><td class="p-4">Click</td><td class="p-4">Chỉ khả dụng cho Kế toán khi đơn ở trạng thái <strong>Thành Công</strong> (<strong>Giao Thành Công</strong>).</td></tr><tr><td class="p-4 font-bold text-slate-800">9</td><td class="p-4 font-semibold text-slate-900">Timeline hành trình</td><td class="p-4">List</td><td class="p-4">Chỉ đọc</td><td class="p-4">Nhật ký chi tiết gồm: Thời gian / Trạng thái / Mô tả thực tế từ bưu tá.</td></tr></tbody></table></div>
+        
+                    
+        
+                </div>
+                <!-- UC-05 -->
+
+                <div id="uc-05" class="p-8 bg-white border border-slate-200 rounded-2xl space-y-6 shadow-sm">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                        <h3 class="text-lg font-bold text-slate-900 font-title">UC-order-05 - Chỉnh sửa đơn hàng Chờ Duyệt</h3>
+                        <span class="px-2.5 py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-lg">N/A (P0)</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm bg-slate-50 p-4 rounded-xl">
+                        <div><strong>Tiền điều kiện:</strong>
+                            <ul class="list-disc pl-4 mt-1 space-y-1 text-slate-600">
+                                <li>Người dùng đăng nhập thành công và có vai trò Sales (Maker).</li>
+                                <li>Đơn hàng cần sửa đang ở trạng thái <strong>Chờ Phê Duyệt</strong> (<strong>Chờ Phê Duyệt</strong>).</li>
+                            </ul>
+                        </div>
+                        <div><strong>Hậu điều kiện:</strong>
+                            <ul class="list-disc pl-4 mt-1 space-y-1 text-slate-600">
+                                <li>Dữ liệu đơn hàng được cập nhật thành công trên hệ thống Portal.</li>
+                                <li>Tồn kho khả dụng của sản phẩm được cập nhật chính xác (hoàn lại kho cũ, giữ kho mới nếu thay đổi sản phẩm/số lượng).</li>
+                                <li>Ghi lại log lịch sử chỉnh sửa đơn hàng gồm các giá trị cũ (Old Value) và giá trị mới (New Value) chi tiết.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <h4 class="font-bold text-slate-800 text-sm">Sơ đồ luồng xử lý (Flowchart)</h4>
+                    <div class="bg-slate-900 p-4 rounded-xl flex justify-center overflow-x-auto min-h-[250px]">
+                        <img class="plantuml-diagram select-none rounded-lg" data-puml="@startuml
+start
+:Mở chi tiết đơn hàng Chờ Duyệt;
+:Bấm nút [Sửa đơn hàng] (đang enable);
+:Hệ thống hiển thị popup chỉnh sửa đơn hàng;
+:Sales chỉnh sửa thông tin &amp; nhấn [Lưu];
+if (Kiểm tra dữ liệu nhập có hợp lệ?) then (Có - Hợp lệ)
+  :Tính toán sự khác biệt dữ liệu cũ và mới;
+  :Cập nhật dữ liệu đơn hàng;
+  :Cập nhật tạm giữ kho khả dụng (nếu cần);
+  :Ghi nhận nhật ký vào Lịch sử thay đổi;
+  :Hiển thị thông báo lưu thành công;
+else (Không - Có lỗi)
+  :Hiển thị lỗi và viền đỏ các trường sai;
+  :Chờ Sales sửa lại trên form popup;
+endif
+stop
+@enduml">
+                    </div>
+        
+                    <h4 class="font-bold text-slate-800 text-sm">Luồng sự kiện (Course of Events)</h4>
+                    <div class="space-y-3 text-sm text-slate-600">
+                        
+<h5 class="font-bold text-slate-850 text-base mt-4 mb-2">Luồng sự kiện thông thường (Normal Course)</h5>
+<ol class="list-decimal pl-6 space-y-2 my-2.5 text-slate-655">
+<li class="pl-1">Sales truy cập trang Chi tiết Đơn hàng của một đơn hàng đang ở trạng thái <strong>Chờ Phê Duyệt</strong>.</li>
+<li class="pl-1">Sales nhận thấy nút <strong>[Sửa đơn hàng]</strong> đang được kích hoạt (enable). Sales nhấn nút này.</li>
+<li class="pl-1">Hệ thống hiển thị một <strong>Popup chỉnh sửa đơn hàng</strong> đè lên màn hình hiện tại. Form điền sẵn toàn bộ dữ liệu hiện có của đơn.</li>
+<li class="pl-1">Sales thực hiện sửa đổi các trường thông tin nhận hàng, hàng hóa, khối lượng, tiền COD hoặc tải lên file CO/CQ mới.</li>
+<li class="pl-1">Sales nhấn nút <strong>[Lưu]</strong> trên popup.</li>
+<li class="pl-1">Hệ thống thực hiện kiểm tra dữ liệu đầu vào. Dữ liệu hợp lệ, hệ thống tiến hành:</li>
+</ol>
+<ul class="list-disc pl-6 space-y-2 my-2.5 text-slate-655">
+<li class="pl-1">So sánh thông tin mới nhập với thông tin cũ của đơn để lấy ra danh sách các trường có sự thay đổi.</li>
+<li class="pl-1">Cập nhật đè dữ liệu mới vào bản ghi đơn hàng.</li>
+<li class="pl-1">Điều chỉnh số lượng sản phẩm tạm giữ trong kho khả dụng nếu Sales thay đổi tên sản phẩm hoặc số lượng sản phẩm.</li>
+<li class="pl-1">Ghi nhận nhật ký chỉnh sửa vào Lịch sử thay đổi đơn hàng (chứa: Thời gian, Tài khoản thực hiện, Tên trường thay đổi, Giá trị cũ, Giá trị mới).</li>
+</ul>
+<ol class="list-decimal pl-6 space-y-2 my-2.5 text-slate-655">
+<li class="pl-1">Hệ thống đóng popup chỉnh sửa, hiển thị thông báo thành công và cập nhật lại giao diện hiển thị chi tiết đơn.</li>
+</ol>
+<h5 class="font-bold text-slate-850 text-base mt-4 mb-2">Luồng ngoại lệ (Exceptions)</h5>
+<ul class="list-disc pl-6 space-y-2 my-2.5 text-slate-655">
+<li class="pl-1"><strong>UC-order-05.EX.1: Dữ liệu nhập sai quy định</strong>
+  <ul class="list-disc pl-6 space-y-1 my-1.5 text-slate-655">
+    <li class="pl-1">Tại bước 6, nếu SĐT sai định dạng, thiếu trường bắt buộc, hoặc file CO/CQ vượt quá 5MB.</li>
+    <li class="pl-1">Hệ thống chặn lưu, giữ nguyên popup và hiển thị thông báo lỗi chi tiết tại các trường tương ứng trên form.</li>
+  </ul>
+</li>
+<li class="pl-1"><strong>UC-order-05.EX.2: Xung đột thao tác đồng thời (Maker/Checker Race)</strong>
+  <ul class="list-disc pl-6 space-y-1 my-1.5 text-slate-655">
+    <li class="pl-1">Tại bước 5, khi Sales nhấn [Lưu] đúng lúc Admin vừa bấm Phê duyệt/Từ chối đơn hàng đó từ tài khoản của họ.</li>
+    <li class="pl-1">Hệ thống đối chiếu phiên bản dữ liệu và phát hiện phiên bản đã đổi. Hệ thống hủy giao dịch chỉnh sửa, đóng popup và báo lỗi: *"Đơn hàng đã được duyệt hoặc thay đổi bởi người khác. Vui lòng tải lại trang"*.</li>
+  </ul>
+</li>
+<li class="pl-1"><strong>UC-order-05.EX.3: Tồn kho thực tế không đủ đáp ứng</strong>
+  <ul class="list-disc pl-6 space-y-1 my-1.5 text-slate-655">
+    <li class="pl-1">Tại bước 6, nếu Sales chỉnh sửa tăng số lượng hoặc thay đổi sang sản phẩm khác mà số lượng yêu cầu lớn hơn tồn kho khả dụng thời gian thực tế của sản phẩm đó.</li>
+    <li class="pl-1">Hệ thống chặn không cho lưu, giữ nguyên popup và hiển thị thông báo lỗi: *"Số lượng yêu cầu vượt quá tồn kho khả dụng hiện tại (Còn lại: X sản phẩm)"*.</li>
+  </ul>
+</li>
+</ul>
+<p class="mt-2 text-slate-650">---</p>
+
+                    </div>
+        
+                    <h4 class="font-bold text-slate-800 text-sm">Đặc tả trường thông tin giao diện (Screen Fields)</h4>
+                    <div class="overflow-hidden border border-slate-200 rounded-xl"><table class="w-full border-collapse text-left text-sm bg-white"><thead class="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold"><tr><th class="p-4">STT</th><th class="p-4">Tên trường dữ liệu</th><th class="p-4">Định dạng</th><th class="p-4">Bắt buộc</th><th class="p-4">Chỉnh sửa?</th><th class="p-4">Mô tả chi tiết ràng buộc</th></tr></thead><tbody class="divide-y divide-slate-200 text-slate-600"><tr><td class="p-4 font-bold text-slate-800">1</td><td class="p-4 font-semibold text-slate-900">Họ Tên người nhận</td><td class="p-4">Textbox</td><td class="p-4">Y</td><td class="p-4">Y</td><td class="p-4">Cho phép sửa họ tên người nhận hàng.</td></tr><tr><td class="p-4 font-bold text-slate-800">2</td><td class="p-4 font-semibold text-slate-900">Số Điện Thoại</td><td class="p-4">Textbox</td><td class="p-4">Y</td><td class="p-4">Y</td><td class="p-4">Bắt buộc nhập. Số điện thoại di động Việt Nam gồm đúng 10 chữ số, bắt đầu bằng số <code class="bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded font-mono text-xs">0</code> (ví dụ: <code class="bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded font-mono text-xs">0901234567</code>).</td></tr><tr><td class="p-4 font-bold text-slate-800">3</td><td class="p-4 font-semibold text-slate-900">Tỉnh/Thành</td><td class="p-4">Droplist</td><td class="p-4">Y</td><td class="p-4">Y</td><td class="p-4">Cho phép chọn lại Tỉnh/Thành phố.</td></tr><tr><td class="p-4 font-bold text-slate-800">4</td><td class="p-4 font-semibold text-slate-900">Quận/Huyện</td><td class="p-4">Droplist</td><td class="p-4">Y</td><td class="p-4">Y</td><td class="p-4">Cho phép chọn lại Quận/Huyện theo Tỉnh/Thành.</td></tr><tr><td class="p-4 font-bold text-slate-800">5</td><td class="p-4 font-semibold text-slate-900">Phường/Xã</td><td class="p-4">Droplist</td><td class="p-4">Y</td><td class="p-4">Y</td><td class="p-4">Cho phép chọn lại Phường/Xã theo Quận/Huyện.</td></tr><tr><td class="p-4 font-bold text-slate-800">6</td><td class="p-4 font-semibold text-slate-900">Địa chỉ chi tiết</td><td class="p-4">Textbox</td><td class="p-4">Y</td><td class="p-4">Y</td><td class="p-4">Cho phép sửa số nhà, tên đường.</td></tr><tr><td class="p-4 font-bold text-slate-800">7</td><td class="p-4 font-semibold text-slate-900">Tên sản phẩm</td><td class="p-4">Searchbox</td><td class="p-4">Y</td><td class="p-4">Y</td><td class="p-4">Chọn sản phẩm từ danh mục sản phẩm của VietMec.</td></tr><tr><td class="p-4 font-bold text-slate-800">8</td><td class="p-4 font-semibold text-slate-900">Số lượng sản phẩm</td><td class="p-4">Number</td><td class="p-4">Y</td><td class="p-4">Y</td><td class="p-4">Bắt buộc. Số lượng sản phẩm phải > 0. Validate theo tồn kho khả dụng thời gian thực tế tại thời điểm lưu đơn (nếu số lượng đặt đơn > số tồn kho khả dụng -> chặn và báo lỗi).</td></tr><tr><td class="p-4 font-bold text-slate-800">9</td><td class="p-4 font-semibold text-slate-900">Đơn giá sản phẩm</td><td class="p-4">Number</td><td class="p-4">Y</td><td class="p-4">Y</td><td class="p-4">Bắt buộc. Giá bán của một đơn vị sản phẩm (VNĐ).</td></tr><tr><td class="p-4 font-bold text-slate-800">10</td><td class="p-4 font-semibold text-slate-900">Khối lượng</td><td class="p-4">Number</td><td class="p-4">Y</td><td class="p-4">Y</td><td class="p-4">Đơn vị: kg. Phải lớn hơn 0.</td></tr><tr><td class="p-4 font-bold text-slate-800">11</td><td class="p-4 font-semibold text-slate-900">Thu hộ (COD)</td><td class="p-4">Number</td><td class="p-4">Y</td><td class="p-4">N</td><td class="p-4">Bắt buộc nhập. Số tiền thu hộ COD = Đơn giá * Số lượng (hệ thống tự động tính toán, không cho sửa trực tiếp).</td></tr><tr><td class="p-4 font-bold text-slate-800">12</td><td class="p-4 font-semibold text-slate-900">File CO/CQ</td><td class="p-4">Upload</td><td class="p-4">N</td><td class="p-4">Y</td><td class="p-4">Đính kèm file CO/CQ của đơn hàng (tùy chọn). Dung lượng tệp phải ≤ 5 MB và có định dạng hỗ trợ là .pdf, .png, hoặc .jpg.</td></tr></tbody></table></div>
+        
+                    
+        
+                </div>
+                <!-- UC-06 -->
+
+                <div id="uc-06" class="p-8 bg-white border border-slate-200 rounded-2xl space-y-6 shadow-sm">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                        <h3 class="text-lg font-bold text-slate-900 font-title">UC-order-06 - Xử lý sự cố giao hàng thất bại</h3>
+                        <span class="px-2.5 py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-lg">N/A (P0)</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm bg-slate-50 p-4 rounded-xl">
+                        <div><strong>Tiền điều kiện:</strong>
+                            <ul class="list-disc pl-4 mt-1 space-y-1 text-slate-600">
+                                <li>Sales đăng nhập thành công vào hệ thống quản lý nội bộ.</li>
+                                <li>Đơn hàng phụ trách đang ở trạng thái <strong>Giao Thất Bại</strong> (giao hàng lỗi lần 1).</li>
+                            </ul>
+                        </div>
+                        <div><strong>Hậu điều kiện:</strong>
+                            <ul class="list-disc pl-4 mt-1 space-y-1 text-slate-600">
+                                <li>Nếu chọn giao lại:* Trạng thái đơn đổi về <strong>Đang Vận Chuyển</strong>, gửi API yêu cầu giao lại thành công sang đối tác 247Express.</li>
+                                <li>Nếu chọn hoàn hàng:* Trạng thái đơn hàng chuyển sang <strong>Chờ Hoàn Hàng</strong>, gọi API chuyển hoàn sang 247Express. Hệ thống tự động giải phóng tồn kho và cộng lại tồn kho thực tế ở kệ xuất cũ chỉ khi trạng thái đơn hàng cập nhật thành <strong>Đã Hoàn Hàng</strong> (đơn vị vận chuyển đã hoàn lại hàng thành công cho nhà cung cấp).</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <h4 class="font-bold text-slate-800 text-sm">Sơ đồ luồng xử lý (Flowchart)</h4>
+                    <div class="bg-slate-900 p-4 rounded-xl flex justify-center overflow-x-auto min-h-[250px]">
+                        <img class="plantuml-diagram select-none rounded-lg" data-puml="@startuml
+start
+:Nhận cảnh báo Telegram, click link mở chi tiết đơn;
+:Xem thông tin lý do giao lỗi của bưu tá;
+if (Quyết định xử lý của Sales?) then (Yêu cầu Giao lại lần 2)
+  :Nhấn nút [Yêu cầu Giao Lại];
+  :Portal gọi API điều phối giao lại sang 247Express;
+  :Đưa trạng thái đơn hàng quay về Đang Vận Chuyển;
+  :Báo thành công cho Sales;
+else (Xác nhận Hoàn Hàng)
+  :Nhấn nút [Xác nhận Hoàn Hàng];
+  :Portal gọi API yêu cầu chuyển hoàn sang 247Express;
+  :Chuyển trạng thái đơn thành Chờ Hoàn Hàng;
+  :Tự động cộng lại toàn bộ số lượng sp vào vị trí kho cũ;
+  :Báo hoàn hàng thành công, khóa đơn hàng;
+endif
+stop
+@enduml">
+                    </div>
+        
+                    <h4 class="font-bold text-slate-800 text-sm">Luồng sự kiện (Course of Events)</h4>
+                    <div class="space-y-3 text-sm text-slate-600">
+                        
+<h5 class="font-bold text-slate-850 text-base mt-4 mb-2">Luồng sự kiện thông thường (Normal Course)</h5>
+<ol class="list-decimal pl-6 space-y-2 my-2.5 text-slate-655">
+<li class="pl-1">Sales nhận tin nhắn cảnh báo sự cố từ Bot Telegram, nhấn vào link đính kèm.</li>
+<li class="pl-1">Giao diện hệ thống nội bộ hiển thị chi tiết đơn hàng giao lỗi kèm banner cảnh báo đỏ và lý do giao lỗi cụ thể từ bưu tá đối tác 247Express.</li>
+<li class="pl-1">Sales liên hệ với khách hàng qua điện thoại để làm rõ địa chỉ hoặc thời gian nhận hàng.</li>
+<li class="pl-1">Sales quyết định nhấn nút [Yêu cầu Giao Lại] trên hệ thống nội bộ.</li>
+<li class="pl-1">Hệ thống gửi yêu cầu giao lại sang giao diện API của đối tác 247Express.</li>
+<li class="pl-1">Đối tác 247Express phản hồi nhận yêu cầu thành công.</li>
+<li class="pl-1">Hệ thống chuyển trạng thái đơn hàng quay lại <strong>Đang Vận Chuyển</strong> để bưu tá tiếp tục đi giao lần 2.</li>
+</ol>
+<h5 class="font-bold text-slate-850 text-base mt-4 mb-2">Luồng thay thế (Alternative Courses)</h5>
+<p class="mt-2 text-slate-650"><strong>UC-order-06.AC.1: Sales xác nhận chuyển hoàn đơn hàng</strong></p>
+<ol class="list-decimal pl-6 space-y-2 my-2.5 text-slate-655">
+<li class="pl-1">Tại bước 4 của luồng chính, Sales không chọn giao lại mà nhấn nút [Xác nhận Hoàn Hàng].</li>
+<li class="pl-1">Hệ thống gửi yêu cầu chuyển hoàn sang API của đối tác 247Express.</li>
+<li class="pl-1">Đối tác 247Express xác nhận yêu cầu và cập nhật hành trình chuyển hoàn đơn hàng.</li>
+<li class="pl-1">Hệ thống chuyển trạng thái đơn hàng thành <strong>Chờ Hoàn Hàng</strong>.</li>
+<li class="pl-1">Khi bưu tá hoàn hàng thành công và trạng thái cập nhật thành <strong>Đã Hoàn Hàng</strong>, hệ thống tự động cộng lại tồn kho thực tế ở vị trí kệ xuất cũ.</li>
+</ol>
+<h5 class="font-bold text-slate-850 text-base mt-4 mb-2">Luồng ngoại lệ (Exceptions)</h5>
+<p class="mt-2 text-slate-650">Không có.</p>
+<p class="mt-2 text-slate-650">---</p>
+
+                    </div>
+        
+                    <h4 class="font-bold text-slate-800 text-sm">Đặc tả trường thông tin giao diện (Screen Fields)</h4>
+                    <div class="overflow-hidden border border-slate-200 rounded-xl"><table class="w-full border-collapse text-left text-sm bg-white"><thead class="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold"><tr><th class="p-4">STT</th><th class="p-4">Tên trường dữ liệu</th><th class="p-4">Định dạng</th><th class="p-4">Bắt buộc?</th><th class="p-4">Mô tả chi tiết ràng buộc</th></tr></thead><tbody class="divide-y divide-slate-200 text-slate-600"><tr><td class="p-4 font-bold text-slate-800">1</td><td class="p-4 font-semibold text-slate-900">Banner lý do giao lỗi</td><td class="p-4">Panel</td><td class="p-4">Y</td><td class="p-4">Hiển thị lý do giao lỗi từ bưu tá 247Express.</td></tr><tr><td class="p-4 font-bold text-slate-800">2</td><td class="p-4 font-semibold text-slate-900">Nút Yêu cầu Giao Lại</td><td class="p-4">Button</td><td class="p-4">Y</td><td class="p-4">Nhấn gửi API yêu cầu giao lại sang đối tác 247Express.</td></tr><tr><td class="p-4 font-bold text-slate-800">3</td><td class="p-4 font-semibold text-slate-900">Nút Xác nhận Hoàn Hàng</td><td class="p-4">Button</td><td class="p-4">Y</td><td class="p-4">Nhấn gửi API yêu cầu chuyển hoàn và hoàn trả tồn kho.</td></tr></tbody></table></div>
+        
+                    
+        
+                </div>
+                <!-- UC-07 -->
+
+                <div id="uc-07" class="p-8 bg-white border border-slate-200 rounded-2xl space-y-6 shadow-sm">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                        <h3 class="text-lg font-bold text-slate-900 font-title">UC-order-07 - Phát hành hóa đơn VAT (Kế toán)</h3>
+                        <span class="px-2.5 py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-lg">N/A (P0)</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm bg-slate-50 p-4 rounded-xl">
+                        <div><strong>Tiền điều kiện:</strong>
+                            <ul class="list-disc pl-4 mt-1 space-y-1 text-slate-600">
+                                <li>Kế toán đăng nhập thành công vào hệ thống nội bộ và có quyền "Quản lý hóa đơn".</li>
+                                <li>Đơn hàng đang ở trạng thái <strong>Giao Thành Công</strong>.</li>
+                            </ul>
+                        </div>
+                        <div><strong>Hậu điều kiện:</strong>
+                            <ul class="list-disc pl-4 mt-1 space-y-1 text-slate-600">
+                                <li>Hóa đơn điện tử VAT được phát hành và liên kết trực tiếp với mã đơn hàng trên hệ thống.</li>
+                                <li>Ghi nhận doanh thu đơn hàng và ghi nhận công nợ đơn hàng cho kế toán theo dõi.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <h4 class="font-bold text-slate-800 text-sm">Sơ đồ luồng xử lý (Flowchart)</h4>
+                    <div class="bg-slate-900 p-4 rounded-xl flex justify-center overflow-x-auto min-h-[250px]">
+                        <img class="plantuml-diagram select-none rounded-lg" data-puml="@startuml
+start
+:Truy cập danh sách đơn giao thành công;
+:Chọn đơn hàng cần phát hành hóa đơn;
+:Kiểm tra thông tin tiền hàng &amp; người nhận;
+:Nhấn nút [Phát hành Hóa đơn VAT];
+:Hệ thống kết nối dịch vụ hóa đơn điện tử phát hành;
+:Hóa đơn VAT được tạo &amp; gán vào chi tiết đơn hàng;
+:Hệ thống ghi nhận công nợ đơn hàng;
+:Báo phát hành hóa đơn thành công;
+stop
+@enduml">
+                    </div>
+        
+                    <h4 class="font-bold text-slate-800 text-sm">Luồng sự kiện (Course of Events)</h4>
+                    <div class="space-y-3 text-sm text-slate-600">
+                        
+<h5 class="font-bold text-slate-850 text-base mt-4 mb-2">Luồng sự kiện thông thường (Normal Course)</h5>
+<ol class="list-decimal pl-6 space-y-2 my-2.5 text-slate-655">
+<li class="pl-1">Kế toán truy cập trang danh sách đơn hàng đã giao thành công trên hệ thống quản lý nội bộ.</li>
+<li class="pl-1">Kế toán chọn đơn hàng cụ thể để xem thông tin chi tiết.</li>
+<li class="pl-1">Kế toán kiểm tra đối chiếu thông tin người mua, mặt hàng và giá trị tiền hàng thực tế.</li>
+<li class="pl-1">Kế toán điền thông tin thuế doanh nghiệp (nếu khách yêu cầu hóa đơn công ty) và nhấn nút [Phát hành Hóa đơn VAT].</li>
+<li class="pl-1">Hệ thống gửi yêu cầu phát hành hóa đơn sang dịch vụ hóa đơn điện tử tích hợp.</li>
+<li class="pl-1">Dịch vụ hóa đơn điện tử trả về số hóa đơn và file PDF hóa đơn VAT.</li>
+<li class="pl-1">Hệ thống lưu trữ thông tin hóa đơn, liên kết trực tiếp vào đơn hàng và cập nhật trạng thái hóa đơn là *Đã phát hành*.</li>
+</ol>
+<h5 class="font-bold text-slate-850 text-base mt-4 mb-2">Luồng thay thế (Alternative Courses)</h5>
+<p class="mt-2 text-slate-650">Không có.</p>
+<h5 class="font-bold text-slate-850 text-base mt-4 mb-2">Luồng ngoại lệ (Exceptions)</h5>
+<ul class="list-disc pl-6 space-y-2 my-2.5 text-slate-655">
+<li class="pl-1"><strong>UC-order-07.EX.1: Quá hạn 24 giờ chưa xuất hóa đơn</strong>
+  <ul class="list-disc pl-6 space-y-1 my-1.5 text-slate-655">
+    <li class="pl-1">Tại bước 1 của luồng chính, nếu đơn hàng đã ở trạng thái <strong>Giao Thành Công</strong> quá 24 giờ làm việc mà chưa được xuất hóa đơn điện tử VAT.</li>
+    <li class="pl-1">Hệ thống tự động đổi màu dòng đơn hàng thành màu đỏ và hiển thị icon cảnh báo quá hạn trên giao diện của Kế toán.</li>
+    <li class="pl-1">Hệ thống tự động gửi email cảnh báo hàng ngày cho bộ phận Kế toán.</li>
+  </ul>
+</li>
+</ul>
+<p class="mt-2 text-slate-650">---</p>
+
+                    </div>
+        
+                    <h4 class="font-bold text-slate-800 text-sm">Đặc tả trường thông tin giao diện (Screen Fields)</h4>
+                    <div class="overflow-hidden border border-slate-200 rounded-xl"><table class="w-full border-collapse text-left text-sm bg-white"><thead class="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold"><tr><th class="p-4">STT</th><th class="p-4">Tên trường dữ liệu</th><th class="p-4">Định dạng</th><th class="p-4">Bắt buộc?</th><th class="p-4">Mô tả chi tiết ràng buộc</th></tr></thead><tbody class="divide-y divide-slate-200 text-slate-600"><tr><td class="p-4 font-bold text-slate-800">1</td><td class="p-4 font-semibold text-slate-900">Nút Phát hành Hóa đơn VAT</td><td class="p-4">Button</td><td class="p-4">Y</td><td class="p-4">Nhấn để kích hoạt phát hành hóa đơn điện tử.</td></tr><tr><td class="p-4 font-bold text-slate-800">2</td><td class="p-4 font-semibold text-slate-900">Mã số thuế (MST)</td><td class="p-4">Textbox</td><td class="p-4">N</td><td class="p-4">Nhập mã số thuế doanh nghiệp (khi xuất hóa đơn cty).</td></tr><tr><td class="p-4 font-bold text-slate-800">3</td><td class="p-4 font-semibold text-slate-900">Tên công ty / Doanh nghiệp</td><td class="p-4">Textbox</td><td class="p-4">N</td><td class="p-4">Nhập tên doanh nghiệp tương ứng.</td></tr><tr><td class="p-4 font-bold text-slate-800">4</td><td class="p-4 font-semibold text-slate-900">Email nhận hóa đơn</td><td class="p-4">Textbox</td><td class="p-4">N</td><td class="p-4">Nhập địa chỉ email của khách hàng để hệ thống gửi hóa đơn VAT.</td></tr></tbody></table></div>
+        
+                    
+        
+                </div>
+                <!-- UC-08 -->
+
+                <div id="uc-08" class="p-8 bg-white border border-slate-200 rounded-2xl space-y-6 shadow-sm">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                        <h3 class="text-lg font-bold text-slate-900 font-title">UC-order-08 - Đối soát COD & Tất toán (Kế toán)</h3>
+                        <span class="px-2.5 py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-lg">N/A (P0)</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm bg-slate-50 p-4 rounded-xl">
+                        <div><strong>Tiền điều kiện:</strong>
+                            <ul class="list-disc pl-4 mt-1 space-y-1 text-slate-600">
+                                <li>Kế toán đăng nhập thành công vào hệ thống quản lý nội bộ.</li>
+                                <li>Đơn hàng ở trạng thái <strong>Giao Thành Công</strong> và đã có thông tin hóa đơn điện tử VAT (<em>Đã phát hành</em>).</li>
+                            </ul>
+                        </div>
+                        <div><strong>Hậu điều kiện:</strong>
+                            <ul class="list-disc pl-4 mt-1 space-y-1 text-slate-600">
+                                <li>If khớp:<em> Công nợ đơn hàng được tất toán tự động thành công (Trạng thái công nợ: </em>Đã tất toán*).</li>
+                                <li>If lệch:* Đơn hàng chuyển sang trạng thái <strong>Lệch Đối Soát</strong>, gắn cờ cảnh báo đỏ, khóa tính năng tất toán tự động để kế toán xử lý chênh lệch thủ công.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <h4 class="font-bold text-slate-800 text-sm">Sơ đồ luồng xử lý (Flowchart)</h4>
+                    <div class="bg-slate-900 p-4 rounded-xl flex justify-center overflow-x-auto min-h-[250px]">
+                        <img class="plantuml-diagram select-none rounded-lg" data-puml="@startuml
+start
+:Nạp dữ liệu bảng kê đối soát COD từ 247Express;
+:Portal thực hiện so khớp tự động theo mã vận đơn;
+if (Số tiền COD thực thu có khớp với hóa đơn đơn hàng?) then (Có - Khớp 100%)
+  :Tự động tất toán công nợ đơn hàng;
+  :Cập nhật trạng thái thanh toán đơn là Đã tất toán;
+  :Báo đối soát thành công đơn hàng;
+else (Không - Lệch tiền)
+  :Chuyển trạng thái sang Lệch Đối Soát;
+  :Gắn cờ cảnh báo đỏ và khóa tính năng tất toán tự động;
+  :Kế toán kiểm tra chênh lệch chi tiết;
+  :Đối chiếu xử lý thủ công với 247Express;
+  :Kế toán tất toán thủ công đơn hàng;
+endif
+stop
+@enduml">
+                    </div>
+        
+                    <h4 class="font-bold text-slate-800 text-sm">Luồng sự kiện (Course of Events)</h4>
+                    <div class="space-y-3 text-sm text-slate-600">
+                        
+<h5 class="font-bold text-slate-850 text-base mt-4 mb-2">Luồng sự kiện thông thường (Normal Course)</h5>
+<ol class="list-decimal pl-6 space-y-2 my-2.5 text-slate-655">
+<li class="pl-1">Kế toán truy cập phân hệ Đối soát Công nợ trên hệ thống quản lý nội bộ.</li>
+<li class="pl-1">Kế toán nạp tệp dữ liệu bảng kê đối soát COD (định dạng Excel) nhận được từ đối tác vận chuyển 247Express lên hệ thống.</li>
+<li class="pl-1">Hệ thống tự động đọc dữ liệu, thực hiện so khớp mã vận đơn và số tiền COD thu hộ thực tế.</li>
+<li class="pl-1">Hệ thống so sánh tiền COD thực tế đối tác đã chuyển khoản với giá trị hóa đơn VAT tương ứng.</li>
+<li class="pl-1">Hệ thống phát hiện số tiền COD khớp hoàn toàn 100% với giá trị hóa đơn.</li>
+<li class="pl-1">Hệ thống tự động tất toán công nợ đơn hàng, cập nhật trạng thái thanh toán là *Đã tất toán* và ghi nhận lịch sử thanh toán thành công.</li>
+</ol>
+<h5 class="font-bold text-slate-850 text-base mt-4 mb-2">Luồng thay thế (Alternative Courses)</h5>
+<p class="mt-2 text-slate-650"><strong>UC-order-08.AC.1: Phát hiện chênh lệch tiền đối soát (Lệch công nợ)</strong></p>
+<ol class="list-decimal pl-6 space-y-2 my-2.5 text-slate-655">
+<li class="pl-1">Tại bước 5 của luồng chính, hệ thống phát hiện số tiền COD thực thu lệch so với giá trị hóa đơn (do bưu tá thu sai hoặc đối tác tính sai chi phí).</li>
+<li class="pl-1">Hệ thống tự động chuyển trạng thái đơn hàng sang <strong>Lệch Đối Soát</strong> và gắn cờ cảnh báo đỏ.</li>
+<li class="pl-1">Hệ thống khóa tính năng tất toán tự động đối với đơn hàng này.</li>
+<li class="pl-1">Kế toán thực hiện xem chi tiết chênh lệch trên trang đối soát chi tiết.</li>
+<li class="pl-1">Kế toán liên hệ đối tác 247Express xử lý chênh lệch nghiệp vụ thủ công.</li>
+<li class="pl-1">Sau khi xử lý xong, Kế toán thực hiện nhấn nút [Tất toán thủ công] để cập nhật trạng thái đơn thành *Đã tất toán* và ghi nhận lý do điều chỉnh công nợ.</li>
+</ol>
+<h5 class="font-bold text-slate-850 text-base mt-4 mb-2">Luồng ngoại lệ (Exceptions)</h5>
+<p class="mt-2 text-slate-650">Không có.</p>
+<p class="mt-2 text-slate-650">---</p>
+
+                    </div>
+        
+                    <h4 class="font-bold text-slate-800 text-sm">Đặc tả trường thông tin giao diện (Screen Fields)</h4>
+                    <div class="overflow-hidden border border-slate-200 rounded-xl"><table class="w-full border-collapse text-left text-sm bg-white"><thead class="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold"><tr><th class="p-4">STT</th><th class="p-4">Tên trường dữ liệu</th><th class="p-4">Định dạng</th><th class="p-4">Bắt buộc?</th><th class="p-4">Mô tả chi tiết ràng buộc</th></tr></thead><tbody class="divide-y divide-slate-200 text-slate-600"><tr><td class="p-4 font-bold text-slate-800">1</td><td class="p-4 font-semibold text-slate-900">Nút Nạp File đối soát</td><td class="p-4">Button</td><td class="p-4">Y</td><td class="p-4">Nhấp tải file Excel đối soát từ đối tác 247Express.</td></tr><tr><td class="p-4 font-bold text-slate-800">2</td><td class="p-4 font-semibold text-slate-900">Bảng đối soát hiển thị</td><td class="p-4">View</td><td class="p-4">Y</td><td class="p-4">Hiển thị: Mã đơn, Mã vận đơn, Tiền HĐ, Tiền COD, Phí ship, Trạng thái (Khớp/Lệch).</td></tr><tr><td class="p-4 font-bold text-slate-800">3</td><td class="p-4 font-semibold text-slate-900">Nút Tất toán thủ công</td><td class="p-4">Button</td><td class="p-4">Y (khi lệch)</td><td class="p-4">Nhấn ghi đè trạng thái công nợ sang *Đã tất toán* sau khi xử lý lệch tay.</td></tr></tbody></table></div>
+        
+                    
+        
+                </div>
+                <!-- UC-09 -->
+
+                
+                
+                
+                
+                
+                <div id="uc-09" class="p-8 bg-white border border-slate-200 rounded-2xl space-y-6 shadow-sm">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                        <h3 class="text-lg font-bold text-slate-900 font-title">UC-order-09 - Nhập Bổ Sung Tồn Kho</h3>
+                        <span class="px-2.5 py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-lg">Thủ kho (P0 - Quan trọng bậc nhất)</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm bg-slate-50 p-4 rounded-xl">
+                        <div><strong>Tiền điều kiện:</strong>
+                            <ul class="list-disc pl-4 mt-1 space-y-1 text-slate-600">
+                                <li>Thủ kho đăng nhập thành công vào hệ thống quản lý nội bộ.</li>
+                                <li>Thủ kho được phân quyền "Quản lý tồn kho".</li>
+                            </ul>
+                        </div>
+                        <div><strong>Hậu điều kiện:</strong>
+                            <ul class="list-disc pl-4 mt-1 space-y-1 text-slate-600">
+                                <li>Số lượng tồn kho khả dụng của sản phẩm được cộng dồn chính xác lượng nhập thêm.</li>
+                                <li>Ghi nhận lịch sử giao dịch kho (Audit Log) đầy đủ.</li>
+                                <li>File đính kèm CO/CQ (nếu có) được lưu trữ và liên kết thành công với lịch sử nhập kho.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <h4 class="font-bold text-slate-800 text-sm">Sơ đồ luồng xử lý (Flowchart)</h4>
+                    <div class="bg-slate-900 p-4 rounded-xl flex justify-center overflow-x-auto min-h-[250px]">
+                        <img class="plantuml-diagram select-none rounded-lg" data-puml="@startuml
+start
+:Thủ kho truy cập trang Quản lý tồn kho;
+:Hệ thống hiển thị danh sách sản phẩm;
+:Chọn sản phẩm & Nhấn [Nhập bổ sung];
+:Nhập số lượng bổ sung (>0) & Tải chứng từ (nếu có);
+if (Kiểm tra dữ liệu nhập có hợp lệ?) then (Có - Hợp lệ)
+  :Cộng dồn số lượng vào tồn kho khả dụng;
+  :Ghi nhật ký giao dịch nhập kho;
+  :Hiển thị thông báo thành công;
+else (Không - Lỗi)
+  :Hiển thị thông báo lỗi chi tiết;
+  :Yêu cầu chỉnh sửa dữ liệu;
+endif
+stop
+@enduml">
+                    </div>
+        
+                    <h4 class="font-bold text-slate-800 text-sm">Luồng sự kiện (Course of Events)</h4>
+                    <div class="space-y-3 text-sm text-slate-600">
+                        <h5 class="font-bold text-slate-850 text-base mt-4 mb-2">Luồng sự kiện thông thường (Normal Course)</h5>
+<ol class="list-decimal pl-6 space-y-2 my-2.5 text-slate-655">
+<li class="pl-1">Thủ kho truy cập phân hệ <strong>Quản lý Tồn kho</strong> trên thanh điều hướng của Portal nội bộ.</li>
+<li class="pl-1">Hệ thống hiển thị danh sách toàn bộ các sản phẩm của hệ thống kèm theo: Mã sản phẩm, Tên sản phẩm, Vị trí kệ kho, và Số lượng khả dụng hiện tại.</li>
+<li class="pl-1">Thủ kho tìm kiếm sản phẩm cần cập nhật, sau đó nhấn nút <strong>[Nhập bổ sung]</strong> tại dòng sản phẩm tương ứng.</li>
+<li class="pl-1">Hệ thống hiển thị Form/Popup nhập bổ sung hàng tồn kho gồm các trường thông tin:</li>
+<li class="pl-1">Tên sản phẩm (Chỉ đọc)</li>
+<li class="pl-1">Số lượng khả dụng hiện tại (Chỉ đọc)</li>
+<li class="pl-1">Số lượng nhập thêm (*)</li>
+<li class="pl-1">Tài liệu chứng từ đính kèm/CO/CQ (Tùy chọn - Tải file)</li>
+<li class="pl-1">Thủ kho nhập số lượng là số nguyên dương lớn hơn 0 và chọn tệp chứng từ đính kèm (nếu có), sau đó nhấn nút <strong>[Xác nhận]</strong>.</li>
+<li class="pl-1">Hệ thống thực hiện kiểm tra kiểm thực (validation) dữ liệu. Dữ liệu hợp lệ, hệ thống tiến hành:</li>
+<li class="pl-1">Cộng dồn số lượng nhập thêm vào số lượng khả dụng của sản phẩm.</li>
+<li class="pl-1">Ghi nhận Nhật ký giao dịch nhập kho (thời gian, tài khoản Thủ kho thực hiện, mã sản phẩm, số lượng ban đầu, số lượng nhập thêm, số lượng sau cập nhật, và liên kết tải file chứng từ nếu có).</li>
+<li class="pl-1">Hệ thống hiển thị thông báo thành công và cập nhật số lượng tồn kho khả dụng mới ngay trên màn hình danh sách.</li>
+</ol>
+                        <h5 class="font-bold text-slate-850 text-base mt-4 mb-2">Luồng ngoại lệ (Exceptions)</h5>
+<ul class="list-disc pl-6 space-y-2 my-2.5 text-slate-655">
+<li class="pl-1">UC-order-09.EX.1: Số lượng nhập không hợp lệ:<em></em>
+  <ul class="list-disc pl-6 space-y-1 my-1.5 text-slate-655">
+    <li class="pl-1">Tại bước 5, nếu Thủ kho nhập số lượng bằng 0, số âm, không phải là số nguyên hoặc để trống, hệ thống sẽ chặn thao tác và hiển thị thông báo lỗi tại trường nhập liệu: <em>"Số lượng nhập bổ sung bắt buộc phải là số nguyên dương lớn hơn 0"</em>.</li>
+  </ul>
+</li>
+<li class="pl-1">UC-order-09.EX.2: Tệp đính kèm không đúng định dạng hoặc quá dung lượng:<em></em>
+  <ul class="list-disc pl-6 space-y-1 my-1.5 text-slate-655">
+    <li class="pl-1">Tại bước 5, nếu Thủ kho tải lên tệp đính kèm có dung lượng lớn hơn 5MB hoặc định dạng không phải là PDF, PNG, JPG, hệ thống sẽ hiển thị thông báo lỗi: <em>"Dung lượng tệp đính kèm vượt quá giới hạn 5MB hoặc định dạng không được hỗ trợ. Vui lòng chọn tệp khác."</em> và chặn không cho lưu.</li>
+  </ul>
+</li>
+</ul>
+                    </div>
+        
+                    <h4 class="font-bold text-slate-800 text-sm">Đặc tả trường thông tin giao diện (Screen Fields)</h4>
+                    <div class="overflow-hidden border border-slate-200 rounded-xl"><table class="w-full border-collapse text-left text-sm bg-white"><thead class="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold"><tr><th class="p-4">Trường thông tin</th><th class="p-4">Loại dữ liệu</th><th class="p-4">Ràng buộc dữ liệu</th><th class="p-4">Mô tả chi tiết</th></tr></thead><tbody class="divide-y divide-slate-200 text-slate-600">
+<tr><td class="p-4 font-bold text-slate-800">**Số lượng nhập thêm**</td><td class="p-4 font-semibold text-slate-900">Số nguyên (Integer)</td><td class="p-4">Bắt buộc, phải > 0.</td><td class="p-4">Số lượng sản phẩm vật lý thực tế nhập thêm vào kho khả dụng.</td></tr>
+<tr><td class="p-4 font-bold text-slate-800">**Tài liệu chứng từ đính kèm**</td><td class="p-4 font-semibold text-slate-900">Tệp tin (File)</td><td class="p-4">Bắt buộc. Chứng từ CO/CQ nhập kho bổ sung, dung lượng tệp phải ≤ 5 MB. Định dạng hỗ trợ: .pdf, .png, .jpg.</td><td class="p-4"></td></tr>
+</tbody></table></div>
+                </div>
+
+            </section>
+            <!-- 6. PHÁC THẢO GIAO DIỆN (WIREFRAMES) -->
+            <section id="wireframes" class="space-y-6">
+                <h2 class="text-2xl font-bold text-slate-900 font-title flex items-center gap-2.5 pb-2 border-b border-slate-100">
+                    <span class="text-blue-600">6.</span> Phác thảo Giao diện (Wireframes) & Prototype
+                </h2>
+                
+                <div class="space-y-12">
+                    
+                    <!-- Screen 6.1 -->
+                    <div class="space-y-3" id="screen-6.1">
+                        <h4 class="font-bold text-slate-850 text-base">6.1 Màn hình Dashboard Tổng quan</h4>
+                        <div class="bg-slate-900 rounded-2xl p-6 overflow-x-auto flex justify-center">
+                            <pre class="font-mono text-slate-100 text-[11px] sm:text-xs md:text-sm lg:text-base xl:text-lg leading-none select-none">┌────────────────────────────────────────────────────────────┐
+│ [Hệ Thống Theo Dõi Đơn]        [User: Admin] [Đăng xuất]   │
+├────────────────────────────────────────────────────────────┤
+│ TỔNG QUAN HÔM NAY (1/7/2026)             [+ Tạo Đơn Nhanh] │
+│                                                            │
+│ ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐ │
+│ │ Chờ Giao  │ │ Đang Giao │ │Thành Công │ │ Thất Bại  │ │ Hoàn Hàng │ │
+│ │    12     │ │    32     │ │    96     │ │     2     │ │     3     │ │
+│ └───────────┘ └───────────┘ └───────────┘ └───────────┘ └───────────┘ │
+│                                                            │
+│ TÌNH TRẠNG CHUNG THEO TUẦN (Biểu đồ)                       │
+│    100 |   * * *                                           │
+│     50 | *       * *                                       │
+│      0 |_____________                                      │
+│         T2 T3 T4 T5 T6                                     │
+└────────────────────────────────────────────────────────────┘</pre>
+                        </div>
+                        <div class="text-sm text-slate-600 space-y-2 mt-2 pl-4 border-l-2 border-slate-200">
+                            <strong>UI-Rules & Đề xuất UX:</strong>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li>**Thẻ Thống kê:** Hiển thị màu sắc tương ứng (Xanh dương = Chờ giao, Vàng = Đang giao, Xanh lá = Giao thành công, Đỏ = Thất bại, Đỏ sẫm = Hoàn hàng). Click vào thẻ sẽ điều hướng tới trang Danh sách Đơn hàng với filter tương ứng được tự động áp dụng.</li>
+                                <li>**Biểu đồ:** Sử dụng bar chart (hoặc line chart) đơn giản để Sales/Admin nắm được xu hướng.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Screen 6.2 -->
+                    <div class="space-y-3" id="screen-6.2">
+                        <h4 class="font-bold text-slate-850 text-base">6.2 Quản lý Danh sách Đơn hàng</h4>
+                        <div class="bg-slate-900 rounded-2xl p-6 overflow-x-auto flex justify-center">
+                            <pre class="font-mono text-slate-100 text-[11px] sm:text-xs md:text-sm lg:text-base xl:text-lg leading-none select-none">┌────────────────────────────────────────────────────────────┐
+│ QUẢN LÝ DANH SÁCH ĐƠN HÀNG                                 │
+├────────────────────────────────────────────────────────────┤
+│ Tìm kiếm: [ Nhập mã/SĐT...       ]   Trạng thái: [Tất cả v]│
+│ ┌────────────────────────────────────────────────────────┐ │
+│ │ Mã Đơn    | Khách Hàng      | Trạng thái  | Thao tác   │ │
+│ ├────────────────────────────────────────────────────────┤ │
+│ │ 247-00123 | Nguyen Van A    | Đang Giao   | [Xem] [In] │ │
+│ │ 247-00124 | Tran Thi B      | Thành Công  | [Xem] [In] │ │
+│ │ 247-00125 | Le Van C        | Hoàn Hàng(!)| [Xem] [In] │ │
+│ └────────────────────────────────────────────────────────┘ │
+│ Trang: < 1 2 3 >                                           │
+└────────────────────────────────────────────────────────────┘</pre>
+                        </div>
+                        <div class="text-sm text-slate-600 space-y-2 mt-2 pl-4 border-l-2 border-slate-200">
+                            <strong>UI-Rules & Đề xuất UX:</strong>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li>**Thanh Tìm kiếm:** Hỗ trợ tìm kiếm realtime (debounce 500ms) theo Mã vận đơn, Tên KH, hoặc Số điện thoại.</li>
+                                <li>**Bộ lọc Trạng thái:** Hỗ trợ lọc danh sách đơn theo 5 trạng thái: Tất cả, Chờ Giao, Đang Vận Chuyển, Giao Thành Công, Giao Thất Bại, Chờ Hoàn Hàng.</li>
+                                <li>**Trạng thái (Status Badge):** "Hoàn Hàng" hoặc "Thất bại" cần có icon cảnh báo (Warning Icon) màu đỏ để gây sự chú ý.</li>
+                                <li>**Phân trang (Pagination):** Mặc định hiển thị 20 dòng/trang để tối ưu không gian hiển thị.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Screen 6.3 -->
+                    <div class="space-y-3" id="screen-6.3">
+                        <h4 class="font-bold text-slate-850 text-base">6.3 Tạo Đơn Vận Chuyển Mới</h4>
+                        <div class="bg-slate-900 rounded-2xl p-6 overflow-x-auto flex justify-center">
+                            <pre class="font-mono text-slate-100 text-[11px] sm:text-xs md:text-sm lg:text-base xl:text-lg leading-none select-none">┌────────────────────────────────────────────────────────────┐
+│ TẠO ĐƠN VẬN CHUYỂN MỚI (Tích hợp 247Express)               │
+├────────────────────────────────────────────────────────────┤
+│ THÔNG TIN NGƯỜI NHẬN:                                      │
+│ Họ Tên (*):  [ Nhập họ và tên người nhận             ]     │
+│ SĐT (*):     [ Nhập số điện thoại                    ]     │
+│ Địa chỉ (*): [ Nhập địa chỉ chi tiết                 ]     │
+│                                                            │
+│ THÔNG TIN HÀNG HOÁ:                                        │
+│ Tên SP (*):  [ Nhập tên sản phẩm                     ]     │
+│ Khối lượng:  [ 1.5 ] kg         Thu Hộ (COD): [ 0 đ  ]     │
+│                                                            │
+│ TÀI LIỆU ĐÍNH KÈM:                                         │
+│ File CO/CQ:  [ Chọn Tệp... ] (Chưa có tệp nào được chọn)   │
+│                                                            │
+│ [ Hủy Bỏ ]                                [ Xác Nhận Tạo ] │
+└────────────────────────────────────────────────────────────┘</pre>
+                        </div>
+                        <div class="text-sm text-slate-600 space-y-2 mt-2 pl-4 border-l-2 border-slate-200">
+                            <strong>UI-Rules & Đề xuất UX:</strong>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li>**Validate:** Các trường có dấu `(*)` là bắt buộc. Nút "Xác Nhận Tạo" sẽ bị disable nếu chưa nhập đủ thông tin bắt buộc.</li>
+                                <li>**SĐT:** Validate số điện thoại định dạng Việt Nam (10 số, bắt đầu bằng 0).</li>
+                                <li>**Loading State:** Khi nhấn "Xác Nhận Tạo", nút chuyển sang trạng thái Loading (Spinner) và disable toàn bộ form để chờ phản hồi từ API 247Express.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Screen 6.4 -->
+                    <div class="space-y-3" id="screen-6.4">
+                        <h4 class="font-bold text-slate-850 text-base">6.4 Chi tiết Đơn hàng & Tracking</h4>
+                        <div class="bg-slate-900 rounded-2xl p-6 overflow-x-auto flex justify-center">
+                            <pre class="font-mono text-slate-100 text-[11px] sm:text-xs md:text-sm lg:text-base xl:text-lg leading-none select-none">┌────────────────────────────────────────────────────────────┐
+│ CHI TIẾT ĐƠN HÀNG: #247-00123           Trạng thái: ACTIVE │
+├────────────────────────────────────────────────────────────┤
+│ KHÁCH HÀNG: Nguyen Van A  | SĐT: 090xxxxxxx                │
+│ HÀNG HOÁ: Macbook Pro M3  | COD: 0 đ                       │
+│ ────────────────────────────────────────────────────────── │
+│ LỊCH SỬ TRACKING (Cập nhật từ 247Express)                  │
+│ (v) 10:00 - Tạo đơn thành công (Mã vận đơn: 247XYZ123)     │
+│ (v) 14:00 - Bưu tá đã lấy hàng                             │
+│ ( ) ...   - Đang giao hàng (Chờ cập nhật)                  │
+│                                                            │
+│ LỊCH SỬ THÔNG BÁO (Notifications)                          │
+│ [OK] Gửi SMS Brandname lúc 10:01 cho Khách hàng            │
+│ [OK] Bắn cảnh báo Telegram tới group Sales lúc 14:01       │
+│                                                            │
+│ [ In Phiếu Xuất Kho ]                       [ Quay Lại ]   │
+│ └────────────────────────────────────────────────────────────┘</pre>
+                        </div>
+                        <div class="text-sm text-slate-600 space-y-2 mt-2 pl-4 border-l-2 border-slate-200">
+                            <strong>UI-Rules & Đề xuất UX:</strong>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li>**Tracking Timeline:** Hiển thị dạng Timeline dọc, tick xanh `(v)` cho các bước đã hoàn tất. Bước hiện tại nhấp nháy hoặc làm nổi bật.</li>
+                                <li>*Trạng thái Chờ Giao (Pending):* Chỉ hiển thị mốc "Tạo đơn thành công" (tick xanh), còn mốc "Bưu tá đã lấy hàng" và "Đang giao hàng" hiển thị dạng chờ `( ) ...` và làm mờ chữ.</li>
+                                <li>**Log Thông báo:** Liệt kê các trạng thái gửi SMS/Telegram để Admin/Sales dễ dàng đối chiếu nếu khách khiếu nại chưa nhận được tin.</li>
+                                <li>*Trạng thái Chờ Giao (Pending):* Chỉ có dòng thông báo SMS (gửi lúc tạo đơn), ẩn dòng thông báo Telegram bắn tới group Sales.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Screen 6.5 -->
+                    <div class="space-y-3" id="screen-6.5">
+                        <h4 class="font-bold text-slate-850 text-base">6.5 Màn hình Tạo Đơn - Trạng thái Lỗi (Validation & API Error)</h4>
+                        <div class="bg-slate-900 rounded-2xl p-6 overflow-x-auto flex justify-center">
+                            <pre class="font-mono text-slate-100 text-[11px] sm:text-xs md:text-sm lg:text-base xl:text-lg leading-none select-none">┌────────────────────────────────────────────────────────────┐
+│ TẠO ĐƠN VẬN CHUYỂN MỚI (Tích hợp 247Express)               │
+├────────────────────────────────────────────────────────────┤
+│ [!] LỖI KẾT NỐI: Không thể kết nối tới API 247Express.     │
+│     Đường truyền gián đoạn. [ Thử Lại ]                    │
+├────────────────────────────────────────────────────────────┤
+│ THÔNG TIN NGƯỜI NHẬN:                                      │
+│ Họ Tên (*):  [ Nhập họ và tên người nhận             ]     │
+│              [!] Họ tên không được để trống                │
+│ SĐT (*):     [ 09012                                 ]     │
+│              [!] Số điện thoại phải đủ 10 chữ số           │
+│ Địa chỉ (*): [ Nhập địa chỉ chi tiết                 ]     │
+│                                                            │
+│ THÔNG TIN HÀNG HOÁ:                                        │
+│ Tên SP (*):  [ Macbook Pro M3                        ]     │
+│ Khối lượng:  [ 0   ] kg         Thu Hộ (COD): [ 0 đ  ]     │
+│              [!] Khối lượng phải lớn hơn 0 kg              │
+│                                                            │
+│ TÀI LIỆU ĐÍNH KÈM:                                         │
+│ File CO/CQ:  [ Chọn Tệp... ] (file_co_cq_qua_lon.pdf)      │
+│              [!] Dung lượng file vượt quá giới hạn 5MB     │
+│                                                            │
+│ [ Hủy Bỏ ]                                [ Xác Nhận Tạo ] │
+└────────────────────────────────────────────────────────────┘</pre>
+                        </div>
+                        <div class="text-sm text-slate-600 space-y-2 mt-2 pl-4 border-l-2 border-slate-200">
+                            <strong>UI-Rules & Đề xuất UX:</strong>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li>**Inline Error Alert:** Hiển thị chữ màu đỏ ngay phía dưới ô nhập liệu bị lỗi, đường viền của ô nhập liệu chuyển sang màu đỏ (Border-Danger).</li>
+                                <li>**Global Error Banner:** Khi xảy ra lỗi hệ thống hoặc kết nối API ngoài (Timeout 247Express), hiển thị banner đỏ nổi bật trên cùng kèm nút "Thử Lại" (Retry) để kích hoạt gửi lại request mà không làm mất thông tin đã điền.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Screen 6.6 -->
+                    <div class="space-y-3" id="screen-6.6">
+                        <h4 class="font-bold text-slate-850 text-base">6.6 Màn hình Chi tiết Đơn hàng - Giao Thất Bại & Xử lý Hoàn Hàng</h4>
+                        <div class="bg-slate-900 rounded-2xl p-6 overflow-x-auto flex justify-center">
+                            <pre class="font-mono text-slate-100 text-[11px] sm:text-xs md:text-sm lg:text-base xl:text-lg leading-none select-none">┌────────────────────────────────────────────────────────────┐
+│ CHI TIẾT ĐƠN HÀNG: #247-00125        Trạng thái: THẤT BẠI │
+├────────────────────────────────────────────────────────────┤
+│ [!] CẢNH BÁO: Đơn hàng giao không thành công lần 1.        │
+│     Lý do từ bưu tá: "Khách hàng thuê bao không liên lạc   │
+│     được khi giao hàng".                                   │
+│     [ Yêu cầu Giao Lại (lần 2) ]  [ Xác nhận Hoàn Hàng ]   │
+├────────────────────────────────────────────────────────────┤
+│ KHÁCH HÀNG: Le Van C      | SĐT: 0933444555                │
+│ HÀNG HOÁ: Macbook Pro M3  | COD: 15,000,000 đ              │
+│ ────────────────────────────────────────────────────────── │
+│ LỊCH SỬ TRACKING (Cập nhật từ 247Express)                  │
+│ (v) 08:00 - Bưu tá đã lấy hàng thành công                  │
+│ (v) 11:30 - Bưu tá đang đi giao hàng                       │
+│ (x) 16:00 - Giao hàng thất bại (Khách không nghe máy)      │
+│                                                            │
+│ LỊCH SỬ THÔNG BÁO (Notifications)                          │
+│ [OK] Bắn cảnh báo Telegram tới group Sales lúc 16:02       │
+│ [!] LỖI: Gửi SMS Brandname thất bại (Nhà mạng lỗi) [Gửi lại]│
+│                                                            │
+│ [ In Phiếu Xuất Kho ]                       [ Quay Lại ]   │
+└────────────────────────────────────────────────────────────┘</pre>
+                        </div>
+                        <div class="text-sm text-slate-600 space-y-2 mt-2 pl-4 border-l-2 border-slate-200">
+                            <strong>UI-Rules & Đề xuất UX:</strong>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li>**Action Banner:** Khi đơn hàng rơi vào trạng thái cảnh báo ("Giao thất bại", "Chờ hoàn hàng"), Sales/Admin cần có banner hướng dẫn xử lý nổi bật ở đầu trang chi tiết kèm 2 nút hành động nhanh để điều phối (Giao lại / Hoàn hàng).</li>
+                                <li>**Timeline Error Point:** Điểm checkpoint thất bại cuối cùng hiển thị màu đỏ (Danger color) kèm icon chéo `(x)` thay vì xanh lá, giúp nhận biết điểm dừng lỗi của đơn.</li>
+                                <li>**Retry Notification:** Với các notification bị lỗi gửi (chữ đỏ), cung cấp nút [Gửi lại] (Resend) nhanh để thao tác thủ công.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Screen 6.7 -->
+                    <div class="space-y-3" id="screen-6.7">
+                        <h4 class="font-bold text-slate-850 text-base">6.7 Màn hình Phê duyệt Đơn hàng & Popup lý do từ chối (Checker)</h4>
+                        <div class="bg-slate-900 rounded-2xl p-6 overflow-x-auto flex justify-center">
+                            <pre class="font-mono text-slate-100 text-[11px] sm:text-xs md:text-sm lg:text-base xl:text-lg leading-none select-none">┌────────────────────────────────────────────────────────────┐
+│ DUYỆT ĐƠN HÀNG THỦ CÔNG (Checker)         [User: Admin]    │
+├────────────────────────────────────────────────────────────┤
+│ ĐƠN HÀNG: #247-00125           Trạng thái: CHỜ PHÊ DUYỆT   │
+│ Người tạo: Sales @nlchis       Ngày tạo: 2026-07-02        │
+├────────────────────────────────────────────────────────────┤
+│ THÔNG TIN NGƯỜI NHẬN:                                      │
+│ Họ Tên: Le Van C               SĐT: 0933444555             │
+│ Địa chỉ: 789 Lê Lợi, Hải Châu 1, Hải Châu, Đà Nẵng         │
+│                                                            │
+│ THÔNG TIN HÀNG HÓA & TỒN KHO:                              │
+│ Sản phẩm: iPad Air 5 (0.8 kg)  Số lượng: 1                 │
+│ Tiền hàng: 15,000,000 đ        Thu hộ (COD): 15,000,000 đ  │
+│ Chứng từ CO/CQ: [Xem_File_CO_CQ.pdf]                       │
+│ Tồn kho khả dụng hiện tại: 5 sản phẩm (Đã giữ kho: 1)      │
+├────────────────────────────────────────────────────────────┤
+│  [ PHÊ DUYỆT ĐƠN ]                  [ TỪ CHỐI DUYỆT ]      │
+└────────────────────────────────────────────────────────────┘
+
+Popup xuất hiện khi nhấn [ TỪ CHỐI DUYỆT ]:
+┌──────────────────────────────────────────┐
+│ popup: TỪ CHỐI PHÊ DUYỆT ĐƠN HÀNG        │
+├──────────────────────────────────────────┤
+│ Lý do từ chối (*) (Tối thiểu 10 ký tự):  │
+│ [ Khách hàng yêu cầu hủy đơn do đổi ý,  ]│
+│ [ không muốn lấy iPad Air 5 nữa.        ]│
+│                                          │
+│ [ HỦY BỎ ]             [ XÁC NHẬN TỪ CHỐI]│
+└──────────────────────────────────────────┘</pre>
+                        </div>
+                        <div class="text-sm text-slate-600 space-y-2 mt-2 pl-4 border-l-2 border-slate-200">
+                            <strong>UI-Rules & Đề xuất UX:</strong>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li>**Quy tắc Maker/Checker:** Chỉ tài khoản có quyền "Checker" (Admin) mới có nút Phê duyệt / Từ chối duyệt.</li>
+                                <li>**Duyệt đơn:** Nhấn [ PHÊ DUYỆT ĐƠN ] sẽ tự động gọi API đẩy 247Express và trừ kho thực tế.</li>
+                                <li>**Từ chối đơn:** Popup từ chối bắt buộc nhập tối thiểu 10 ký tự, khi xác nhận sẽ hủy tạm khóa và hoàn trả số lượng vào tồn kho khả dụng.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Screen 6.8 -->
+                    <div class="space-y-3" id="screen-6.8">
+                        <h4 class="font-bold text-slate-850 text-base">6.8 Phiếu xuất kho & Nhãn dán vận đơn chuyên dụng (Thủ kho)</h4>
+                        <div class="bg-slate-900 rounded-2xl p-6 overflow-x-auto flex justify-center">
+                            <pre class="font-mono text-slate-100 text-[11px] sm:text-xs md:text-sm lg:text-base xl:text-lg leading-none select-none">┌────────────────────────────────────────────────────────────┐
+│ PHIẾU XUẤT KHO VÀ NHÃN VẬN ĐƠN (Khổ K80)                 │
+├────────────────────────────────────────────────────────────┤
+│ PHIẾU XUẤT KHO NỘI BỘ                                      │
+│ Mã đơn: #247-00123             Ngày: 02/07/2026            │
+│ Vị trí lấy hàng:                                    │
+│ ┌────────────────────────────────────────────────────────┐ │
+│ │ Tên Sản Phẩm  | Vị Trí Kệ   | Hàng | Ô | Số Lượng      │ │
+│ ├────────────────────────────────────────────────────────┤ │
+│ │ Macbook Pro M3| KỆ-B03      | 02   | 04| 1             │ │
+│ └────────────────────────────────────────────────────────┘ │
+│                                                            │
+│ ────────────────────────────────────────────────────────── │
+│ NHÃN VẬN CHUYỂN ĐỐI TÁC 247EXPRESS                         │
+│ Mã vận đơn: 247XYZ123                                      │
+│ Người gửi: VietMec Store - Hà Nội                          │
+│ Người nhận: Nguyen Van A - SĐT: 0901234567                 │
+│ Địa chỉ: 123 Đường Láng, Láng Thượng, Đống Đa, Hà Nội      │
+│ [|||||||||||||||||||||||||||||||||||||||||||||||||||||||]   │
+│ COD: 0 đ (Đã thanh toán trực tuyến)                        │
+└────────────────────────────────────────────────────────────┘</pre>
+                        </div>
+                        <div class="text-sm text-slate-600 space-y-2 mt-2 pl-4 border-l-2 border-slate-200">
+                            <strong>UI-Rules & Đề xuất UX:</strong>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li>**Khổ giấy:** Thiết kế tối ưu in nhiệt dọc (khổ 80mm) để có thể in nhanh từ máy in nhiệt tại kho.</li>
+                                <li>**Vị trí kệ:** Hiển thị rõ ràng số hiệu kệ, hàng và ô để Thủ kho tiết kiệm thời gian lấy hàng vật lý.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Screen 6.9 -->
+                    <div class="space-y-3" id="screen-6.9">
+                        <h4 class="font-bold text-slate-850 text-base">6.9 Thông tin Hóa đơn VAT & Form nhập thông tin Thuế (Kế toán)</h4>
+                        <div class="bg-slate-900 rounded-2xl p-6 overflow-x-auto flex justify-center">
+                            <pre class="font-mono text-slate-100 text-[11px] sm:text-xs md:text-sm lg:text-base xl:text-lg leading-none select-none">┌────────────────────────────────────────────────────────────┐
+│ PHÁT HÀNH HÓA ĐƠN ĐIỆN TỬ VAT            [User: Kế toán]   │
+├────────────────────────────────────────────────────────────┤
+│ ĐƠN HÀNG THÀNH CÔNG: #247-00124       Trạng thái: THÀNH CÔNG│
+│ Tiền hàng thực thu: 20,000,000 đ       Ngày giao: 02/07/2026│
+├────────────────────────────────────────────────────────────┤
+│ THÔNG TIN XUẤT HÓA ĐƠN VAT:                                │
+│ [ ] Khách hàng doanh nghiệp (Xuất hóa đơn công ty)         │
+│ Tên Công Ty: [ Công ty Cổ phần VietMec                  ]  │
+│ Mã Số Thuế:  [ 0102345678                               ]  │
+│ Địa Chi Cty: [ Số 10 Tràng Thi, Hoàn Kiếm, Hà Nội        ]  │
+│ Email Nhận:  [ ketoan@vietmec.vn                        ]  │
+│                                                            │
+│ [ HUY BỎ ]                          [ PHÁT HÀNH HÓA ĐƠN ]  │
+├────────────────────────────────────────────────────────────┤
+│ TRẠNG THÁI HÓA ĐƠN ĐÃ PHÁT HÀNH:                           │
+│ Số hóa đơn: HD-2026-0004562    Ngày xuất: 02/07/2026       │
+│ File PDF hóa đơn VAT: [Download_Invoice_HD-0004562.pdf]    │
+└────────────────────────────────────────────────────────────┘</pre>
+                        </div>
+                        <div class="text-sm text-slate-600 space-y-2 mt-2 pl-4 border-l-2 border-slate-200">
+                            <strong>UI-Rules & Đề xuất UX:</strong>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li>**Thông tin hóa đơn:** Checkbox doanh nghiệp sẽ kích hoạt hiển thị 3 trường Tên công ty, MST và Địa chỉ.</li>
+                                <li>**Phát hành hóa đơn:** Tự động kết nối hóa đơn điện tử và gán mã hóa đơn liên kết ngược lại đơn hàng.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Screen 6.10 -->
+                    <div class="space-y-3" id="screen-6.10">
+                        <h4 class="font-bold text-slate-850 text-base">6.10 Nạp tệp đối soát COD & Bảng kê đối chiếu (Kế toán)</h4>
+                        <div class="bg-slate-900 rounded-2xl p-6 overflow-x-auto flex justify-center">
+                            <pre class="font-mono text-slate-100 text-[11px] sm:text-xs md:text-sm lg:text-base xl:text-lg leading-none select-none">┌────────────────────────────────────────────────────────────┐
+│ ĐỐI SOÁT CÔNG NỢ COD                      [User: Kế toán]   │
+├────────────────────────────────────────────────────────────┤
+│ NẠP BẢNG KÊ ĐỐI SOÁT:                                      │
+│ Chọn tệp bảng kê (.xlsx): [ bang_ke_247_t7_2026.xlsx ]     │
+│ [ ] Tải Lên Và So Khớp Tự Động                             │
+├────────────────────────────────────────────────────────────┤
+│ KẾT QUẢ ĐỐI CHIẾU SO KHỚP TỰ ĐỘNG:                         │
+│ Tổng đơn so khớp: 3 đơn | Khớp: 2 đơn | [!] Lệch: 1 đơn    │
+│                                                            │
+│ ┌────────────────────────────────────────────────────────┐ │
+│ │ Mã Vận Đơn | Tiền Hóa Đơn | Tiền Đối Soát| Trạng Thái  │ │
+│ ├────────────────────────────────────────────────────────┤ │
+│ │ 247XYZ123  | 0 đ          | 0 đ          | KHỚP 100%   │ │
+│ │ 247XYZ124  | 20,000,000 đ | 20,000,000 đ | KHỚP 100%   │ │
+│ │ 247XYZ125  | 15,000,000 đ | 14,800,000 đ | [!] LỆCH    │ │
+│ └────────────────────────────────────────────────────────┘ │
+│ Chi tiết lệch đơn 247XYZ125: Thiếu 200,000 đ COD thực thu. │
+│ [ HỦY BỎ ĐỐI SOÁT ]                [ XỬ LÝ TẤT TOÁN THỦ CÔNG]│
+└────────────────────────────────────────────────────────────┘</pre>
+                        </div>
+                        <div class="text-sm text-slate-600 space-y-2 mt-2 pl-4 border-l-2 border-slate-200">
+                            <strong>UI-Rules & Đề xuất UX:</strong>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li>**Upload File:** Hỗ trợ kéo thả file excel từ 247Express.</li>
+                                <li>**Lệch đối soát (Reconciliation Discrepancy):** Đơn hàng có chênh lệch tiền thu hộ COD lớn hơn 0đ sẽ tự động bị gắn cờ đỏ cảnh báo và khóa nút tất toán tự động. Kế toán phải xử lý thủ công và nhấn [ XỬ LÝ TẤT TOÁN THỦ CÔNG ] để ghi đè trạng thái sang Đã tất toán.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Screen 6.11 -->
+                    <div class="space-y-3" id="screen-6.11">
+                        <h4 class="font-bold text-slate-850 text-base">6.11 Màn hình Quản lý Tồn kho & Nhập hàng (Thủ kho)</h4>
+                        <div class="bg-slate-900 rounded-2xl p-6 overflow-x-auto flex justify-center">
+                            <pre class="font-mono text-slate-100 text-[11px] sm:text-xs md:text-sm lg:text-base xl:text-lg leading-none select-none">┌────────────────────────────────────────────────────────────┐
+│ QUẢN LÝ TỒN KHO & NHẬP BỔ SUNG             [User: Thủ kho] │
+├────────────────────────────────────────────────────────────┤
+│ DANH SÁCH MẶT HÀNG TRONG KHO:                              │
+│                                                            │
+│ ┌────────────────────────────────────────────────────────┐ │
+│ │ Mã SP    | Tên Sản Phẩm      | Vị Trí Kệ | Khả Dụng    | │
+│ ├────────────────────────────────────────────────────────┤ │
+│ │ SP-001   | Macbook Pro M3    | KỆ-B03    | 5           | │
+│ │ SP-002   | iPad Air 5        | KỆ-C12    | 12          | │
+│ │ SP-003   | iPhone 15 Pro     | KỆ-A01    | 8           | │
+│ └────────────────────────────────────────────────────────┘ │
+│                                                            │
+│ Thao tác: Chọn sản phẩm cần nhập rồi bấm [ Nhập Bổ Sung ]  │
+│                                                            │
+│ ┌────────────────────────────────────────────────────────┐ │
+│ │ popup: NHẬP BỔ SUNG TỒN KHO                            │ │
+│ ├────────────────────────────────────────────────────────┤ │
+│ │ Sản phẩm: iPad Air 5                                   │ │
+│ │ Tồn khả dụng hiện tại: 12                              │ │
+│ │ Số lượng nhập thêm (*): [ 10                         ] │ │
+│ │ File chứng từ/CO/CQ:    [ Xem_CO_CQ.pdf ]   [ Tải lên ]│ │
+│ │                                                        │ │
+│ │ [ HUỶ BỎ ]                       [ XÁC NHẬN NHẬP KHO ] │ │
+│ └────────────────────────────────────────────────────────┘ │
+└────────────────────────────────────────────────────────────┘</pre>
+                        </div>
+                        <div class="text-sm text-slate-600 space-y-2 mt-2 pl-4 border-l-2 border-slate-200">
+                            <strong>UI-Rules & Đề xuất UX:</strong>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li><strong>Quy trình nhập kho:</strong> Thủ kho chọn sản phẩm cần nhập, bấm [Nhập Bổ Sung] để hiển thị popup nhập kho. Số lượng nhập bắt buộc phải lớn hơn 0.</li>
+                                <li><strong>Xác nhận nhập kho:</strong> Khi bấm [Xác nhận nhập kho], hệ thống sẽ cập nhật cộng dồn số lượng thực tế và khả dụng trong kho tại kệ tương ứng.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Screen 6.12 -->
+                    <div class="space-y-3" id="screen-6.12">
+                        <h4 class="font-bold text-slate-850 text-base">6.12 Popup Chỉnh sửa Đơn hàng (Sales - Maker)</h4>
+                        <div class="bg-slate-900 rounded-2xl p-6 overflow-x-auto flex justify-center">
+                            <pre class="font-mono text-slate-100 text-[11px] sm:text-xs md:text-sm lg:text-base xl:text-lg leading-none select-none">
+┌────────────────────────────────────────────────────────────┐
+│ popup: CHỈNH SỬA ĐƠN HÀNG #247-00123                       │
+├────────────────────────────────────────────────────────────┤
+│ NGƯỜI NHẬN:  [ Nguyen Van A                            ]   │
+│ ĐIỆN THOẠI:  [ 0901234567                              ]   │
+│ ĐỊA CHỈ:     [ Số 10 Đường số 4, Thủ Đức               ]   │
+│ SẢN PHẨM:    [ Macbook Pro M3                          v]  │
+│ ĐƠN GIÁ:     [ 20,000,000  ] đ     SỐ LƯỢNG:   [ 1 ] chiếc │
+│ K.LƯỢNG:     [ 1.5 ] kg          COD THU HỘ: [ 20,000,000]đ│
+│ CHỨNG TỪ:    [ CO_CQ_Macbook_M3.pdf ]        [ Tải lên ]   │
+├────────────────────────────────────────────────────────────┤
+│                                                            │
+│                     [ HUỶ BỎ ]    [ Lưu ]                  │
+└────────────────────────────────────────────────────────────┘</pre>
+                        </div>
+                        <div class="text-sm text-slate-600 space-y-2 mt-2 pl-4 border-l-2 border-slate-200">
+                            <strong>UI-Rules & Đề xuất UX:</strong>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li><strong>Quyền chỉnh sửa:</strong> Chỉ khả dụng đối với tài khoản Sales (Maker) khi đơn hàng ở trạng thái Chờ Phê Duyệt.</li>
+                                <li><strong>Tải lên Chứng từ:</strong> Hỗ trợ thay đổi/cập nhật file chứng từ CO/CQ gốc.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Screen 6.13 -->
+                    <div class="space-y-3" id="screen-6.13">
+                        <h4 class="font-bold text-slate-850 text-base">6.13 Cảnh báo tự động Telegram (Telegram Bot Alert)</h4>
+                        <div class="bg-slate-900 rounded-2xl p-6 overflow-x-auto flex justify-center">
+                            <pre class="font-mono text-slate-100 text-[11px] sm:text-xs md:text-sm lg:text-base xl:text-lg leading-none select-none">
+┌────────────────────────────────────────────────────────────┐
+│ TELEGRAM BOT ALERT: NHÓM SALES VIETMEC                      │
+├────────────────────────────────────────────────────────────┤
+│ CẢNH BÁO GIAO HÀNG LỖI!                                    │
+│ Mã đơn hàng: #247-00125           Mã vận đơn: 247XYZ125    │
+│ Sales phụ trách: @sales_a         Khách hàng: Le Van C     │
+│ Lý do bưu tá: "Khách hàng thuê bao không liên lạc được"    │
+│                                                            │
+│ Click để xử lý nhanh: https://vietmec.portal/orders/247-125│
+└────────────────────────────────────────────────────────────┘</pre>
+                        </div>
+                        <div class="text-sm text-slate-600 space-y-2 mt-2 pl-4 border-l-2 border-slate-200">
+                            <strong>UI-Rules & Đề xuất UX:</strong>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li><strong>Kênh thông báo:</strong> Tự động đẩy tin nhắn tới Group Telegram nội bộ của nhóm Sales phụ trách ngay khi nhận webhook Giao thất bại từ đối tác.</li>
+                                <li><strong>Hành động nhanh:</strong> Cung cấp link liên kết trực tiếp tới trang chi tiết đơn hàng trên Portal để Sales xử lý điều phối kịp thời.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. YÊU CẦU PHI CHỨC NĂNG -->
+            <section id="nfr" class="space-y-6">
+                <h2 class="text-2xl font-bold text-slate-900 font-title flex items-center gap-2.5 pb-2 border-b border-slate-100">
+                    <span class="text-blue-600">7.</span> Yêu cầu Phi chức năng (Non-Functional Requirements)
+                </h2>
+                <div class="overflow-hidden border border-slate-200 rounded-xl"><table class="w-full border-collapse text-left text-sm bg-white"><thead class="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold"><tr><th class="p-4 w-48">ID</th><th class="p-4 w-52">Phân loại</th><th class="p-4">Chỉ số kiểm chứng chi tiết</th><th class="p-4 w-32">Độ ưu tiên</th></tr></thead><tbody class="divide-y divide-slate-200 text-slate-600">
+<tr><td class="p-4 font-bold text-slate-800">NFR-order-tracking-001</td><td class="p-4 font-semibold text-slate-900">Hiệu năng</td><td class="p-4">API đồng bộ đơn hàng từ website VietMec sang Portal nội bộ phải phản hồi trong thời gian ≤ 2 giây ở điều kiện tải thông thường.</td><td class="p-4">P0</td></tr>
+<tr><td class="p-4 font-bold text-slate-800">NFR-order-tracking-002</td><td class="p-4 font-semibold text-slate-900">Bảo mật</td><td class="p-4">Tất cả các kết nối truyền nhận thông tin API (VietMec, 247Express, SMS Brandname) bắt buộc phải sử dụng mã hóa truyền tải HTTPS/TLS 1.2 trở lên.</td><td class="p-4">P0</td></tr>
+</tbody></table></div>
+            </section>
+
+            <!-- 8. PHỤ LỤC NGHIỆP VỤ -->
+            <section id="appendix" class="space-y-6">
+                <h2 class="text-2xl font-bold text-slate-900 font-title flex items-center gap-2.5 pb-2 border-b border-slate-100">
+                    <span class="text-blue-600">8.</span> Phụ Lục & Quy Tắc Nghiệp Vụ (Appendix)
+                </h2>
+                
+                <div class="space-y-8 text-sm text-slate-600 leading-relaxed">
+                    <!-- 8.1 Bảng mã lỗi nghiệp vụ -->
+                    <div id="sec-8.1">
+                        <h3 class="text-base font-bold text-slate-800 mb-3 flex items-center gap-2">
+                            <span class="w-1.5 h-4 bg-blue-600 rounded-full"></span>
+                            8.1 Bảng mã lỗi nghiệp vụ (Business Error Codes)
+                        </h3>
+                        <div class="overflow-hidden border border-slate-200 rounded-xl"><table class="w-full border-collapse text-left text-sm bg-white"><thead class="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold"><tr><th class="p-4 w-48">Mã lỗi</th><th class="p-4 w-52">Tên lỗi</th><th class="p-4">Điều kiện xuất hiện</th><th class="p-4">Wording phản hồi</th></tr></thead><tbody class="divide-y divide-slate-200 text-slate-600"><tr><td class="p-4 font-bold text-slate-800">E-order-tracking-001</td><td class="p-4 font-semibold text-slate-900">Xung đột thao tác đồng thời</td><td class="p-4">Admin duyệt/từ chối đúng lúc Sales lưu chỉnh sửa đơn hàng (phiên bản dữ liệu không khớp).</td><td class="p-4">"Đơn hàng đã được duyệt hoặc thay đổi bởi người khác. Vui lòng tải lại trang."</td></tr><tr><td class="p-4 font-bold text-slate-800">E-order-tracking-004</td><td class="p-4 font-semibold text-slate-900">API 247Express lỗi kết nối</td><td class="p-4">Mạng lỗi hoặc API của đối tác 247Express gặp sự cố sập nguồn/timeout.</td><td class="p-4">"Lỗi kết nối tới đối tác 247Express. Thông tin vận đơn chưa được đồng bộ."</td></tr><tr><td class="p-4 font-bold text-slate-800">E-order-tracking-005</td><td class="p-4 font-semibold text-slate-900">SMS Brandname gửi thất bại</td><td class="p-4">Nhà mạng gặp sự cố nghẽn mạng hoặc sai cấu hình số Brandname.</td><td class="p-4">"Không thể gửi tin nhắn SMS tới số điện thoại khách hàng. Vui lòng kiểm tra lại kết nối."</td></tr></tbody></table></div>
+                    </div>
+
+                    <!-- 8.2 Quy tắc nghiệp vụ cốt lõi -->
+                    <div id="sec-8.2">
+                        <h3 class="text-base font-bold text-slate-800 mb-3 flex items-center gap-2">
+                            <span class="w-1.5 h-4 bg-blue-600 rounded-full"></span>
+                            8.2 Quy tắc nghiệp vụ cốt lõi (Business Rules)
+                        </h3>
+                        <div class="overflow-hidden border border-slate-200 rounded-xl"><table class="w-full border-collapse text-left text-sm bg-white"><thead class="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold"><tr><th class="p-4 w-48">ID</th><th class="p-4 w-56">Tên quy tắc nghiệp vụ</th><th class="p-4">Mô tả chính sách chi tiết</th></tr></thead><tbody class="divide-y divide-slate-200 text-slate-600"><tr><td class="p-4 font-bold text-slate-800">BR-order-tracking-001</td><td class="p-4 font-semibold text-slate-900">Tự động phân công Sales</td><td class="p-4">Đơn hàng đồng bộ từ website VietMec sẽ tự động được phân bổ cho Sales phụ trách dựa trên tỉnh thành người nhận hoặc phân chia xoay vòng (Round Robin).</td></tr><tr><td class="p-4 font-bold text-slate-800">BR-order-tracking-002</td><td class="p-4 font-semibold text-slate-900">Maker/Checker chọn lọc</td><td class="p-4">Chỉ đơn hàng tạo thủ công bởi Sales mới cần qua bước phê duyệt của Admin. Đơn hàng từ website VietMec được khách hàng đặt hàng thành công (hình thức thanh toán mặc định là SHIP COD) sẽ bỏ qua bước duyệt và tự động chuyển sang trạng thái <strong>Chờ Giao Hàng</strong> để xuất kho.</td></tr><tr><td class="p-4 font-bold text-slate-800">BR-order-tracking-004</td><td class="p-4 font-semibold text-slate-900">Quyền hạn Checker (Admin)</td><td class="p-4">Ở trạng thái <strong>Chờ Phê Duyệt</strong>, Admin có quyền bấm Phê duyệt (chuyển sang <strong>Chờ Giao Hàng</strong>) hoặc Từ chối (yêu cầu nhập lý do từ chối, chuyển đơn sang <strong>Từ Chối Duyệt</strong>).</td></tr><tr><td class="p-4 font-bold text-slate-800">BR-order-tracking-005</td><td class="p-4 font-semibold text-slate-900">Hạn chế quyền sửa của Sales</td><td class="p-4">Bất kỳ nhân viên Sales nào (quyền Maker) cũng được phép chỉnh sửa thông tin đơn hàng khi đơn đang ở trạng thái <strong>Chờ Phê Duyệt</strong>. Giao diện Portal sẽ tự động vô hiệu hóa (disable) nút chỉnh sửa đối với các đơn đã được duyệt hoặc bị từ chối duyệt để ngăn chặn sửa đổi trái phép.</td></tr><tr><td class="p-4 font-bold text-slate-800">BR-order-tracking-006</td><td class="p-4 font-semibold text-slate-900">Kiểm soát thao tác đồng thời</td><td class="p-4">Hệ thống kiểm tra phiên bản dữ liệu (Optimistic Locking) trước khi lưu. Nếu Admin duyệt đơn đúng lúc Sales đang lưu sửa, yêu cầu nào gửi lên sau sẽ bị hệ thống chặn và yêu cầu tải lại trang.</td></tr><tr><td class="p-4 font-bold text-slate-800">BR-order-tracking-007</td><td class="p-4 font-semibold text-slate-900">Hình thức thanh toán mặc định</td><td class="p-4">Tất cả các đơn hàng (bao gồm đồng bộ tự động từ Web và tạo thủ công) mặc định sử dụng duy nhất hình thức thanh toán SHIP COD (Thanh toán khi nhận hàng) qua hãng vận chuyển.</td></tr><tr><td class="p-4 font-bold text-slate-800">BR-order-tracking-008</td><td class="p-4 font-semibold text-slate-900">Tạm giữ tồn kho (Stock Lock)</td><td class="p-4">Đối với đơn hàng đồng bộ từ website VietMec (thanh toán SHIP COD), hệ thống không thực hiện khóa giữ tồn kho tạm thời mà tiến hành khấu trừ trực tiếp tồn kho thực tế và gán vị trí xuất kho dự kiến khi đơn chuyển sang <strong>Chờ Giao Hàng</strong>.</td></tr><tr><td class="p-4 font-bold text-slate-800">BR-order-tracking-009</td><td class="p-4 font-semibold text-slate-900">Khấu trừ tồn kho thực tế</td><td class="p-4">Khi đơn hàng sang <strong>Chờ Giao Hàng</strong> (Admin duyệt xong hoặc đơn web đồng bộ thành công), hệ thống tự động trừ tồn kho thực tế và gán vị trí xuất kho dự kiến theo kệ/ô.</td></tr><tr><td class="p-4 font-bold text-slate-800">BR-order-tracking-010</td><td class="p-4 font-semibold text-slate-900">Cộng lại tồn kho hoàn trả</td><td class="p-4">Khi trạng thái đơn hàng cập nhật thành <strong>Chờ Hoàn Hàng</strong> (Đã hoàn hàng về kho), hệ thống tự động cộng lại số lượng sản phẩm vào tồn kho thực tế tại đúng vị trí xuất kho ban đầu.</td></tr><tr><td class="p-4 font-bold text-slate-800">BR-order-tracking-011</td><td class="p-4 font-semibold text-slate-900">Kích hoạt gọi API 247Express</td><td class="p-4">Ngay khi đơn hàng chuyển sang trạng thái <strong>Chờ Giao Hàng</strong>, hệ thống tự động gọi API 247Express để khởi tạo đơn vận chuyển vật lý và lấy mã vận đơn (Tracking ID).</td></tr><tr><td class="p-4 font-bold text-slate-800">BR-order-tracking-012</td><td class="p-4 font-semibold text-slate-900">Nghiệp vụ đóng gói Thủ kho</td><td class="p-4">Sau khi đơn có mã vận đơn, Thủ kho in Phiếu xuất kho (chứa vị trí kệ), đóng gói vật lý, in nhãn dán vận đơn 247Express dán lên kiện hàng trước khi bàn giao bưu tá.</td></tr><tr><td class="p-4 font-bold text-slate-800">BR-order-tracking-013</td><td class="p-4 font-semibold text-slate-900">Quy tắc gửi SMS Đặt hàng</td><td class="p-4">Gửi SMS đặt hàng thành công cho khách ngay khi đơn web được tạo (do duyệt tự động), và chỉ gửi đối với đơn tạo tay sau khi Admin đã bấm phê duyệt.</td></tr><tr><td class="p-4 font-bold text-slate-800">BR-order-tracking-014</td><td class="p-4 font-semibold text-slate-900">Chống trùng lặp thông báo</td><td class="p-4">Hệ thống kiểm tra nhật ký gửi thông báo trước khi gửi SMS/Telegram để đảm bảo mỗi bước thay đổi trạng thái đơn hàng chỉ gửi thông báo duy nhất một lần.</td></tr><tr><td class="p-4 font-bold text-slate-800">BR-order-tracking-015</td><td class="p-4 font-semibold text-slate-900">Giao nhận nhị phân</td><td class="p-4">Hệ thống không hỗ trợ giao hàng/hoàn hàng một phần. Khách hàng chỉ có thể nhận toàn bộ đơn hàng (<strong>Giao Thành Công</strong>) hoặc hoàn trả toàn bộ (<strong>Chờ Hoàn Hàng</strong>).</td></tr><tr><td class="p-4 font-bold text-slate-800">BR-order-tracking-017</td><td class="p-4 font-semibold text-slate-900">Hạn mức lệch đối soát</td><td class="p-4">Nếu số tiền COD thực thu lệch so với tiền hàng trên hóa đơn &gt; 0 đ, đơn hàng tự động chuyển sang trạng thái `Reconciliation Discrepancy` (Lệch đối soát), gắn cờ cảnh báo đỏ và khóa tính năng tất toán tự động.</td></tr><tr><td class="p-4 font-bold text-slate-800">BR-order-tracking-018</td><td class="p-4 font-semibold text-slate-900">Tự động tạo Phiếu đặt hàng</td><td class="p-4">Ngay khi đơn hàng chuyển sang <strong>Chờ Giao Hàng</strong>, hệ thống tự động tạo tệp Phiếu đặt hàng (Purchase Order) dạng PDF/HTML và lưu trữ trên Portal nội bộ làm chứng từ đối chiếu cho Kế toán.</td></tr><tr><td class="p-4 font-bold text-slate-800">BR-order-tracking-019</td><td class="p-4 font-semibold text-slate-900">Nhập bổ sung tồn kho thủ công</td><td class="p-4">Khi Thủ kho nhập bổ sung tồn kho, số lượng mới phải &gt; 0, được cộng dồn vào tồn kho khả dụng, và hệ thống tự động ghi nhật ký giao dịch kho (Audit Log).</td></tr></tbody></table></div>
+                    </div>
+
+                    <!-- 8.3 Chu kỳ chuyển đổi trạng thái đơn hàng -->
+                    <div id="sec-8.3">
+                        <h3 class="text-base font-bold text-slate-800 mb-3 flex items-center gap-2">
+                            <span class="w-1.5 h-4 bg-blue-600 rounded-full"></span>
+                            8.3 Vòng đời & Chu kỳ chuyển đổi trạng thái Đơn hàng (Order Transitions)
+                        </h3>
+                        <div class="overflow-hidden border border-slate-200 rounded-xl"><table class="w-full border-collapse text-left text-sm bg-white"><thead class="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold"><tr><th class="p-4">Trạng thái ban đầu</th><th class="p-4">Sự kiện kích hoạt (Trigger)</th><th class="p-4">Trạng thái tiếp theo</th><th class="p-4">Thực thể bị ảnh hưởng</th><th class="p-4">Hành vi hệ thống đi kèm</th></tr></thead><tbody class="divide-y divide-slate-200 text-slate-600"><tr><td class="p-4 font-bold text-slate-800">(Khởi tạo)</td><td class="p-4 font-semibold text-slate-900">Khách đặt hàng từ VietMec</td><td class="p-4"><strong>Chờ Giao Hàng</strong></td><td class="p-4">Đơn hàng</td><td class="p-4">Tự động gán Sales phụ trách, trừ kho thực tế, gán vị trí xuất kho, sinh Phiếu đặt hàng (PO) lưu nội bộ, gửi SMS xác nhận cho khách, gọi API 247Express lấy mã vận đơn.</td></tr><tr><td class="p-4 font-bold text-slate-800">(Khởi tạo)</td><td class="p-4 font-semibold text-slate-900">Sales tạo đơn thủ công trên Portal</td><td class="p-4"><strong>Chờ Phê Duyệt</strong></td><td class="p-4">Đơn hàng</td><td class="p-4">Tạm giữ hàng trong kho khả dụng. Không gửi SMS cho khách.</td></tr><tr><td class="p-4 font-bold text-slate-800"><strong>Chờ Phê Duyệt</strong></td><td class="p-4 font-semibold text-slate-900">Sales lưu chỉnh sửa đơn hàng</td><td class="p-4"><strong>Chờ Phê Duyệt</strong></td><td class="p-4">Đơn hàng</td><td class="p-4">Lưu cập nhật thông tin đơn, cập nhật số lượng tạm giữ kho khả dụng nếu có thay đổi.</td></tr><tr><td class="p-4 font-bold text-slate-800"><strong>Chờ Phê Duyệt</strong></td><td class="p-4 font-semibold text-slate-900">Admin nhấn Phê duyệt (Approve)</td><td class="p-4"><strong>Chờ Giao Hàng</strong></td><td class="p-4">Đơn hàng</td><td class="p-4">Trừ kho thực tế, gán vị trí xuất, gửi SMS xác nhận cho khách, sinh Phiếu đặt hàng (PO), gọi API 247Express lấy mã vận đơn.</td></tr><tr><td class="p-4 font-bold text-slate-800"><strong>Chờ Phê Duyệt</strong></td><td class="p-4 font-semibold text-slate-900">Admin nhấn Từ chối (Reject)</td><td class="p-4"><strong>Từ Chối Duyệt</strong></td><td class="p-4">Đơn hàng</td><td class="p-4">Hủy tạm giữ kho khả dụng, yêu cầu nhập lý do từ chối duyệt, thông báo cho Sales phụ trách.</td></tr><tr><td class="p-4 font-bold text-slate-800"><strong>Chờ Giao Hàng</strong></td><td class="p-4 font-semibold text-slate-900">Bưu tá 247Express quét mã nhận hàng</td><td class="p-4"><strong>Đang Giao Hàng</strong></td><td class="p-4">Đơn hàng</td><td class="p-4">Cập nhật trạng thái thông qua Webhook, gửi SMS "Đang giao hàng" cho khách, gửi thông báo Telegram cho Sales.</td></tr><tr><td class="p-4 font-bold text-slate-800"><strong>Đang Giao Hàng</strong></td><td class="p-4 font-semibold text-slate-900">Giao hàng thành công hoàn toàn</td><td class="p-4"><strong>Giao Thành Công</strong></td><td class="p-4">Đơn hàng</td><td class="p-4">Cập nhật trạng thái đơn, gửi SMS "Giao thành công", báo Telegram, mở tính năng xuất hóa đơn cho Kế toán.</td></tr><tr><td class="p-4 font-bold text-slate-800"><strong>Đang Giao Hàng</strong></td><td class="p-4 font-semibold text-slate-900">Giao hàng thất bại lần 1</td><td class="p-4"><strong>Giao Thất Bại</strong></td><td class="p-4">Đơn hàng</td><td class="p-4">Cập nhật trạng thái đơn, lưu lý do thất bại từ bưu tá, bắn Telegram khẩn cấp kèm link xử lý cho Sales.</td></tr><tr><td class="p-4 font-bold text-slate-850 text-slate-800"><strong>Giao Thất Bại</strong></td><td class="p-4 font-semibold text-slate-900">Sales bấm [Yêu cầu Giao Lại]</td><td class="p-4"><strong>Đang Giao Hàng</strong></td><td class="p-4">Đơn hàng</td><td class="p-4">Gọi API giao lại lần 2 sang 247Express.</td></tr><tr><td class="p-4 font-bold text-slate-800"><strong>Giao Thất Bại</strong></td><td class="p-4 font-semibold text-slate-900">Sales bấm [Xác nhận Hoàn Hàng]</td><td class="p-4"><strong>Chờ Hoàn Hàng</strong></td><td class="p-4">Đơn hàng</td><td class="p-4">Gọi API chuyển hoàn sang 247Express để bưu tá chuyển trả hàng về kho.</td></tr><tr><td class="p-4 font-bold text-slate-800"><strong>Chờ Hoàn Hàng</strong></td><td class="p-4 font-semibold text-slate-900">Đối tác hoàn trả hàng thành công về kho</td><td class="p-4"><strong>Đã Hoàn Hàng</strong></td><td class="p-4">Đơn hàng</td><td class="p-4">Hệ thống cập nhật trạng thái đơn, giải phóng liên kết kệ và tự động cộng dồn lại số lượng sản phẩm vào tồn kho thực tế tại vị trí kệ kho cũ.</td></tr></tbody></table></div>
+                    </div>
+
+                    <!-- 8.4 Chu kỳ trạng thái Tồn kho -->
+                    <div id="sec-8.4">
+                        <h3 class="text-base font-bold text-slate-800 mb-3 flex items-center gap-2">
+                            <span class="w-1.5 h-4 bg-blue-600 rounded-full"></span>
+                            8.4 Vòng đời & Quy tắc chuyển đổi tồn kho (Stock Transitions)
+                        </h3>
+                        <div class="overflow-hidden border border-slate-200 rounded-xl"><table class="w-full border-collapse text-left text-sm bg-white"><thead class="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold"><tr><th class="p-4">Trạng thái ban đầu</th><th class="p-4">Sự kiện kích hoạt (Trigger)</th><th class="p-4">Trạng thái tiếp theo</th><th class="p-4">Thực thể bị ảnh hưởng</th><th class="p-4">Hành vi hệ thống đi kèm</th></tr></thead><tbody class="divide-y divide-slate-200 text-slate-600"><tr><td class="p-4 font-bold text-slate-800"><code class="bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded font-mono text-xs">Khả dụng</code></td><td class="p-4 font-semibold text-slate-900">Sales tạo đơn hàng thủ công trên Portal</td><td class="p-4"><code class="bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded font-mono text-xs">Tạm giữ (Hold)</code></td><td class="p-4">Sản phẩm</td><td class="p-4">Khóa số lượng sản phẩm trong kho khả dụng cho đơn hàng đó.</td></tr><tr><td class="p-4 font-bold text-slate-800"><code class="bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded font-mono text-xs">Khả dụng</code></td><td class="p-4 font-semibold text-slate-900">Đơn hàng từ Web VietMec đồng bộ thành công</td><td class="p-4"><code class="bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded font-mono text-xs">Trừ kho thực tế</code></td><td class="p-4">Sản phẩm</td><td class="p-4">Khấu trừ trực tiếp số lượng thực tế trong kho, gán vị trí kệ kho xuất dự kiến.</td></tr><tr><td class="p-4 font-bold text-slate-800"><code class="bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded font-mono text-xs">Tạm giữ (Hold)</code></td><td class="p-4 font-semibold text-slate-900">Admin từ chối duyệt đơn hàng thủ công</td><td class="p-4"><code class="bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded font-mono text-xs">Khả dụng</code></td><td class="p-4">Sản phẩm</td><td class="p-4">Giải phóng số lượng tạm giữ, cộng lại số lượng vào tồn kho khả dụng.</td></tr><tr><td class="p-4 font-bold text-slate-800"><code class="bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded font-mono text-xs">Tạm giữ (Hold)</code></td><td class="p-4 font-semibold text-slate-900">Admin duyệt đơn hàng thủ công</td><td class="p-4"><code class="bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded font-mono text-xs">Trừ kho thực tế</code></td><td class="p-4">Sản phẩm</td><td class="p-4">Trừ số lượng thực tế trong kho, gán vị trí kệ kho xuất dự kiến.</td></tr><tr><td class="p-4 font-bold text-slate-800"><code class="bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded font-mono text-xs">Trừ kho thực tế</code></td><td class="p-4 font-semibold text-slate-900">Đơn hàng chuyển sang trạng thái <strong>Đã Hoàn Hàng</strong></td><td class="p-4"><code class="bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded font-mono text-xs">Khả dụng</code></td><td class="p-4">Sản phẩm</td><td class="p-4">Cộng lại số lượng sản phẩm vào tồn kho thực tế tại vị trí kệ kho xuất cũ.</td></tr></tbody></table></div>
+                    </div>
+                </div>
+            </section>
+
+
+    <script>
+        // Custom base64-like encoder for PlantUML server (handles padding correctly)
+        function encode64(data) {
+            let r = "";
+            for (let i = 0; i < data.length; i += 3) {
+                if (i + 2 < data.length) {
+                    r += append3bytes(data[i], data[i + 1], data[i + 2]);
+                } else if (i + 1 < data.length) {
+                    r += append2bytes(data[i], data[i + 1]);
+                } else {
+                    r += append1byte(data[i]);
+                }
+            }
+            return r;
+        }
+
+        function append3bytes(b1, b2, b3) {
+            let c1 = b1 >> 2;
+            let c2 = ((b1 & 0x3) << 4) | (b2 >> 4);
+            let c3 = ((b2 & 0xF) << 2) | (b3 >> 6);
+            let c4 = b3 & 0x3F;
+            return encode6bit(c1 & 0x3F) +
+                   encode6bit(c2 & 0x3F) +
+                   encode6bit(c3 & 0x3F) +
+                   encode6bit(c4 & 0x3F);
+        }
+
+        function append2bytes(b1, b2) {
+            let c1 = b1 >> 2;
+            let c2 = ((b1 & 0x3) << 4) | (b2 >> 4);
+            let c3 = (b2 & 0xF) << 2;
+            return encode6bit(c1 & 0x3F) +
+                   encode6bit(c2 & 0x3F) +
+                   encode6bit(c3 & 0x3F);
+        }
+
+        function append1byte(b1) {
+            let c1 = b1 >> 2;
+            let c2 = (b1 & 0x3) << 4;
+            return encode6bit(c1 & 0x3F) +
+                   encode6bit(c2 & 0x3F);
+        }
+
+        function encode6bit(b) {
+            if (b < 10) return String.fromCharCode(48 + b);
+            if (b < 36) return String.fromCharCode(65 + b - 10);
+            if (b < 62) return String.fromCharCode(97 + b - 36);
+            if (b === 62) return '-';
+            if (b === 63) return '_';
+            return '?';
+        }
+
+        function compressAndEncode(text) {
+            const bytes = new TextEncoder().encode(text);
+            const compressed = pako.deflateRaw(bytes);
+            return encode64(compressed);
+        }
+
+        // On window load, render all diagrams from PlantUML server securely via HTTPS
+        window.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('img.plantuml-diagram').forEach(img => {
+                const pumlSource = img.getAttribute('data-puml');
+                if (pumlSource) {
+                    const encoded = compressAndEncode(pumlSource);
+                    img.src = `https://www.plantuml.com/plantuml/svg/${encoded}`;
+                    
+                    // Add zoom capabilities
+                    img.classList.add('cursor-zoom-in', 'hover:scale-[1.01]', 'transition-all');
+                    img.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        openZoom(img.src);
+                    });
+                }
+            });
+        });
+
+        // Zoom Modal functions
+        function openZoom(src) {
+            const modal = document.getElementById('zoom-modal');
+            const img = document.getElementById('zoom-img');
+            img.src = src;
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+            }, 50);
+        }
+
+        function closeZoom() {
+            const modal = document.getElementById('zoom-modal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+    </script>
+</body>
+</html>
