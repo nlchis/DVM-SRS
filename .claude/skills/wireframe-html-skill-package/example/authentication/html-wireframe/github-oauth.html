@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>authentication — GitHub OAuth | Wireframe</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f4f4f4; color: #000; padding: 32px 24px; }
+    .wf-page { max-width: 1400px; margin: 0 auto; }
+    .wf-header { background: #fff; border: 2px solid #000; border-radius: 6px; padding: 16px 20px; margin-bottom: 28px; }
+    .wf-feature-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #888; }
+    .wf-flow-title { font-size: 22px; font-weight: 700; margin-top: 4px; }
+    .wf-flow-meta { font-size: 12px; color: #888; margin-top: 6px; }
+    .wf-flow-desc { font-size: 13px; color: #444; margin-top: 8px; line-height: 1.5; }
+    .wf-rows { display: flex; flex-direction: column; gap: 16px; }
+    .wf-row { display: flex; align-items: flex-start; gap: 12px; }
+    .wf-screen { flex: 1; min-width: 0; max-width: 360px; }
+    .wf-step-badge { font-size: 10px; font-weight: 700; color: #fff; background: #000; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; margin-bottom: 6px; }
+    .wf-screen-label { text-align: center; font-size: 11px; color: #555; margin-top: 6px; }
+    .wf-shared-badge { font-size: 9px; color: #888; border: 1px solid #ccc; border-radius: 3px; padding: 0 4px; margin-left: 4px; }
+    .wf-screen-frame { border: 2px solid #000; border-radius: 8px; overflow: hidden; background: #fff; }
+    .wf-screen-bar { background: #f0f0f0; border-bottom: 1px solid #000; padding: 6px 10px; display: flex; align-items: center; gap: 5px; }
+    .wf-dot { width: 8px; height: 8px; border-radius: 50%; border: 1px solid #888; background: #fff; flex-shrink: 0; }
+    .wf-bar-title { font-size: 11px; font-weight: 600; flex: 1; text-align: center; }
+    .wf-screen-content { padding: 16px 14px; display: flex; flex-direction: column; gap: 10px; }
+    .wf-app-brand { text-align: center; font-size: 11px; font-weight: 700; letter-spacing: .5px; color: #000; padding-bottom: 6px; border-bottom: 1px solid #f0f0f0; }
+    .wf-screen-title { font-size: 15px; font-weight: 700; text-align: center; margin-bottom: 2px; }
+    .field { display: flex; flex-direction: column; gap: 3px; }
+    .field label { font-size: 11px; font-weight: 600; }
+    .field input { border: 1px solid #000; border-radius: 3px; padding: 7px 9px; font-size: 12px; width: 100%; background: #fff; color: #000; }
+    .field input::placeholder { color: #aaa; }
+    .input-pw { position: relative; }
+    .input-pw input { width: 100%; border: 1px solid #000; border-radius: 3px; padding: 7px 28px 7px 9px; font-size: 12px; }
+    .input-pw .eye { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 13px; color: #555; }
+    label.checkbox { display: flex; align-items: center; gap: 6px; font-size: 12px; cursor: pointer; }
+    label.checkbox input { width: 14px; height: 14px; flex-shrink: 0; }
+    .btn-primary { display: block; width: 100%; padding: 9px 12px; background: #000; color: #fff; border: 2px solid #000; border-radius: 4px; font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; }
+    .btn-google { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 9px 12px; background: #fff; color: #000; border: 2px solid #000; border-radius: 4px; font-size: 13px; font-weight: 600; cursor: pointer; }
+    .btn-github { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 9px 12px; background: #000; color: #fff; border: 2px solid #000; border-radius: 4px; font-size: 13px; font-weight: 600; cursor: pointer; }
+    .g-icon { font-size: 14px; font-weight: 900; font-style: italic; border: 1px solid #000; border-radius: 3px; padding: 0 4px; }
+    .gh-icon { font-size: 12px; font-weight: 900; border: 1px solid #fff; border-radius: 3px; padding: 0 4px; }
+    .wf-link { font-size: 12px; color: #000; text-decoration: underline; cursor: pointer; }
+    .links-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px; }
+    .links-center { display: flex; justify-content: center; align-items: center; gap: 8px; }
+    .state-hint { font-size: 10px; color: #888; font-style: italic; margin-top: 2px; }
+    .divider { display: flex; align-items: center; gap: 8px; font-size: 11px; color: #888; }
+    .divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: #ccc; }
+    .captcha-box { border: 1px dashed #888; border-radius: 4px; padding: 8px; text-align: center; font-size: 10px; color: #888; background: #f8f8f8; }
+    .flow-note { background: #f0f0f0; border: 1px solid #ccc; border-radius: 4px; padding: 10px 12px; font-size: 11px; color: #444; line-height: 1.5; }
+    .flow-note strong { color: #000; }
+    .wf-footer { margin-top: 36px; padding-top: 12px; border-top: 1px solid #ccc; font-size: 10px; color: #aaa; display: flex; justify-content: space-between; }
+
+    .wf-desc-section { margin-top: 32px; }
+    .wf-desc-title { font-size: 14px; font-weight: 700; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 2px solid #000; }
+    .wf-desc-table { width: 100%; border-collapse: collapse; background: #fff; font-size: 12px; }
+    .wf-desc-table th, .wf-desc-table td { border: 1px solid #000; padding: 6px 8px; text-align: left; vertical-align: top; }
+    .wf-desc-table th { background: #f0f0f0; font-weight: 700; font-size: 11px; text-transform: uppercase; }
+    .wf-desc-table td:first-child, .wf-desc-table th:first-child { width: 36px; text-align: center; }
+    .wf-desc-table td:nth-child(2) { width: 160px; }
+    .wf-desc-table td:nth-child(3) { width: 110px; }
+    .wf-desc-table td:nth-child(4) { width: 90px; }
+    .wf-desc-screen-header td { background: #000; color: #fff; font-weight: 700; font-size: 12px; }
+  </style>
+</head>
+<body>
+<div class="wf-page">
+
+  <div class="wf-header">
+    <div class="wf-feature-label">Feature: authentication / Wireframe</div>
+    <div class="wf-flow-title">GitHub OAuth — Signup / Login</div>
+    <div class="wf-flow-meta">1 màn hình (shared) · Tạo: 2026-07-11 · Nguồn: ascii-wireframe/login.md</div>
+    <div class="wf-flow-desc">Người học click "Đăng nhập với GitHub" → chuyển sang màn hình xác thực GitHub → quay lại app → tự liên kết hoặc tạo account mới. Không tách màn hình signup vs login riêng cho GitHub OAuth.</div>
+  </div>
+
+  <div class="wf-rows">
+    <div class="wf-row">
+
+      <!-- Screen 1: login (shared with login-email-password flow) -->
+      <div class="wf-screen">
+        <div class="wf-step-badge">1</div>
+        <div class="wf-screen-frame">
+          <div class="wf-screen-bar">
+            <div class="wf-dot"></div><div class="wf-dot"></div><div class="wf-dot"></div>
+            <span class="wf-bar-title">Đăng nhập tài khoản</span>
+          </div>
+          <div class="wf-screen-content">
+            <div class="wf-app-brand">english-ai-demo</div>
+            <div class="wf-screen-title">Đăng nhập tài khoản</div>
+
+            <div class="field">
+              <label>Email</label>
+              <input type="email" placeholder="ban@email.com">
+            </div>
+
+            <div class="field">
+              <label>Mật khẩu</label>
+              <div class="input-pw">
+                <input type="password">
+                <span class="eye">👁</span>
+              </div>
+            </div>
+
+            <div class="links-row">
+              <label class="checkbox"><input type="checkbox"> Ghi nhớ đăng nhập</label>
+              <a class="wf-link">Quên mật khẩu?</a>
+            </div>
+
+            <div class="captcha-box">⟳ Captcha — hiện sau ≥3 lần đăng nhập sai</div>
+
+            <button class="btn-primary">Đăng nhập</button>
+
+            <div class="divider"><span>hoặc</span></div>
+
+            <button class="btn-google">
+              <span class="g-icon">G</span> Đăng nhập với Google
+            </button>
+
+            <!-- GitHub button — highlighted as primary CTA for this flow -->
+            <button class="btn-github">
+              <span class="gh-icon">GH</span> Đăng nhập với GitHub
+            </button>
+            <span class="state-hint" style="text-align:center;">→ Chuyển GitHub xác thực → quay lại app</span>
+
+            <div class="links-center">
+              <span style="font-size:12px;">Chưa có tài khoản?</span>
+              <a class="wf-link">Đăng ký</a>
+            </div>
+          </div>
+        </div>
+        <div class="wf-screen-label">login <span class="wf-shared-badge">chung với login-email-password</span></div>
+      </div>
+
+      <!-- Flow note: what happens after GitHub callback (no separate screens) -->
+      <div style="flex:1;padding-top:52px;">
+        <div class="flow-note">
+          <strong>Sau khi xác thực GitHub (không có màn hình riêng):</strong><br><br>
+          ✓ Email GitHub đã tồn tại → tự liên kết + đánh dấu verified → vào app<br><br>
+          ✓ Email GitHub chưa có → tạo account mới (verified) → vào app<br><br>
+          ✗ Xác thực thất bại → báo lỗi tại màn hình login:<br>
+          <em>"Đăng nhập GitHub thất bại. Vui lòng thử lại."</em><br><br>
+          ✗ GitHub không trả email công khai → cùng thông báo lỗi, yêu cầu công khai email trên GitHub trước khi thử lại.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="wf-desc-section">
+    <div class="wf-desc-title">Mô tả màn hình</div>
+    <table class="wf-desc-table">
+      <thead>
+        <tr><th>#</th><th>Items</th><th>Control type</th><th>Data type</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr class="wf-desc-screen-header"><td colspan="5">Screen 1: Đăng nhập tài khoản (chung với login-email-password)</td></tr>
+        <tr>
+          <td>1</td>
+          <td>Đăng nhập với GitHub</td>
+          <td>Button</td>
+          <td>Click</td>
+          <td>Chuyển sang xác thực GitHub. Thành công + email đã tồn tại trong hệ thống → tự liên kết vào account có sẵn, đánh dấu verified, vào app. Thành công + email mới → tạo account mới đã verified, vào app. Thất bại hoặc người dùng đóng tab giữa chừng → báo "Đăng nhập GitHub thất bại. Vui lòng thử lại." (E-authentication-009), không tạo account.</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Kết quả sau xác thực</td>
+          <td>Label</td>
+          <td>ReadOnly</td>
+          <td>Không có màn hình riêng — kết quả thể hiện bằng việc vào thẳng app (thành công) hoặc banner lỗi tại màn login (thất bại). GitHub không trả email công khai được xử lý bằng cùng thông báo lỗi E-authentication-009, yêu cầu người dùng công khai email trên GitHub rồi thử lại. Trường hợp email GitHub khác hoàn toàn email tài khoản cũ (edge case) vẫn xử lý theo luật tự liên kết theo email trùng khớp.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="wf-footer">
+    <span>authentication / github-oauth</span>
+    <span>Tạo bởi /wireframe-html · 2026-07-11</span>
+  </div>
+
+</div>
+</body>
+</html>

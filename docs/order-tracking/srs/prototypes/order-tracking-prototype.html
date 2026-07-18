@@ -198,7 +198,7 @@
                         <option value="SALES">Sales phụ trách (Maker)</option>
                         <option value="CHECKER">Quản trị viên (Checker)</option>
                         <option value="WH">Thủ kho chuyên trách</option>
-                        <option value="ACCOUNTANT">Kế toán trưởng</option>
+                        
                     </select>
                 </div>
                 
@@ -244,7 +244,7 @@
                     <!-- Pending Card -->
                     <div onclick="filterListByStatus('PENDING')" class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between cursor-pointer hover:-translate-y-1 hover:shadow-md transition-all duration-300">
                         <div class="flex justify-between items-start">
-                            <p class="text-xs font-semibold text-slate-500 leading-tight">Chờ Giao</p>
+                            <p class="text-xs font-semibold text-slate-500 leading-tight">Đã tiếp nhận</p>
                             <div class="w-7 h-7 bg-blue-50 rounded-lg flex items-center justify-center text-blue-500 text-xs">
                                 <i class="fa-solid fa-clock"></i>
                             </div>
@@ -254,7 +254,7 @@
                     <!-- Total/Delivering Card -->
                     <div onclick="filterListByStatus('DELIVERING')" class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between cursor-pointer hover:-translate-y-1 hover:shadow-md transition-all duration-300">
                         <div class="flex justify-between items-start">
-                            <p class="text-xs font-semibold text-slate-500 leading-tight">Đang Giao</p>
+                            <p class="text-xs font-semibold text-slate-500 leading-tight">Đang đi phát</p>
                             <div class="w-7 h-7 bg-amber-50 rounded-lg flex items-center justify-center text-amber-500 text-xs">
                                 <i class="fa-solid fa-truck-fast"></i>
                             </div>
@@ -274,7 +274,7 @@
                     <!-- Failed Card -->
                     <div onclick="filterListByStatus('FAILED')" class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between cursor-pointer hover:-translate-y-1 hover:shadow-md transition-all duration-300">
                         <div class="flex justify-between items-start">
-                            <p class="text-xs font-semibold text-slate-500 leading-tight">Thất Bại</p>
+                            <p class="text-xs font-semibold text-slate-500 leading-tight">Chờ xử lý</p>
                             <div class="w-7 h-7 bg-rose-50 rounded-lg flex items-center justify-center text-rose-500 text-xs">
                                 <i class="fa-solid fa-circle-xmark"></i>
                             </div>
@@ -333,10 +333,10 @@
                             <option value="ALL">Tất cả</option>
                             <option value="PENDING_APPROVAL">Chờ Phê Duyệt</option>
                             <option value="REJECTED">Từ Chối Duyệt</option>
-                            <option value="PENDING">Chờ Giao</option>
+                            <option value="PENDING">Đã tiếp nhận</option>
                             <option value="DELIVERING">Đang Vận Chuyển</option>
                             <option value="SUCCESS">Giao Thành Công</option>
-                            <option value="FAILED">Giao Thất Bại</option>
+                            <option value="FAILED">Giao Chờ xử lý</option>
                             <option value="RETURNED">Chờ Hoàn Hàng</option>
                         </select>
                     </div>
@@ -570,7 +570,7 @@
                                 </div>
                                 <div class="pb-1 pl-4 flex-1">
                                     <p id="node-3-time" class="text-xs font-semibold text-slate-400">...</p>
-                                    <h5 id="node-3-title" class="text-sm font-semibold text-slate-500">Đang giao hàng (Chờ cập nhật)</h5>
+                                    <h5 id="node-3-title" class="text-sm font-semibold text-slate-500">Đang đi phát hàng (Chờ cập nhật)</h5>
                                 </div>
                             </div>
                         </div>
@@ -653,9 +653,7 @@
                             <i class="fa-solid fa-pen-to-square"></i>
                             <span>[ SỬA ĐƠN HÀNG ]</span>
                         </button>
-                        <button id="details-vat-btn" onclick="issueVATInvoice()" class="hidden px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg text-sm shadow-md transition flex items-center gap-2">
                             <i class="fa-solid fa-file-invoice-dollar"></i>
-                            <span>[ XUẤT HÓA ĐƠN VAT ]</span>
                         </button>
                     </div>
                     <button onclick="switchTab('order-list')" class="px-6 py-2.5 border border-slate-200 hover:bg-slate-50 text-slate-600 font-semibold rounded-lg text-sm transition">Quay Lại</button>
@@ -803,7 +801,7 @@
                     <div class="flex items-center justify-between border-b border-slate-100 pb-4">
                         <div>
                             <h3 class="text-lg font-bold text-slate-900 font-title">Quản lý Kho & Tồn Kho Khả Dụng</h3>
-                            <p class="text-xs text-slate-500">Theo dõi tồn kho thực tế, vị trí kệ và thực hiện nhập bổ sung sản phẩm.</p>
+                            <p class="text-xs text-slate-500">Theo dõi tồn kho thực tế và thực hiện nhập bổ sung sản phẩm.</p>
                         </div>
                     </div>
                     <div class="overflow-x-auto">
@@ -812,7 +810,6 @@
                                 <tr class="bg-slate-50 border-b border-slate-100">
                                     <th class="py-3 px-6 text-xs font-bold text-slate-500 w-[120px]">Mã sản phẩm</th>
                                     <th class="py-3 px-6 text-xs font-bold text-slate-500">Tên sản phẩm</th>
-                                    <th class="py-3 px-6 text-xs font-bold text-slate-500 w-[140px] text-center">Vị trí kệ</th>
                                     <th class="py-3 px-6 text-xs font-bold text-slate-500 w-[160px] text-center">Số lượng khả dụng</th>
                                     <th class="py-3 px-6 text-xs font-bold text-slate-500 w-[160px] text-center">Thao tác</th>
                                 </tr>
@@ -1127,7 +1124,7 @@
                 } else {
                     errorOrders.forEach(o => {
                         let icon = 'fa-circle-xmark text-rose-500';
-                        let label = 'Giao Thất Bại';
+                        let label = 'Giao Chờ xử lý';
                         let colorClass = 'bg-rose-50';
                         
                         if (o.status === 'RETURNED') {
@@ -1209,12 +1206,12 @@
             const styles = {
                 PENDING_APPROVAL: { text: "Chờ Phê Duyệt", bg: "bg-indigo-50 text-indigo-600", dot: "bg-indigo-500" },
                 REJECTED: { text: "Từ Chối Duyệt", bg: "bg-slate-100 text-slate-600", dot: "bg-slate-500" },
-                PENDING: { text: "Chờ Giao Hàng", bg: "bg-blue-50 text-blue-600", dot: "bg-blue-500 pulse-blue" },
-                DELIVERING: { text: "Đang Giao Hàng", bg: "bg-amber-50 text-amber-500", dot: "bg-amber-500 pulse-orange" },
+                PENDING: { text: "Đã tiếp nhận Hàng", bg: "bg-blue-50 text-blue-600", dot: "bg-blue-500 pulse-blue" },
+                DELIVERING: { text: "Đang đi phát Hàng", bg: "bg-amber-50 text-amber-500", dot: "bg-amber-500 pulse-orange" },
                 SUCCESS: { text: "Giao Thành Công", bg: "bg-emerald-50 text-emerald-500", dot: "bg-emerald-500" },
-                FAILED: { text: "Giao Thất Bại", bg: "bg-rose-50 text-rose-500", dot: "bg-rose-500" },
+                FAILED: { text: "Giao Chờ xử lý", bg: "bg-rose-50 text-rose-500", dot: "bg-rose-500" },
                 WAITING_FOR_RETURN: { text: "Chờ Hoàn Hàng", bg: "bg-orange-50 text-orange-600", dot: "bg-orange-500" },
-                RETURNED: { text: "Đã Hoàn Hàng", bg: "bg-red-50 text-red-600", dot: "bg-red-600" }
+                RETURNED: { text: "Đã chuyển hoàn Hàng", bg: "bg-red-50 text-red-600", dot: "bg-red-600" }
             };
             const s = styles[status] || styles.DELIVERING;
             return `
@@ -1404,7 +1401,6 @@
 
             const vatBtn = document.getElementById('details-vat-btn');
             if (vatBtn) {
-                if (currentRole === 'ACCOUNTANT' && o.status === 'SUCCESS') {
                     vatBtn.classList.remove('hidden');
                 } else {
                     vatBtn.classList.add('hidden');
@@ -1481,7 +1477,7 @@
                                 </div>
                             </div>
                             <div class="flex items-center gap-3">
-                                ${currentRole === 'SALES' ? `<button onclick="resolveAction('DELIVERING')" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-bold rounded-lg text-sm transition">Chuyển lại Đang Giao</button>` : ''}
+                                ${currentRole === 'SALES' ? `<button onclick="resolveAction('DELIVERING')" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-bold rounded-lg text-sm transition">Chuyển lại Đang đi phát</button>` : ''}
                             </div>`;
                     } else {
                         banner.innerHTML = `
@@ -1559,7 +1555,7 @@
                         node3Time.className = "text-xs font-semibold text-slate-400";
                     }
                     if (node3Title) {
-                        node3Title.innerText = "Đang giao hàng (Chờ cập nhật)";
+                        node3Title.innerText = "Đang đi phát hàng (Chờ cập nhật)";
                         node3Title.className = "text-sm font-semibold text-slate-500";
                     }
                 } else if (o.status === 'PENDING_APPROVAL' || o.status === 'REJECTED') {
@@ -1586,7 +1582,7 @@
                         node3Time.className = "text-xs font-semibold text-slate-400";
                     }
                     if (node3Title) {
-                        node3Title.innerText = "Đang giao hàng (Chờ phê duyệt)";
+                        node3Title.innerText = "Đang đi phát hàng (Chờ phê duyệt)";
                         node3Title.className = "text-sm font-semibold text-slate-500";
                     }
                 } else {
@@ -1614,7 +1610,7 @@
                         node3Time.className = "text-xs font-semibold text-slate-400";
                     }
                     if (node3Title) {
-                        node3Title.innerText = "Đang giao hàng (Chờ cập nhật)";
+                        node3Title.innerText = "Đang đi phát hàng (Chờ cập nhật)";
                         node3Title.className = "text-sm font-semibold text-slate-500";
                     }
                 }
@@ -1628,7 +1624,7 @@
                 const oldStatus = o.status;
                 o.status = newStatus;
                 
-                // If transitioning to RETURNED (Đã Hoàn Hàng) from a non-returned state, return stock to inventory!
+                // If transitioning to RETURNED (Đã chuyển hoàn Hàng) from a non-returned state, return stock to inventory!
                 if (newStatus === 'RETURNED' && oldStatus !== 'RETURNED') {
                     const invItem = inventory.find(i => i.name === o.product);
                     if (invItem) {
@@ -1707,7 +1703,7 @@
             
             const prStatus = document.getElementById('print-status');
             if (prStatus) {
-                const statusLabels = { PENDING_APPROVAL: "Chờ Duyệt", REJECTED: "Từ Chối Duyệt", PENDING: "Chờ Giao", DELIVERING: "Đang Vận Chuyển", SUCCESS: "Thành Công", FAILED: "Thất Bại", RETURNED: "Hoàn Hàng" };
+                const statusLabels = { PENDING_APPROVAL: "Chờ Duyệt", REJECTED: "Từ Chối Duyệt", PENDING: "Đã tiếp nhận", DELIVERING: "Đang Vận Chuyển", SUCCESS: "Thành Công", FAILED: "Chờ xử lý", RETURNED: "Hoàn Hàng" };
                 prStatus.innerText = statusLabels[o.status] || "Đang Vận Chuyển";
             }
         }
@@ -1965,7 +1961,6 @@
             filterOrders();
         }
 
-        // --- ACCOUNTANT RECONCILIATION LOGIC ---
         let reconciliationDiscrepancies = [];
 
         function simulateExcelImport(event) {
@@ -2066,13 +2061,6 @@
             filterOrders();
         }
 
-        function issueVATInvoice() {
-            showToast("Xuất hóa đơn VAT", `Đã phát hành thành công hóa đơn VAT cho đơn hàng #${activeOrderId}.`);
-        }
-
-        // --- ROLE SWITCHING, DUYỆT ĐƠN, NHẬP KHO LOGIC ---
-        let currentRole = "SALES"; // Default role
-
         function switchRole(role) {
             currentRole = role;
             
@@ -2081,7 +2069,7 @@
                 SALES: { name: "Nguyễn Văn Sales", title: "Sales phụ trách (Maker)", char: "S", bg: "bg-blue-600", defaultTab: "dashboard" },
                 CHECKER: { name: "Trần Thị Checker", title: "Quản trị viên (Checker)", char: "C", bg: "bg-purple-600", defaultTab: "dashboard" },
                 WH: { name: "Vũ Văn Kho", title: "Thủ kho chuyên trách", char: "K", bg: "bg-amber-600", defaultTab: "replenish-inventory" },
-                ACCOUNTANT: { name: "Lê Thị Toán", title: "Kế toán trưởng", char: "T", bg: "bg-emerald-600", defaultTab: "dashboard" }
+                
             };
 
             const info = roleInfo[role] || roleInfo.SALES;
@@ -2103,7 +2091,6 @@
                 document.querySelectorAll('.role-checker').forEach(btn => btn.classList.remove('hidden'));
             } else if (role === 'WH') {
                 document.querySelectorAll('.role-wh').forEach(btn => btn.classList.remove('hidden'));
-            } else if (role === 'ACCOUNTANT') {
                 document.querySelectorAll('.role-accountant').forEach(btn => btn.classList.remove('hidden'));
             }
 
@@ -2112,7 +2099,6 @@
             if (switcher) switcher.value = role;
 
             // Switch to default tab for that role
-            if (role === 'ACCOUNTANT') {
                 switchTab('reconcile-cod');
             } else {
                 switchTab(info.defaultTab);
@@ -2197,7 +2183,7 @@
                 o.status = 'PENDING';
                 o.tracking = "247XYZ" + (Math.floor(Math.random() * 900) + 100);
                 
-                showToast("Phê duyệt thành công", `Đơn hàng #${orderId} đã được phê duyệt và chuyển sang Chờ Giao.`);
+                showToast("Phê duyệt thành công", `Đơn hàng #${orderId} đã được phê duyệt và chuyển sang Đã tiếp nhận.`);
                 updateDashboardMetrics();
                 renderCheckerApprovalTable();
                 filterOrders();

@@ -13,7 +13,8 @@ Quy trình này hướng dẫn chi tiết cách thức AI BA Senior thực hiệ
 
 - **Ngôn ngữ đầu ra**: Sử dụng **tiếng Việt hoàn toàn** trong tất cả các phản hồi chat và hướng dẫn lập tài liệu (tài liệu kỹ thuật/SRS có thể dùng thuật ngữ tiếng Anh nhưng nội dung mô tả bằng tiếng Việt).
 - **BA Senior Role**: Đóng vai trò BA Senior dày dạn kinh nghiệm, tư duy logic, cấu trúc tài liệu mạch lạc, rõ ràng.
-- **Tự động kích hoạt & Tuân thủ**: Skill workflow này sẽ **chỉ tự động kích hoạt khi người dùng gọi lệnh `/srs`** hoặc `/workflow` hoặc `/srs-workflow`. Nếu người dùng gọi bất kỳ lệnh skill nào khác một cách độc lập (như `/usecase`, `/spec`, `/diagram`, `/wireframe`), hệ thống **TUYỆT ĐỐI KHÔNG** được kích hoạt workflow này, đồng thời **chỉ chạy duy nhất skill được gọi** độc lập đó mà không tự động kích hoạt thêm bất kỳ skill hay bước liên quan nào khác. Hệ thống bắt buộc phải đọc kỹ và tuân thủ tuyệt đối các quy tắc nghiệp vụ trong `/workflow` xuyên suốt thời gian xây dựng và chỉnh sửa tài liệu SRS.
+- **Tự động kích hoạt & Tuân thủ**: Skill workflow này sẽ tự động kích hoạt khi người dùng gọi lệnh `/srs`, `/workflow`, `/srs-workflow`, **HOẶC mỗi khi người dùng có tác động chỉnh sửa bất kỳ tài liệu nào** trong chuỗi tài liệu liên quan (brainstorm, spec, diagram, usecase, wireframe...). Việc tự động gọi lại `/workflow` sau mỗi lần sửa đổi giúp đảm bảo hệ thống luôn bám sát các quy tắc liên kết và cấu trúc.
+- **Tự động rà soát Vùng ảnh hưởng (Blast Radius) & Đồng nhất tài liệu**: MỖI LẦN có một tác động sửa đổi trên một tài liệu (ví dụ: đổi tên trường dữ liệu trong Spec, thêm một nhánh trong Brainstorm), hệ thống **BẮT BUỘC** phải tự động rà soát lại vùng ảnh hưởng (blast radius) của sự thay đổi đó. Sau đó, hệ thống phải tiến hành lan truyền cập nhật (cascade update) và đồng nhất lại toàn bộ thông tin trên các tài liệu liên đới ở cả tuyến trước và tuyến sau, đảm bảo tính nhất quán 100%.
 - **Quy tắc No-re-ask**: Trước khi hỏi bất kỳ câu nào, quét bối cảnh tệp tin hiện tại và lịch sử chat để loại bỏ các câu hỏi đã được trả lời.
 - **Xác nhận từng skill (L1 Plan Gate)**: Khi tự động gọi bất kỳ skill tiền đề nào còn thiếu, **bắt buộc hiển thị bản xem trước kế hoạch L1 và yêu cầu người dùng duyệt (Y/Sửa/Hủy) trước khi bắt đầu chạy skill đó**. Quy tắc này áp dụng cho TỪNG SKILL riêng biệt.
 - **Độc lập và Toàn vẹn**: Sao chép (copy) toàn bộ tệp tài liệu gốc từ các skill trước vào thư mục con tương ứng của `srs/` để đảm bảo tính đóng gói độc lập của một phiên bản SRS.
@@ -25,6 +26,36 @@ Hệ thống bắt buộc phải tuân thủ tính liên kết thông tin tuần
 3.  **Usecase:** Các Use Case phải được xây dựng dựa trên danh sách tính năng (Function List/CRUD) từ `brainstorm`, tích hợp các quy tắc VR/BR/STR từ `spec`, và tuân thủ trình tự tương tác trong `diagram`.
 4.  **Wireframe:** Thiết kế các màn hình tương ứng dựa trực tiếp trên các bước tương tác và mô tả màn hình trong tài liệu `usecase`.
 5.  **Prototype:** Dựng các màn hình hoàn chỉnh, thiết lập liên kết tương tác dựa trên tài liệu `wireframe` làm nguồn thông tin gốc.
+
+### Ràng buộc Cấu trúc Tài liệu (Document Structure Rules)
+Hệ thống phải tuân thủ nghiêm ngặt thứ tự các đầu mục (Section) và liệt kê chi tiết nguồn lấy thông tin (Data Sources) cho từng mục:
+
+**1. Cấu trúc chuẩn của File SRS Tổng thể (`srs.md`)**
+- **1. Giới Thiệu:**
+  - *Mục đích & Phạm vi hệ thống (Scope):* Lấy từ phần Mục tiêu (Goal/Scope) trong tài liệu `brainstorm`.
+  - *Thuật ngữ & Từ viết tắt:* Khởi tạo dựa trên các từ khóa nghiệp vụ đặc thù của dự án.
+- **2. Mô Tả Tổng Quan:**
+  - *Các tác nhân (Actors):* Lấy từ danh sách User Types / Roles trong tài liệu `brainstorm`.
+  - *Quy tắc nghiệp vụ cốt lõi (Business Rules):* Lấy các quy tắc quan trọng nhất từ tài liệu `spec`.
+- **3. Bản Đồ Sơ Đồ Hệ Thống (System Diagrams):** Liên kết và tóm tắt các sơ đồ Use Case, Sequence, Activity, State đã được tạo bởi skill `/diagram`.
+- **4. Đặc Tả Chi Tiết Ca Sử Dụng (Use Cases):** Cung cấp danh sách liên kết đến các file Markdown đặc tả Use Case độc lập (kết quả của skill `/usecase`).
+- **5. Đặc Tả Giao Diện Người Dùng:** Cung cấp danh sách liên kết đến các file Wireframes (kết quả của `/wireframe`) và Prototypes.
+- **6. Yêu Cầu Phi Chức Năng (NFR):** Các yêu cầu đo lường được về Hiệu năng, Bảo mật, Tính sẵn sàng... Lấy toàn bộ từ phần NFR của tài liệu `spec`.
+- **7. Tài Liệu Nghiệp Vụ Đi Kèm (Appendix):** Cung cấp liên kết gốc đến tài liệu `spec` (để tra cứu mã lỗi, rule chi tiết) và tài liệu `brainstorm`.
+
+**2. Cấu trúc chuẩn của File Đặc Tả Use Case (VD: `UC-order-01.md`)**
+Mỗi file Use Case BẮT BUỘC phải bao gồm các phần sau và tuân thủ nguồn lấy dữ liệu:
+- **1. Thông tin chung:** Mã UC, Tên, Actor, Độ ưu tiên. *(Lấy từ danh sách Function List / CRUD trong `brainstorm`)*.
+- **2. Mô tả & Điều kiện:** Mô tả nghiệp vụ, Tiền điều kiện (Preconditions), Hậu điều kiện (Postconditions). *(Lấy và suy luận từ phân tích luồng nghiệp vụ & Use Case Diagram trong `brainstorm` / `diagram`)*.
+- **3. Sơ đồ Flowchart luồng xử lý:** Sơ đồ trực quan Mermaid/PlantUML. *(Kế thừa trình tự tương tác và sơ đồ từ file `diagram` tương ứng, hoặc tự sinh dựa trên luồng sự kiện bên dưới)*.
+- **4. Luồng sự kiện (Course of Events):**
+  - *Luồng thông thường (Normal Course):* Các bước thực thi chính.
+  - *Luồng ngoại lệ (Exceptions):* Các trường hợp rẽ nhánh hoặc lỗi.
+  - *(Nguồn gốc: Xây dựng bộ khung dựa trên `brainstorm`, đồng thời **tích hợp chặt chẽ** các quy tắc kiểm tra dữ liệu VR, quy tắc nghiệp vụ BR, quy tắc chuyển đổi trạng thái STR từ tài liệu `spec`)*.
+- **5. Yêu cầu đặc biệt & Giao diện:**
+  - *Yêu cầu đặc biệt:* Thời gian phản hồi, bảo mật... *(Lấy từ NFR trong `spec`)*.
+  - *Bảng mô tả trường dữ liệu (Data Fields Table):* Bắt buộc phải có bảng liệt kê các trường thông tin hiển thị trên màn hình hoặc Payload API (Tên trường, Kiểu dữ liệu, Bắt buộc/Không, Ràng buộc). *(Nguồn gốc: Lấy từ các thuộc tính thực thể trong `brainstorm` và các quy tắc validation VR trong `spec`)*. **Lưu ý quan trọng:** Bảng dữ liệu này trong Use Case chính là nguồn thông tin đầu vào (Input) bắt buộc để sau này vẽ màn hình bằng skill `/wireframe`.
+- **6. Vấn đề chưa giải quyết (Notes & Issues):** Bảng các TBD (To Be Decided) nếu có thông tin chưa rõ ràng.
 
 ## Đầu vào (Inputs)
 

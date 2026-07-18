@@ -1,0 +1,72 @@
+{
+  "process": { "id": "Process_create-order", "title": "Luồng tạo đơn hàng" },
+  "lanes": [
+    { "id": "Lane_Sales", "name": "Maker (Sales)" },
+    { "id": "Lane_System", "name": "Hệ thống" },
+    { "id": "Lane_Admin", "name": "Checker (Admin)" }
+  ],
+  "nodes": [
+    { "id": "Start_1", "kind": "start", "lane": "Lane_Sales", "name": "Bắt đầu tạo đơn" },
+    { "id": "Task_Input", "kind": "task", "lane": "Lane_Sales", "name": "Mở form, chọn Yêu cầu, nhập số lượng, đính kèm Hóa đơn" },
+    { "id": "Task_Submit", "kind": "task", "lane": "Lane_Sales", "name": "Bấm Xác nhận tạo đơn" },
+    { "id": "GW_Validate", "kind": "gateway", "lane": "Lane_System", "name": "Dữ liệu hợp lệ & đủ số lượng?" },
+    { "id": "Task_Invalid", "kind": "task", "lane": "Lane_System", "name": "Trả về lỗi & highlight trường sai" },
+    { "id": "Task_Fix", "kind": "task", "lane": "Lane_Sales", "name": "Sửa thông tin lỗi" },
+    { "id": "Task_Init", "kind": "task", "lane": "Lane_System", "name": "Khởi tạo đơn hàng (Chờ duyệt) & Tạm giữ số lượng" },
+
+    { "id": "GW_Action", "kind": "gateway", "lane": "Lane_Sales", "name": "Hành động tiếp theo?" },
+
+    { "id": "Task_Edit", "kind": "task", "lane": "Lane_Sales", "name": "Sửa thông tin đơn & Bấm Lưu chỉnh sửa" },
+    { "id": "GW_CheckState", "kind": "gateway", "lane": "Lane_System", "name": "Đơn đã được duyệt/từ chối chưa?" },
+    { "id": "Task_Update", "kind": "task", "lane": "Lane_System", "name": "Lưu cập nhật, tăng Version, báo thành công" },
+    { "id": "Task_RejectEdit", "kind": "task", "lane": "Lane_System", "name": "Từ chối lưu & báo lỗi" },
+    { "id": "End_RejectEdit", "kind": "end", "lane": "Lane_System", "name": "Không thể sửa" },
+
+    { "id": "Task_View", "kind": "task", "lane": "Lane_Admin", "name": "Xem danh sách và chi tiết đơn chờ duyệt" },
+    { "id": "GW_Approve", "kind": "gateway", "lane": "Lane_Admin", "name": "Quyết định phê duyệt?" },
+    
+    { "id": "Task_Reject", "kind": "task", "lane": "Lane_Admin", "name": "Nhập lý do & Xác nhận từ chối" },
+    { "id": "Task_Refund", "kind": "task", "lane": "Lane_System", "name": "Giải phóng số lượng tạm giữ, chuyển Từ Chối, Auto Refund" },
+    { "id": "End_Reject", "kind": "end", "lane": "Lane_Admin", "name": "Đơn bị từ chối" },
+
+    { "id": "Task_Approve", "kind": "task", "lane": "Lane_Admin", "name": "Bấm Phê duyệt" },
+    { "id": "Task_Export", "kind": "task", "lane": "Lane_System", "name": "Sinh Bản ghi Xuất kho (Chờ duyệt) & Gửi SMS cho KH" },
+    { "id": "Task_API", "kind": "task", "lane": "Lane_System", "name": "Gọi API tạo vận đơn sang 247Express" },
+    { "id": "GW_API", "kind": "gateway", "lane": "Lane_System", "name": "Kết nối API thành công?" },
+    { "id": "Task_APISuccess", "kind": "task", "lane": "Lane_System", "name": "Lưu Tracking ID & Đổi sang Đã tiếp nhận" },
+    { "id": "End_Success", "kind": "end", "lane": "Lane_System", "name": "Tạo đơn thành công" },
+    { "id": "Task_APIFail", "kind": "task", "lane": "Lane_System", "name": "Đặt COURIER_Thất bại & Cảnh báo gửi lại API" },
+    { "id": "End_APIFail", "kind": "end", "lane": "Lane_System", "name": "Lỗi kết nối HVC" }
+  ],
+  "flows": [
+    { "id": "F1", "src": "Start_1", "tgt": "Task_Input" },
+    { "id": "F2", "src": "Task_Input", "tgt": "Task_Submit" },
+    { "id": "F3", "src": "Task_Submit", "tgt": "GW_Validate" },
+    { "id": "F4", "src": "GW_Validate", "tgt": "Task_Invalid", "name": "Thất bại" },
+    { "id": "F5", "src": "Task_Invalid", "tgt": "Task_Fix" },
+    { "id": "F6", "src": "Task_Fix", "tgt": "Task_Submit" },
+    { "id": "F7", "src": "GW_Validate", "tgt": "Task_Init", "name": "Thành công" },
+    { "id": "F8", "src": "Task_Init", "tgt": "GW_Action" },
+    
+    { "id": "F9", "src": "GW_Action", "tgt": "Task_Edit", "name": "Sales sửa đơn" },
+    { "id": "F10", "src": "Task_Edit", "tgt": "GW_CheckState" },
+    { "id": "F11", "src": "GW_CheckState", "tgt": "Task_Update", "name": "Chưa bị xử lý" },
+    { "id": "F12", "src": "Task_Update", "tgt": "GW_Action" },
+    { "id": "F13", "src": "GW_CheckState", "tgt": "Task_RejectEdit", "name": "Đã bị xử lý" },
+    { "id": "F14", "src": "Task_RejectEdit", "tgt": "End_RejectEdit" },
+
+    { "id": "F15", "src": "GW_Action", "tgt": "Task_View", "name": "Admin duyệt đơn" },
+    { "id": "F16", "src": "Task_View", "tgt": "GW_Approve" },
+    { "id": "F17", "src": "GW_Approve", "tgt": "Task_Reject", "name": "Từ chối" },
+    { "id": "F18", "src": "Task_Reject", "tgt": "Task_Refund" },
+    { "id": "F19", "src": "Task_Refund", "tgt": "End_Reject" },
+    { "id": "F20", "src": "GW_Approve", "tgt": "Task_Approve", "name": "Phê duyệt" },
+    { "id": "F21", "src": "Task_Approve", "tgt": "Task_Export" },
+    { "id": "F22", "src": "Task_Export", "tgt": "Task_API" },
+    { "id": "F23", "src": "Task_API", "tgt": "GW_API" },
+    { "id": "F24", "src": "GW_API", "tgt": "Task_APISuccess", "name": "Thành công" },
+    { "id": "F25", "src": "Task_APISuccess", "tgt": "End_Success" },
+    { "id": "F26", "src": "GW_API", "tgt": "Task_APIFail", "name": "Thất bại" },
+    { "id": "F27", "src": "Task_APIFail", "tgt": "End_APIFail" }
+  ]
+}

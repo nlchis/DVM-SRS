@@ -198,7 +198,6 @@
                         <option value="SALES">Sales phụ trách (Maker)</option>
                         <option value="CHECKER">Quản trị viên (Checker)</option>
                         <option value="WH">Thủ kho chuyên trách</option>
-                        <option value="ACCOUNTANT">Kế toán trưởng</option>
                     </select>
                 </div>
                 
@@ -653,10 +652,7 @@
                             <i class="fa-solid fa-pen-to-square"></i>
                             <span>[ SỬA ĐƠN HÀNG ]</span>
                         </button>
-                        <button id="details-vat-btn" onclick="issueVATInvoice()" class="hidden px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg text-sm shadow-md transition flex items-center gap-2">
-                            <i class="fa-solid fa-file-invoice-dollar"></i>
-                            <span>[ XUẤT HÓA ĐƠN VAT ]</span>
-                        </button>
+                        
                     </div>
                     <button onclick="switchTab('order-list')" class="px-6 py-2.5 border border-slate-200 hover:bg-slate-50 text-slate-600 font-semibold rounded-lg text-sm transition">Quay Lại</button>
                 </div>
@@ -2066,10 +2062,7 @@
             filterOrders();
         }
 
-        function issueVATInvoice() {
-            showToast("Xuất hóa đơn VAT", `Đã phát hành thành công hóa đơn VAT cho đơn hàng #${activeOrderId}.`);
-        }
-
+        
         // --- ROLE SWITCHING, DUYỆT ĐƠN, NHẬP KHO LOGIC ---
         let currentRole = "SALES"; // Default role
 
@@ -2081,7 +2074,6 @@
                 SALES: { name: "Nguyễn Văn Sales", title: "Sales phụ trách (Maker)", char: "S", bg: "bg-blue-600", defaultTab: "dashboard" },
                 CHECKER: { name: "Trần Thị Checker", title: "Quản trị viên (Checker)", char: "C", bg: "bg-purple-600", defaultTab: "dashboard" },
                 WH: { name: "Vũ Văn Kho", title: "Thủ kho chuyên trách", char: "K", bg: "bg-amber-600", defaultTab: "replenish-inventory" },
-                ACCOUNTANT: { name: "Lê Thị Toán", title: "Kế toán trưởng", char: "T", bg: "bg-emerald-600", defaultTab: "dashboard" }
             };
 
             const info = roleInfo[role] || roleInfo.SALES;

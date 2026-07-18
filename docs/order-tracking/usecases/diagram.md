@@ -1,4 +1,4 @@
-# Sơ đồ Use Case - Phân hệ Theo dõi Đơn hàng
+# Sơ đồ Use Case - Phân hệ B2B (Hợp đồng & Đơn hàng)
 
 Sơ đồ Use Case mô tả mối quan hệ tương tác giữa các tác nhân (Actors) và các ca sử dụng (Use Cases) của hệ thống.
 
@@ -14,68 +14,69 @@ skinparam ActorBorderColor #475569
 skinparam ActorFontColor #0F172A
 skinparam ArrowColor #334155
 
-actor "Khách hàng" as KH
 actor "Sales phụ trách" as Sales
-actor "Admin (Checker)" as Admin
+actor "Admin" as Admin
 actor "Thủ kho" as WH
-actor "Kế toán" as Accountant
-actor "247Express\n(External System)" as Courier
+actor "247Express\n(Webhook)" as Courier
 
-rectangle "Hệ thống Theo dõi Đơn hàng (VietMec Portal)" {
+rectangle "Hệ thống Quản lý B2B (VietMec Portal)" {
+
+  rectangle "Khách hàng & Hợp đồng" {
+    usecase "Quản lý Khách hàng" as UCc1
+    usecase "Quản lý Hợp đồng & Phụ lục" as UCc2
+  }
+
+  rectangle "Yêu cầu giao hàng" {
+    usecase "Tạo Yêu cầu giao hàng" as UCd1
+  }
 
   rectangle "Bán hàng (Sales / CRM)" {
-    usecase "Đặt hàng tự động từ Website" as UC1
-    usecase "Tạo đơn hàng thủ công" as UC2
-    usecase "Điều phối xử lý giao hàng lỗi" as UC6
+    usecase "Tạo đơn hàng từ Yêu cầu" as UC1
+    usecase "Chỉnh sửa đơn hàng" as UC4
+    usecase "Xử lý Hoàn hàng (Chủ động)" as UC5a
   }
 
   rectangle "Phê duyệt (Approval)" {
-    usecase "Phê duyệt / Từ chối đơn hàng" as UC3
+    usecase "Phê duyệt / Từ chối đơn hàng" as UC2
   }
 
   rectangle "Quản lý kho (Inventory)" {
-    usecase "Đóng gói & Bàn giao vận chuyển" as UC4
-    usecase "Nhập bổ sung tồn kho" as UC9
+    usecase "Xem chi tiết & In chứng từ" as UC3
+    usecase "Nhập bổ sung tồn kho" as UC6
   }
 
-  rectangle "Giao hàng (custom module)" {
-    usecase "Cập nhật hành trình tự động" as UC5
-  }
-
-  rectangle "Kế toán (Accounting)" {
-    usecase "Phát hành hóa đơn VAT" as UC7
-    usecase "Đối soát công nợ COD" as UC8
+  rectangle "Giao hàng (Webhook)" {
+    usecase "Cập nhật hành trình & Hoàn hàng (Tự động)" as UC5b
   }
 }
 
-' Actor to Use Case Associations (Standard UML solid lines)
-KH -- UC1
-Sales -- UC2
-Sales -- UC6
-Admin -- UC3
-WH -- UC4
-WH -- UC9
-Accountant -- UC7
-Accountant -- UC8
-Courier -- UC5
+' Actor to Use Case Associations
+Sales -- UCc1
+Sales -- UCc2
+Sales -- UC1
+Sales -- UC4
+Sales -- UC5a
 
-' Connections representing flows/relationships between operations
-UC1 --> UC4 : "Tự động gán kệ xuất kho"
-UC2 --> UC3 : "Yêu cầu duyệt đơn"
-UC3 --> UC4 : "Phê duyệt xuất kho"
-UC4 --> Courier : "Bàn giao vật lý"
-Courier --> UC5 : "Cập nhật hành trình"
-UC5 --> UC6 : "Giao hàng thất bại"
-UC5 --> UC7 : "Giao hàng thành công"
-UC7 --> UC8 : "Đối soát công nợ"
+Admin -- UCc1
+Admin -- UCc2
+Admin -- UCd1
+Admin -- UC2
+
+WH -- UC3
+WH -- UC6
+
+Courier -- UC5b
+
+' Connections
+UCc2 ..> UCc1 : <<include>>
+UCd1 ..> UCc2 : <<include>>
+UC1 ..> UCd1 : <<include>>
 
 @enduml
 ```
 
 ## Ghi chú các quan hệ
-* **Khách hàng:** Tác nhân chính thực hiện mua sắm trên VietMec (UC-01).
-* **Sales phụ trách:** Maker tạo đơn tay (UC-02) và điều phối xử lý khi giao hàng thất bại (UC-06).
-* **Admin:** Checker phê duyệt hoặc từ chối các đơn hàng thủ công (UC-03).
-* **Thủ kho:** Thực hiện lấy hàng, đóng gói và bàn giao cho bưu tá (UC-04).
-* **Kế toán:** Phát hành hóa đơn VAT (UC-07) và đối soát COD cuối kỳ (UC-08).
-* **247Express:** Đối tác vận chuyển (External System) nhận lệnh giao hàng và đẩy Webhook cập nhật (UC-05).
+* **Sales phụ trách:** Quản lý khách hàng, khởi tạo hợp đồng, tự tạo đơn hàng dựa trên hạn mức Yêu cầu giao hàng, và thao tác yêu cầu hoàn hàng cho khách.
+* **Admin:** Quản lý khách hàng, khởi tạo hợp đồng, tạo Yêu cầu giao hàng từ Hợp đồng để Sales chạy đơn, và có quyền duyệt/từ chối đơn hàng.
+* **Thủ kho:** Thực hiện lấy hàng, in nhãn dán, đóng gói và tự kiểm đếm nhập kho thủ công khi có đơn hoàn.
+* **247Express:** Đối tác vận chuyển gửi Webhook cập nhật hành trình tự động (Đang giao, Thành công, Thất bại, Chờ Hoàn, Đã hoàn).

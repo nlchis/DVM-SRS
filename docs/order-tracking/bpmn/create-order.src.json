@@ -1,0 +1,16 @@
+{
+  "actors": ["Maker (Sales)", "Hệ thống", "Checker (Admin)"],
+  "branches": [
+    "Dữ liệu hợp lệ & đủ số lượng?",
+    "Hành động tiếp theo? (Sửa / Duyệt)",
+    "Đơn đã được duyệt/từ chối chưa?",
+    "Quyết định phê duyệt?",
+    "Kết nối API thành công?"
+  ],
+  "errors": [
+    "Thất bại (Dữ liệu không hợp lệ)",
+    "Đã bị xử lý (Từ chối lưu sửa đổi)",
+    "Từ chối (Từ chối duyệt đơn)",
+    "Thất bại (Kết nối API 247 lỗi)"
+  ]
+}

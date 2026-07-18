@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Def_1" targetNamespace="http://bpmn.io/schema/bpmn">
+  <bpmn:collaboration id="Collaboration_1">
+    <bpmn:participant id="Participant_1" name="Luồng tạo đơn hàng" processRef="Process_create-order" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_create-order" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_1">
+      <bpmn:lane id="Lane_Sales" name="Maker (Sales)">
+        <bpmn:flowNodeRef>Start_1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_Action</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Edit</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Input</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Submit</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Fix</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_System" name="Hệ thống">
+        <bpmn:flowNodeRef>GW_Validate</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Invalid</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Init</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_CheckState</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Update</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_RejectEdit</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_API</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_API</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_APISuccess</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End_Success</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_APIFail</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End_APIFail</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End_RejectEdit</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Export</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Refund</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Admin" name="Checker (Admin)">
+        <bpmn:flowNodeRef>Task_View</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_Approve</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Reject</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End_Reject</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Approve</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="Start_1" name="Bắt đầu tạo đơn">
+      <bpmn:outgoing>F1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:exclusiveGateway id="GW_Validate" name="Dữ liệu hợp lệ &#38; đủ số lượng?">
+      <bpmn:incoming>F3</bpmn:incoming>
+      <bpmn:outgoing>F4</bpmn:outgoing>
+      <bpmn:outgoing>F7</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_Invalid" name="Trả về lỗi &#38; highlight trường sai">
+      <bpmn:incoming>F4</bpmn:incoming>
+      <bpmn:outgoing>F5</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_Init" name="Khởi tạo đơn hàng (Chờ duyệt) &#38; Tạm giữ số lượng">
+      <bpmn:incoming>F7</bpmn:incoming>
+      <bpmn:outgoing>F8</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="GW_Action" name="Hành động tiếp theo?">
+      <bpmn:incoming>F8</bpmn:incoming>
+      <bpmn:incoming>F12</bpmn:incoming>
+      <bpmn:outgoing>F9</bpmn:outgoing>
+      <bpmn:outgoing>F15</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_Edit" name="Sửa thông tin đơn &#38; Bấm Lưu chỉnh sửa">
+      <bpmn:incoming>F9</bpmn:incoming>
+      <bpmn:outgoing>F10</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="GW_CheckState" name="Đơn đã được duyệt/từ chối chưa?">
+      <bpmn:incoming>F10</bpmn:incoming>
+      <bpmn:outgoing>F11</bpmn:outgoing>
+      <bpmn:outgoing>F13</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_Update" name="Lưu cập nhật, tăng Version, báo thành công">
+      <bpmn:incoming>F11</bpmn:incoming>
+      <bpmn:outgoing>F12</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_RejectEdit" name="Từ chối lưu &#38; báo lỗi">
+      <bpmn:incoming>F13</bpmn:incoming>
+      <bpmn:outgoing>F14</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_View" name="Xem danh sách và chi tiết đơn chờ duyệt">
+      <bpmn:incoming>F15</bpmn:incoming>
+      <bpmn:outgoing>F16</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="GW_Approve" name="Quyết định phê duyệt?">
+      <bpmn:incoming>F16</bpmn:incoming>
+      <bpmn:outgoing>F17</bpmn:outgoing>
+      <bpmn:outgoing>F20</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_Reject" name="Nhập lý do &#38; Xác nhận từ chối">
+      <bpmn:incoming>F17</bpmn:incoming>
+      <bpmn:outgoing>F18</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="End_Reject" name="Đơn bị từ chối">
+      <bpmn:incoming>F19</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:task id="Task_Approve" name="Bấm Phê duyệt">
+      <bpmn:incoming>F20</bpmn:incoming>
+      <bpmn:outgoing>F21</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_API" name="Gọi API tạo vận đơn sang 247Express">
+      <bpmn:incoming>F22</bpmn:incoming>
+      <bpmn:outgoing>F23</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="GW_API" name="Kết nối API thành công?">
+      <bpmn:incoming>F23</bpmn:incoming>
+      <bpmn:outgoing>F24</bpmn:outgoing>
+      <bpmn:outgoing>F26</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_APISuccess" name="Lưu Tracking ID &#38; Đổi sang Đã tiếp nhận">
+      <bpmn:incoming>F24</bpmn:incoming>
+      <bpmn:outgoing>F25</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="End_Success" name="Tạo đơn thành công">
+      <bpmn:incoming>F25</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:task id="Task_APIFail" name="Đặt COURIER_Thất bại &#38; Cảnh báo gửi lại API">
+      <bpmn:incoming>F26</bpmn:incoming>
+      <bpmn:outgoing>F27</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="End_APIFail" name="Lỗi kết nối HVC">
+      <bpmn:incoming>F27</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="F1" name="" sourceRef="Start_1" targetRef="Task_Input" />
+    <bpmn:sequenceFlow id="F2" name="" sourceRef="Task_Input" targetRef="Task_Submit" />
+    <bpmn:sequenceFlow id="F3" name="" sourceRef="Task_Submit" targetRef="GW_Validate" />
+    <bpmn:sequenceFlow id="F4" name="Thất bại" sourceRef="GW_Validate" targetRef="Task_Invalid" />
+    <bpmn:sequenceFlow id="F5" name="" sourceRef="Task_Invalid" targetRef="Task_Fix" />
+    <bpmn:sequenceFlow id="F6" name="" sourceRef="Task_Fix" targetRef="Task_Submit" />
+    <bpmn:sequenceFlow id="F7" name="Thành công" sourceRef="GW_Validate" targetRef="Task_Init" />
+    <bpmn:sequenceFlow id="F8" name="" sourceRef="Task_Init" targetRef="GW_Action" />
+    <bpmn:sequenceFlow id="F9" name="Sales sửa đơn" sourceRef="GW_Action" targetRef="Task_Edit" />
+    <bpmn:sequenceFlow id="F10" name="" sourceRef="Task_Edit" targetRef="GW_CheckState" />
+    <bpmn:sequenceFlow id="F11" name="Chưa bị xử lý" sourceRef="GW_CheckState" targetRef="Task_Update" />
+    <bpmn:sequenceFlow id="F12" name="" sourceRef="Task_Update" targetRef="GW_Action" />
+    <bpmn:sequenceFlow id="F13" name="Đã bị xử lý" sourceRef="GW_CheckState" targetRef="Task_RejectEdit" />
+    <bpmn:sequenceFlow id="F14" name="" sourceRef="Task_RejectEdit" targetRef="End_RejectEdit" />
+    <bpmn:sequenceFlow id="F15" name="Admin duyệt đơn" sourceRef="GW_Action" targetRef="Task_View" />
+    <bpmn:sequenceFlow id="F16" name="" sourceRef="Task_View" targetRef="GW_Approve" />
+    <bpmn:sequenceFlow id="F17" name="Từ chối" sourceRef="GW_Approve" targetRef="Task_Reject" />
+    <bpmn:sequenceFlow id="F18" name="" sourceRef="Task_Reject" targetRef="Task_Refund" />
+    <bpmn:sequenceFlow id="F19" name="" sourceRef="Task_Refund" targetRef="End_Reject" />
+    <bpmn:sequenceFlow id="F20" name="Phê duyệt" sourceRef="GW_Approve" targetRef="Task_Approve" />
+    <bpmn:sequenceFlow id="F21" name="" sourceRef="Task_Approve" targetRef="Task_Export" />
+    <bpmn:sequenceFlow id="F22" name="" sourceRef="Task_Export" targetRef="Task_API" />
+    <bpmn:sequenceFlow id="F23" name="" sourceRef="Task_API" targetRef="GW_API" />
+    <bpmn:sequenceFlow id="F24" name="Thành công" sourceRef="GW_API" targetRef="Task_APISuccess" />
+    <bpmn:sequenceFlow id="F25" name="" sourceRef="Task_APISuccess" targetRef="End_Success" />
+    <bpmn:sequenceFlow id="F26" name="Thất bại" sourceRef="GW_API" targetRef="Task_APIFail" />
+    <bpmn:sequenceFlow id="F27" name="" sourceRef="Task_APIFail" targetRef="End_APIFail" />
+    <bpmn:task id="Task_Input" name="Mở form, chọn Yêu cầu, nhập số lượng, đính kèm Hóa đơn">
+      <bpmn:incoming>F1</bpmn:incoming>
+      <bpmn:outgoing>F2</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_Submit" name="Bấm Xác nhận tạo đơn">
+      <bpmn:incoming>F2</bpmn:incoming>
+      <bpmn:incoming>F6</bpmn:incoming>
+      <bpmn:outgoing>F3</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_Fix" name="Sửa thông tin lỗi">
+      <bpmn:incoming>F5</bpmn:incoming>
+      <bpmn:outgoing>F6</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="End_RejectEdit" name="Không thể sửa">
+      <bpmn:incoming>F14</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:task id="Task_Export" name="Sinh Bản ghi Xuất kho (Chờ duyệt) &#38; Gửi SMS cho KH">
+      <bpmn:incoming>F21</bpmn:incoming>
+      <bpmn:outgoing>F22</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_Refund" name="Giải phóng số lượng tạm giữ, chuyển Từ Chối, Auto Refund">
+      <bpmn:incoming>F18</bpmn:incoming>
+      <bpmn:outgoing>F19</bpmn:outgoing>
+    </bpmn:task>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="Diagram_1">
+    <bpmndi:BPMNPlane id="Plane_1" bpmnElement="Collaboration_1">
+      <bpmndi:BPMNShape bpmnElement="Participant_1" isHorizontal="false">
+        <dc:Bounds x="0" y="0" width="1510" height="1760" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Lane_Admin" isHorizontal="false">
+        <dc:Bounds x="1070" y="30" width="440" height="1730" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Lane_System" isHorizontal="false">
+        <dc:Bounds x="440" y="30" width="630" height="1730" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Lane_Sales" isHorizontal="false">
+        <dc:Bounds x="0" y="30" width="440" height="1730" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Start_1">
+        <dc:Bounds x="107" y="92" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="85" y="68" width="79" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="GW_Validate" isMarkerVisible="true">
+        <dc:Bounds x="540" y="445" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="448.5" y="456" width="81" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Task_Invalid">
+        <dc:Bounds x="500" y="555" width="130" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Task_Init">
+        <dc:Bounds x="690" y="555" width="130" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="GW_Action" isMarkerVisible="true">
+        <dc:Bounds x="290" y="685" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Task_Edit">
+        <dc:Bounds x="60" y="795" width="130" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="GW_CheckState" isMarkerVisible="true">
+        <dc:Bounds x="540" y="925" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="464" y="930" width="66" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Task_Update">
+        <dc:Bounds x="500" y="1035" width="130" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Task_RejectEdit">
+        <dc:Bounds x="690" y="1035" width="130" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Task_View">
+        <dc:Bounds x="1130" y="795" width="130" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="GW_Approve" isMarkerVisible="true">
+        <dc:Bounds x="1170" y="925" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1084.5" y="936" width="75" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Task_Reject">
+        <dc:Bounds x="1130" y="1035" width="130" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="End_Reject">
+        <dc:Bounds x="1177" y="1292" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Task_Approve">
+        <dc:Bounds x="1320" y="1035" width="130" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Task_API">
+        <dc:Bounds x="500" y="1275" width="130" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="GW_API" isMarkerVisible="true">
+        <dc:Bounds x="540" y="1405" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="444" y="1416" width="86" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Task_APISuccess">
+        <dc:Bounds x="500" y="1515" width="130" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="End_Success">
+        <dc:Bounds x="547" y="1652" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Task_APIFail">
+        <dc:Bounds x="690" y="1515" width="130" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="End_APIFail">
+        <dc:Bounds x="737" y="1652" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Task_Input">
+        <dc:Bounds x="60" y="175" width="130" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Task_Submit">
+        <dc:Bounds x="60" y="315" width="130" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Task_Fix">
+        <dc:Bounds x="60" y="555" width="130" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="End_RejectEdit">
+        <dc:Bounds x="882" y="1052" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="863" y="1028" width="73" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Task_Export">
+        <dc:Bounds x="690" y="1155" width="130" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Task_Refund">
+        <dc:Bounds x="865" y="1155" width="130" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="F1">
+        <di:waypoint x="125" y="128" />
+        <di:waypoint x="125" y="175" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="F2">
+        <di:waypoint x="125" y="245" />
+        <di:waypoint x="125" y="315" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="F3">
+        <di:waypoint x="190" y="350" />
+        <di:waypoint x="565" y="350" />
+        <di:waypoint x="565" y="445" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="F4">
+        <di:waypoint x="565" y="495" />
+        <di:waypoint x="565" y="555" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="573" y="518" width="50" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="F5">
+        <di:waypoint x="500" y="590" />
+        <di:waypoint x="190" y="590" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="F6">
+        <di:waypoint x="125" y="555" />
+        <di:waypoint x="125" y="385" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="F7">
+        <di:waypoint x="590" y="470" />
+        <di:waypoint x="755" y="470" />
+        <di:waypoint x="755" y="555" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="639" y="453" width="58" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="F8">
+        <di:waypoint x="755" y="625" />
+        <di:waypoint x="755" y="655" />
+        <di:waypoint x="307" y="655" />
+        <di:waypoint x="307" y="685" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="F9">
+        <di:waypoint x="290" y="710" />
+        <di:waypoint x="125" y="710" />
+        <di:waypoint x="125" y="795" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="203" y="693" width="73" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="F10">
+        <di:waypoint x="125" y="865" />
+        <di:waypoint x="125" y="895" />
+        <di:waypoint x="565" y="895" />
+        <di:waypoint x="565" y="925" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="F11">
+        <di:waypoint x="565" y="975" />
+        <di:waypoint x="565" y="1035" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="573" y="998" width="81" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="F12">
+        <di:waypoint x="630" y="1070" />
+        <di:waypoint x="664" y="1070" />
+        <di:waypoint x="664" y="661" />
+        <di:waypoint x="323" y="661" />
+        <di:waypoint x="323" y="685" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="F13">
+        <di:waypoint x="590" y="950" />
+        <di:waypoint x="755" y="950" />
+        <di:waypoint x="755" y="1035" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="593" y="933" width="53" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="F14">
+        <di:waypoint x="820" y="1070" />
+        <di:waypoint x="882" y="1070" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="F15">
+        <di:waypoint x="340" y="710" />
+        <di:waypoint x="1195" y="710" />
+        <di:waypoint x="1195" y="795" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="348" y="693" width="83" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="F16">
+        <di:waypoint x="1195" y="865" />
+        <di:waypoint x="1195" y="925" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="F17">
+        <di:waypoint x="1195" y="975" />
+        <di:waypoint x="1195" y="1035" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1203" y="998" width="43" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="F18">
+        <di:waypoint x="1195" y="1105" />
+        <di:waypoint x="1195" y="1130" />
+        <di:waypoint x="930" y="1130" />
+        <di:waypoint x="930" y="1155" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="F19">
+        <di:waypoint x="930" y="1225" />
+        <di:waypoint x="930" y="1259" />
+        <di:waypoint x="1195" y="1259" />
+        <di:waypoint x="1195" y="1292" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="F20">
+        <di:waypoint x="1220" y="950" />
+        <di:waypoint x="1385" y="950" />
+        <di:waypoint x="1385" y="1035" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1224" y="933" width="51" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="F21">
+        <di:waypoint x="1385" y="1105" />
+        <di:waypoint x="1385" y="1120" />
+        <di:waypoint x="755" y="1120" />
+        <di:waypoint x="755" y="1155" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="F22">
+        <di:waypoint x="755" y="1225" />
+        <di:waypoint x="755" y="1250" />
+        <di:waypoint x="565" y="1250" />
+        <di:waypoint x="565" y="1275" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="F23">
+        <di:waypoint x="565" y="1345" />
+        <di:waypoint x="565" y="1405" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="F24">
+        <di:waypoint x="565" y="1455" />
+        <di:waypoint x="565" y="1515" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="573" y="1478" width="62" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="F25">
+        <di:waypoint x="565" y="1585" />
+        <di:waypoint x="565" y="1652" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="F26">
+        <di:waypoint x="590" y="1430" />
+        <di:waypoint x="755" y="1430" />
+        <di:waypoint x="755" y="1515" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="600" y="1413" width="40" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="F27">
+        <di:waypoint x="755" y="1585" />
+        <di:waypoint x="755" y="1652" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
