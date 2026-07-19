@@ -58,7 +58,10 @@
 
         /* Nav item active styling */
         .nav-active {
-            @apply bg-slate-800 text-white border-l-4 border-blue-500 font-semibold;
+            background-color: #1e293b; /* bg-slate-800 */
+            color: #ffffff; /* text-white */
+            border-left: 4px solid #3b82f6; /* border-l-4 border-blue-500 */
+            font-weight: 600; /* font-semibold */
         }
 
         /* Pulse animation for active delivery */
@@ -130,31 +133,31 @@
 
         <!-- Navigation Links -->
         <nav id="sidebar-nav" class="flex-1 py-6 px-4 space-y-1 overflow-y-auto">
-            <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-active w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-left transition-all duration-200 hover:bg-slate-900 hover:text-white">
+            <button type="button" onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-active w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-left transition-all duration-200 hover:bg-slate-900 hover:text-white">
                 <i class="fa-solid fa-chart-pie w-5 text-center text-lg"></i>
                 <span>Dashboard Tổng quan</span>
             </button>
-            <button onclick="switchTab('order-list')" id="nav-order-list" class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-left transition-all duration-200 hover:bg-slate-900 hover:text-white">
+            <button type="button" onclick="switchTab('order-list')" id="nav-order-list" class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-left transition-all duration-200 hover:bg-slate-900 hover:text-white">
                 <i class="fa-solid fa-list-check w-5 text-center text-lg"></i>
                 <span>Quản lý Đơn hàng</span>
             </button>
-            <button onclick="switchTab('create-order')" id="nav-create-order" class="role-nav-item role-sales w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-left transition-all duration-200 hover:bg-slate-900 hover:text-white">
+            <button type="button" onclick="switchTab('create-order')" id="nav-create-order" class="role-nav-item role-sales w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-left transition-all duration-200 hover:bg-slate-900 hover:text-white">
                 <i class="fa-solid fa-circle-plus w-5 text-center text-lg"></i>
                 <span>Tạo Đơn Vận Chuyển</span>
             </button>
-            <button onclick="switchTab('checker-approval')" id="nav-checker-approval" class="role-nav-item role-checker w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-left transition-all duration-200 hover:bg-slate-900 hover:text-white hidden">
+            <button type="button" onclick="switchTab('checker-approval')" id="nav-checker-approval" class="role-nav-item role-checker w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-left transition-all duration-200 hover:bg-slate-900 hover:text-white hidden">
                 <i class="fa-solid fa-user-shield w-5 text-center text-lg"></i>
                 <span>Duyệt Đơn Hàng</span>
             </button>
-            <button onclick="switchTab('replenish-inventory')" id="nav-replenish-inventory" class="role-nav-item role-wh w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-left transition-all duration-200 hover:bg-slate-900 hover:text-white hidden">
+            <button type="button" onclick="switchTab('replenish-inventory')" id="nav-replenish-inventory" class="role-nav-item role-wh w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-left transition-all duration-200 hover:bg-slate-900 hover:text-white hidden">
                 <i class="fa-solid fa-boxes-stacked w-5 text-center text-lg"></i>
                 <span>Quản lý Tồn kho</span>
             </button>
-            <button onclick="switchTab('system-flow')" id="nav-system-flow" class="role-nav-item role-sales w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-left transition-all duration-200 hover:bg-slate-900 hover:text-white">
+            <button type="button" onclick="switchTab('system-flow')" id="nav-system-flow" class="role-nav-item role-sales w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-left transition-all duration-200 hover:bg-slate-900 hover:text-white">
                 <i class="fa-solid fa-route w-5 text-center text-lg"></i>
                 <span>Sơ đồ Luồng Hệ thống</span>
             </button>
-            <button onclick="switchTab('reconcile-cod')" id="nav-reconcile-cod" class="role-nav-item role-accountant w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-left transition-all duration-200 hover:bg-slate-900 hover:text-white hidden">
+            <button type="button" onclick="switchTab('reconcile-cod')" id="nav-reconcile-cod" class="role-nav-item role-accountant w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-left transition-all duration-200 hover:bg-slate-900 hover:text-white hidden">
                 <i class="fa-solid fa-scale-balanced w-5 text-center text-lg"></i>
                 <span>Quản lý Đối soát</span>
             </button>
@@ -189,7 +192,7 @@
             <div class="flex items-center gap-4">
                 <h2 id="header-title" class="text-xl font-bold text-slate-900 font-title">Dashboard Tổng quan</h2>
             </div>
-            <!-- Profile & Role Switching Section -->
+            <!-- Profile &amp; Role Switching Section -->
             <div class="flex items-center gap-6">
                 <!-- Flexible Role Switcher dropdown -->
                 <div class="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-xl px-3 py-1.5 transition no-print">
@@ -198,10 +201,10 @@
                         <option value="SALES">Sales phụ trách (Maker)</option>
                         <option value="CHECKER">Quản trị viên (Checker)</option>
                         <option value="WH">Thủ kho chuyên trách</option>
-                        
+
                     </select>
                 </div>
-                
+
                 <div class="flex items-center gap-3">
                     <div class="text-right">
                         <h4 id="user-display-name" class="text-sm font-semibold text-slate-900">Nguyễn Văn Sales</h4>
@@ -293,7 +296,7 @@
                     </div>
                 </div>
 
-                <!-- Charts & Alerts grid -->
+                <!-- Charts &amp; Alerts grid -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <!-- Shipping Trends Chart Card -->
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 lg:col-span-2 space-y-4">
@@ -319,7 +322,7 @@
 
             <!-- TAB 2: ORDER LIST -->
             <section id="panel-order-list" class="space-y-6 tab-panel hidden">
-                <!-- Search & Filters -->
+                <!-- Search &amp; Filters -->
                 <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex flex-col md:flex-row gap-4 items-center justify-between">
                     <!-- Search Input -->
                     <div class="relative w-full md:w-80">
@@ -363,9 +366,9 @@
                     <div class="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-sm text-slate-500">
                         <span id="pagination-text">Hiển thị 1 - 3 của 3 đơn</span>
                         <div class="flex items-center gap-2">
-                            <button class="w-8 h-8 rounded border border-slate-200 bg-white flex items-center justify-center hover:bg-slate-50 transition text-slate-400 cursor-not-allowed"><i class="fa-solid fa-chevron-left text-xs"></i></button>
-                            <button class="w-8 h-8 rounded border border-slate-200 bg-blue-600 text-white flex items-center justify-center font-bold">1</button>
-                            <button class="w-8 h-8 rounded border border-slate-200 bg-white flex items-center justify-center hover:bg-slate-50 transition text-slate-600"><i class="fa-solid fa-chevron-right text-xs"></i></button>
+                            <button aria-label="Button" type="button" class="w-8 h-8 rounded border border-slate-200 bg-white flex items-center justify-center hover:bg-slate-50 transition text-slate-400 cursor-not-allowed"><i class="fa-solid fa-chevron-left text-xs"></i></button>
+                            <button type="button" class="w-8 h-8 rounded border border-slate-200 bg-blue-600 text-white flex items-center justify-center font-bold">1</button>
+                            <button aria-label="Button" type="button" class="w-8 h-8 rounded border border-slate-200 bg-white flex items-center justify-center hover:bg-slate-50 transition text-slate-600"><i class="fa-solid fa-chevron-right text-xs"></i></button>
                         </div>
                     </div>
                 </div>
@@ -376,7 +379,7 @@
             <section id="panel-create-order" class="max-w-3xl mx-auto tab-panel hidden">
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 space-y-6 relative overflow-hidden">
                     <h3 class="text-xl font-bold text-slate-900 font-title border-b border-slate-100 pb-4">Tạo Đơn Vận Chuyển</h3>
-                    
+
                     <form id="create-order-form" onsubmit="submitNewOrder(event)" class="space-y-6">
                         <!-- Receiver Info Section -->
                         <div class="space-y-4">
@@ -476,8 +479,8 @@
                         </div>
                     </div>
                     <div class="flex items-center gap-3">
-                        <button onclick="resolveAction('DELIVERING')" class="px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg text-sm shadow-md transition">Yêu cầu Giao Lại (lần 2)</button>
-                        <button onclick="resolveAction('RETURNED')" class="px-5 py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-lg text-sm shadow-md transition">Xác nhận Hoàn Hàng</button>
+                        <button type="button" onclick="resolveAction('DELIVERING')" class="px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg text-sm shadow-md transition">Yêu cầu Giao Lại (lần 2)</button>
+                        <button type="button" onclick="resolveAction('RETURNED')" class="px-5 py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-lg text-sm shadow-md transition">Xác nhận Hoàn Hàng</button>
                     </div>
                 </div>
 
@@ -488,15 +491,15 @@
                         <!-- Status Badge -->
                         <span id="details-badge-container"></span>
                     </div>
-                    <button onclick="switchTab('order-list')" class="text-slate-400 hover:text-slate-600 text-lg transition"><i class="fa-solid fa-circle-xmark"></i></button>
+                    <button aria-label="Button" type="button" onclick="switchTab('order-list')" class="text-slate-400 hover:text-slate-600 text-lg transition"><i class="fa-solid fa-circle-xmark"></i></button>
                 </div>
 
                 <!-- Tab selector for details -->
                 <div class="bg-white px-6 py-2 rounded-2xl shadow-sm border border-slate-100 flex gap-6">
-                    <button onclick="switchDetailsTab('general')" id="tab-details-general" class="border-blue-600 text-blue-600 border-b-2 py-3 px-1 text-sm font-semibold transition-all">
-                        Thông tin chung & Hành trình
+                    <button type="button" onclick="switchDetailsTab('general')" id="tab-details-general" class="border-blue-600 text-blue-600 border-b-2 py-3 px-1 text-sm font-semibold transition-all">
+                        Thông tin chung &amp; Hành trình
                     </button>
-                    <button onclick="switchDetailsTab('history')" id="tab-details-history" class="border-transparent text-slate-500 hover:text-slate-700 border-b-2 py-3 px-1 text-sm font-semibold transition-all">
+                    <button type="button" onclick="switchDetailsTab('history')" id="tab-details-history" class="border-transparent text-slate-500 hover:text-slate-700 border-b-2 py-3 px-1 text-sm font-semibold transition-all">
                         Lịch sử thay đổi
                     </button>
                 </div>
@@ -525,11 +528,11 @@
 
                 <!-- Left Column (Tracking History) and Right Column (Notification Log) -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    
+
                     <!-- Tracking History -->
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 md:col-span-2 space-y-6">
                         <h4 class="text-lg font-bold text-slate-900 font-title border-b border-slate-100 pb-3">Lịch Sử Tracking (Từ 247Express)</h4>
-                        
+
                         <!-- Timeline list -->
                         <div id="timeline-list" class="flex flex-col">
                             <!-- Node 1 -->
@@ -546,7 +549,7 @@
                                     <p class="text-xs text-slate-500 mt-1">Mã vận đơn: 247XYZ123</p>
                                 </div>
                             </div>
-                            
+
                             <!-- Node 2 -->
                             <div class="flex items-stretch">
                                 <div class="w-10 flex flex-col items-center flex-shrink-0">
@@ -560,7 +563,7 @@
                                     <h5 id="node-2-title" class="text-sm font-semibold text-slate-900">Bưu tá đã lấy hàng</h5>
                                 </div>
                             </div>
-                            
+
                             <!-- Node 3 -->
                             <div class="flex items-stretch">
                                 <div class="w-10 flex flex-col items-center flex-shrink-0">
@@ -579,7 +582,7 @@
                     <!-- Notification Log -->
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-6">
                         <h4 class="text-lg font-bold text-slate-900 font-title border-b border-slate-100 pb-3">Lịch Sử Thông Báo</h4>
-                        
+
                         <div id="notifications-list" class="space-y-4">
                             <!-- SMS -->
                             <div class="flex items-start gap-3">
@@ -609,7 +612,7 @@
                                 <div class="space-y-1 flex-1 min-w-0">
                                     <p class="text-xs text-slate-400">16:02</p>
                                     <p class="text-xs text-rose-600 font-medium">[LỖI] Gửi SMS Brandname thất bại (Nhà mạng lỗi).</p>
-                                    <button onclick="resendNotification()" class="text-xs text-blue-600 hover:text-blue-700 font-semibold underline flex items-center gap-1 mt-1">
+                                    <button type="button" onclick="resendNotification()" class="text-xs text-blue-600 hover:text-blue-700 font-semibold underline flex items-center gap-1 mt-1">
                                         <span id="resend-text">Gửi lại</span>
                                         <span id="resend-spinner" class="inline-block w-3 h-3 border-2 border-blue-600 border-t-transparent rounded-full animate-spin hidden"></span>
                                     </button>
@@ -645,18 +648,16 @@
                 <!-- Footer Buttons -->
                 <div class="flex items-center justify-between p-6 bg-white border border-slate-100 rounded-2xl shadow-sm">
                     <div class="flex items-center gap-3">
-                        <button onclick="printWarehouseReceipt()" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg text-sm shadow-md transition flex items-center gap-2">
+                        <button type="button" onclick="printWarehouseReceipt()" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg text-sm shadow-md transition flex items-center gap-2">
                             <i class="fa-solid fa-print"></i>
                             <span>In Phiếu Xuất Kho</span>
                         </button>
-                        <button id="details-edit-btn" onclick="openEditOrderPopup()" class="px-6 py-2.5 bg-amber-500 hover:bg-amber-600 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-bold rounded-lg text-sm shadow-md transition flex items-center gap-2">
+                        <button type="button" id="details-edit-btn" onclick="openEditOrderPopup()" class="px-6 py-2.5 bg-amber-500 hover:bg-amber-600 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-bold rounded-lg text-sm shadow-md transition flex items-center gap-2">
                             <i class="fa-solid fa-pen-to-square"></i>
                             <span>[ SỬA ĐƠN HÀNG ]</span>
                         </button>
-                            <i class="fa-solid fa-file-invoice-dollar"></i>
-                        </button>
                     </div>
-                    <button onclick="switchTab('order-list')" class="px-6 py-2.5 border border-slate-200 hover:bg-slate-50 text-slate-600 font-semibold rounded-lg text-sm transition">Quay Lại</button>
+                    <button type="button" onclick="switchTab('order-list')" class="px-6 py-2.5 border border-slate-200 hover:bg-slate-50 text-slate-600 font-semibold rounded-lg text-sm transition">Quay Lại</button>
                 </div>
             </section>
 
@@ -665,21 +666,21 @@
                 <!-- Phase Selection Header Tabs -->
                 <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex flex-wrap gap-2 items-center justify-between">
                     <div class="flex flex-wrap gap-2">
-                        <button onclick="switchFlowPhase(1)" id="btn-phase-1" class="px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-lg shadow-md transition-all">
-                            1. Khởi Tạo & Đồng Bộ 247Express
+                        <button type="button" onclick="switchFlowPhase(1)" id="btn-phase-1" class="px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-lg shadow-md transition-all">
+                            1. Khởi Tạo &amp; Đồng Bộ 247Express
                         </button>
-                        <button onclick="switchFlowPhase(2)" id="btn-phase-2" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-lg transition-all">
-                            2. Cập Nhật Hành Trình & SMS/Telegram
+                        <button type="button" onclick="switchFlowPhase(2)" id="btn-phase-2" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-lg transition-all">
+                            2. Cập Nhật Hành Trình &amp; SMS/Telegram
                         </button>
-                        <button onclick="switchFlowPhase(3)" id="btn-phase-3" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-lg transition-all">
-                            3. Lỗi Giao Hàng & Xử Lý Hoàn/Giao Lại
+                        <button type="button" onclick="switchFlowPhase(3)" id="btn-phase-3" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-lg transition-all">
+                            3. Lỗi Giao Hàng &amp; Xử Lý Hoàn/Giao Lại
                         </button>
                     </div>
                     <!-- View Mode (Visual vs PlantUML Source) -->
                     <div class="flex items-center gap-2">
                         <span class="text-xs font-semibold text-slate-500">Chế độ xem:</span>
-                        <button onclick="setFlowViewMode('visual')" id="btn-view-visual" class="px-3 py-1 bg-slate-900 text-white text-[11px] font-bold rounded-md transition-all">Trực Quan</button>
-                        <button onclick="setFlowViewMode('plantuml')" id="btn-view-plantuml" class="px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-bold rounded-md transition-all">PlantUML</button>
+                        <button type="button" onclick="setFlowViewMode('visual')" id="btn-view-visual" class="px-3 py-1 bg-slate-900 text-white text-[11px] font-bold rounded-md transition-all">Trực Quan</button>
+                        <button type="button" onclick="setFlowViewMode('plantuml')" id="btn-view-plantuml" class="px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-bold rounded-md transition-all">PlantUML</button>
                     </div>
                 </div>
 
@@ -687,7 +688,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <!-- Left: Diagram Container (Spans 2 cols) -->
                     <div id="flow-diagram-container" class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-6 min-h-[700px] overflow-x-auto relative flex flex-col justify-between">
-                        
+
                         <!-- Participant Header Row (Absolute Aligned) -->
                         <div class="h-12 relative border-b border-slate-800 pb-4 z-10 flex-shrink-0">
                             <!-- Col 1 -->
@@ -730,10 +731,10 @@
                             <div class="absolute inset-y-0 left-[50%] w-[1px] border-l border-dashed border-slate-800/80 pointer-events-none"></div>
                             <div class="absolute inset-y-0 left-[71%] w-[1px] border-l border-dashed border-slate-800/80 pointer-events-none"></div>
                             <div class="absolute inset-y-0 left-[91%] w-[1px] border-l border-dashed border-slate-800/80 pointer-events-none"></div>
-                            
+
                             <!-- Populated dynamically via JS -->
                         </div>
-                        
+
                         <!-- Participant Footer Row (Absolute Aligned) -->
                         <div class="h-8 relative border-t border-slate-800 pt-3 z-10 flex-shrink-0">
                             <div class="absolute left-[9%] -translate-x-1/2 text-[10px] text-slate-500 font-semibold whitespace-nowrap">Sales/Admin</div>
@@ -755,7 +756,7 @@
                 <div id="flow-plantuml-block" class="hidden bg-slate-900 border border-slate-800 rounded-2xl p-6 text-white space-y-4">
                     <div class="flex items-center justify-between border-b border-slate-800 pb-3">
                         <h4 class="font-bold text-sm text-slate-200">Mã nguồn PlantUML (Sao chép trực tiếp vào Live Editor)</h4>
-                        <button onclick="copyPlantUMLCode()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded text-xs transition flex items-center gap-1.5">
+                        <button type="button" onclick="copyPlantUMLCode()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded text-xs transition flex items-center gap-1.5">
                             <i class="fa-solid fa-copy"></i> <span id="copy-btn-text">Sao chép mã</span>
                         </button>
                     </div>
@@ -800,7 +801,7 @@
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
                     <div class="flex items-center justify-between border-b border-slate-100 pb-4">
                         <div>
-                            <h3 class="text-lg font-bold text-slate-900 font-title">Quản lý Kho & Tồn Kho Khả Dụng</h3>
+                            <h3 class="text-lg font-bold text-slate-900 font-title">Quản lý Kho &amp; Tồn Kho Khả Dụng</h3>
                             <p class="text-xs text-slate-500">Theo dõi tồn kho thực tế và thực hiện nhập bổ sung sản phẩm.</p>
                         </div>
                     </div>
@@ -912,7 +913,7 @@
         <div class="bg-white p-6 rounded-2xl shadow-xl max-w-md w-full mx-4 space-y-4">
             <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                 <h3 class="text-base font-bold text-slate-900 font-title"><i class="fa-solid fa-ban text-rose-500 mr-2"></i>Từ Chối Duyệt Đơn</h3>
-                <button onclick="closeRejectModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+                <button aria-label="Button" type="button" onclick="closeRejectModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="space-y-2">
                 <p class="text-xs text-slate-500">Nhập lý do từ chối duyệt đơn hàng <strong id="reject-modal-order-id">#247-00123</strong>. Lý do bắt buộc nhập từ 10 đến 200 ký tự (theo quy tắc nghiệp vụ VR-order-tracking-004).</p>
@@ -920,8 +921,8 @@
                 <p id="reject-reason-error" class="text-xs text-red-500 hidden"><i class="fa-solid fa-circle-info mr-1"></i>Lý do từ chối phải dài từ 10 đến 200 ký tự</p>
             </div>
             <div class="flex items-center justify-end gap-3 pt-3 border-t border-slate-100 text-xs">
-                <button onclick="closeRejectModal()" class="px-4 py-2 border border-slate-200 hover:bg-slate-50 text-slate-600 font-semibold rounded-lg transition">Hủy bỏ</button>
-                <button onclick="submitRejectOrder()" class="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white font-semibold rounded-lg shadow-md shadow-rose-600/10 transition">Xác Nhận Từ Chối</button>
+                <button type="button" onclick="closeRejectModal()" class="px-4 py-2 border border-slate-200 hover:bg-slate-50 text-slate-600 font-semibold rounded-lg transition">Hủy bỏ</button>
+                <button type="button" onclick="submitRejectOrder()" class="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white font-semibold rounded-lg shadow-md shadow-rose-600/10 transition">Xác Nhận Từ Chối</button>
             </div>
         </div>
     </div>
@@ -931,7 +932,7 @@
         <div class="bg-white p-6 rounded-2xl shadow-xl max-w-md w-full mx-4 space-y-4">
             <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                 <h3 class="text-base font-bold text-slate-900 font-title"><i class="fa-solid fa-boxes-stacked text-blue-500 mr-2"></i>Nhập Bổ Sung Tồn Kho</h3>
-                <button onclick="closeReplenishModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+                <button aria-label="Button" type="button" onclick="closeReplenishModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="space-y-4">
                 <div>
@@ -946,7 +947,7 @@
                     <div>
                         <label class="block text-xs font-semibold text-slate-700 mb-1">Số lượng nhập thêm (*)</label>
                         <input type="number" id="replenish-qty-input" placeholder="Nhập số lượng..." class="w-full px-3 py-2 border border-slate-200 rounded-lg text-xs text-center focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 transition-all">
-                        <p id="replenish-qty-error" class="text-[10px] text-red-500 hidden mt-1"><i class="fa-solid fa-circle-info mr-1"></i>Số lượng phải là số nguyên > 0</p>
+                        <p id="replenish-qty-error" class="text-[10px] text-red-500 hidden mt-1"><i class="fa-solid fa-circle-info mr-1"></i>Số lượng phải là số nguyên &gt; 0</p>
                     </div>
                 </div>
                 <div>
@@ -961,8 +962,8 @@
                 </div>
             </div>
             <div class="flex items-center justify-end gap-3 pt-3 border-t border-slate-100 text-xs">
-                <button onclick="closeReplenishModal()" class="px-4 py-2 border border-slate-200 hover:bg-slate-50 text-slate-600 font-semibold rounded-lg transition">Hủy bỏ</button>
-                <button onclick="submitReplenish()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md shadow-blue-600/10 transition">Xác Nhận Nhập Kho</button>
+                <button type="button" onclick="closeReplenishModal()" class="px-4 py-2 border border-slate-200 hover:bg-slate-50 text-slate-600 font-semibold rounded-lg transition">Hủy bỏ</button>
+                <button type="button" onclick="submitReplenish()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md shadow-blue-600/10 transition">Xác Nhận Nhập Kho</button>
             </div>
         </div>
     </div>
@@ -1051,10 +1052,10 @@
                 'dashboard': 'Dashboard Tổng quan',
                 'order-list': 'Quản lý Đơn hàng',
                 'create-order': 'Tạo Đơn Vận Chuyển',
-                'order-details': 'Chi tiết Đơn hàng & Tracking',
+                'order-details': 'Chi tiết Đơn hàng &amp; Tracking',
                 'system-flow': 'Sơ đồ Luồng Hệ thống',
                 'checker-approval': 'Duyệt Đơn Hàng (Checker)',
-                'replenish-inventory': 'Quản lý Tồn kho & Nhập kho'
+                'replenish-inventory': 'Quản lý Tồn kho &amp; Nhập kho'
             };
             document.getElementById('header-title').innerText = titles[tabId] || 'Hệ thống';
 
@@ -1087,22 +1088,22 @@
 
             const countPendingApprovalEl = document.getElementById('count-pending-approval');
             if (countPendingApprovalEl) countPendingApprovalEl.innerText = statusCounts.PENDING_APPROVAL;
-            
+
             const countRejectedEl = document.getElementById('count-rejected');
             if (countRejectedEl) countRejectedEl.innerText = statusCounts.REJECTED;
 
             const pendingCountEl = document.getElementById('count-pending');
             if (pendingCountEl) pendingCountEl.innerText = statusCounts.PENDING;
-            
+
             const countDeliveringEl = document.getElementById('count-delivering');
             if (countDeliveringEl) countDeliveringEl.innerText = statusCounts.DELIVERING;
-            
+
             const countSuccessEl = document.getElementById('count-success');
             if (countSuccessEl) countSuccessEl.innerText = statusCounts.SUCCESS;
-            
+
             const countFailedEl = document.getElementById('count-failed');
             if (countFailedEl) countFailedEl.innerText = statusCounts.FAILED;
-            
+
             const countReturnedEl = document.getElementById('count-returned');
             if (countReturnedEl) countReturnedEl.innerText = statusCounts.RETURNED;
 
@@ -1113,7 +1114,7 @@
             const alertList = document.getElementById('urgent-alerts-list');
             if (alertList) {
                 alertList.innerHTML = '';
-                
+
                 const errorOrders = orders.filter(o => o.status === 'FAILED' || o.status === 'RETURNED' || o.status === 'PENDING_APPROVAL');
                 if (errorOrders.length === 0) {
                     alertList.innerHTML = `
@@ -1126,7 +1127,7 @@
                         let icon = 'fa-circle-xmark text-rose-500';
                         let label = 'Giao Chờ xử lý';
                         let colorClass = 'bg-rose-50';
-                        
+
                         if (o.status === 'RETURNED') {
                             icon = 'fa-arrow-rotate-left text-red-600';
                             label = 'Chờ Hoàn Hàng';
@@ -1254,10 +1255,10 @@
                             ${getStatusBadgeHTML(o.status)}
                         </td>
                         <td class="py-4 px-6 text-right space-x-2">
-                            <button onclick="openOrderDetails('${o.id}')" class="inline-flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-700 transition">
+                            <button type="button" onclick="openOrderDetails('${o.id}')" class="inline-flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-700 transition">
                                 <i class="fa-solid fa-eye"></i> Xem
                             </button>
-                            <button onclick="directPrintOrder('${o.id}')" class="inline-flex items-center gap-1 text-xs font-bold text-slate-600 hover:text-slate-955 transition ml-3">
+                            <button type="button" onclick="directPrintOrder('${o.id}')" class="inline-flex items-center gap-1 text-xs font-bold text-slate-600 hover:text-slate-955 transition ml-3">
                                 <i class="fa-solid fa-print"></i> In
                             </button>
                         </td>
@@ -1273,13 +1274,13 @@
             const statusFilter = document.getElementById('status-filter').value;
 
             const filtered = orders.filter(o => {
-                const matchesQuery = o.id.toLowerCase().includes(query) || 
-                                     o.tracking.toLowerCase().includes(query) || 
-                                     o.name.toLowerCase().includes(query) || 
+                const matchesQuery = o.id.toLowerCase().includes(query) ||
+                                     o.tracking.toLowerCase().includes(query) ||
+                                     o.name.toLowerCase().includes(query) ||
                                      o.phone.toLowerCase().includes(query);
-                
-                const matchesStatus = (statusFilter === 'ALL') || 
-                                      (statusFilter === o.status) || 
+
+                const matchesStatus = (statusFilter === 'ALL') ||
+                                      (statusFilter === o.status) ||
                                       (statusFilter === 'FAILED' && o.status === 'RETURNED');
 
                 return matchesQuery && matchesStatus;
@@ -1308,7 +1309,7 @@
         // Open specific order detailed views
         function openOrderDetails(orderId) {
             activeOrderId = orderId;
-            
+
             // Check details state error checkbox based on clicked status
             const o = orders.find(ord => ord.id === orderId);
             const checkbox = document.getElementById('toggle-details-error');
@@ -1339,7 +1340,7 @@
 
             // Fill header status details
             document.getElementById('details-code').innerText = `CHI TIẾT ĐƠN HÀNG: #${o.id}`;
-            
+
             // Sync status variables in database if toggled on-the-fly
             let statusChanged = false;
             if (isErrorState && o.status !== 'FAILED' && o.status !== 'RETURNED') {
@@ -1430,7 +1431,7 @@
             if (o.status === 'FAILED' || o.status === 'RETURNED') {
                 // Show failed actions banner on top
                 if (banner) banner.classList.remove('hidden');
-                
+
                 // Timeline Step 2 line points green but icon is ok
                 if (node2Icon) {
                     node2Icon.innerHTML = `<i class="fa-solid fa-check"></i>`;
@@ -1477,7 +1478,7 @@
                                 </div>
                             </div>
                             <div class="flex items-center gap-3">
-                                ${currentRole === 'SALES' ? `<button onclick="resolveAction('DELIVERING')" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-bold rounded-lg text-sm transition">Chuyển lại Đang đi phát</button>` : ''}
+                                ${currentRole === 'SALES' ? `<button type="button" onclick="resolveAction('DELIVERING')" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-bold rounded-lg text-sm transition">Chuyển lại Đang đi phát</button>` : ''}
                             </div>`;
                     } else {
                         banner.innerHTML = `
@@ -1492,8 +1493,8 @@
                             </div>
                             <div class="flex items-center gap-3">
                                 ${currentRole === 'SALES' ? `
-                                <button onclick="resolveAction('DELIVERING')" class="px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg text-sm shadow-md transition">Yêu cầu Giao Lại (lần 2)</button>
-                                <button onclick="resolveAction('RETURNED')" class="px-5 py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-lg text-sm shadow-md transition">Xác nhận Hoàn Hàng</button>
+                                <button type="button" onclick="resolveAction('DELIVERING')" class="px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg text-sm shadow-md transition">Yêu cầu Giao Lại (lần 2)</button>
+                                <button type="button" onclick="resolveAction('RETURNED')" class="px-5 py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-lg text-sm shadow-md transition">Xác nhận Hoàn Hàng</button>
                                 ` : '<span class="text-xs text-slate-500 italic">Chờ Sales phụ trách xử lý sự cố giao lỗi</span>'}
                             </div>`;
                     }
@@ -1615,7 +1616,6 @@
                     }
                 }
             }
-        }
 
         // Handle Quick Action resolve (Yêu cầu Giao lại / Xác nhận Hoàn hàng)
         function resolveAction(newStatus) {
@@ -1623,7 +1623,7 @@
             if (o) {
                 const oldStatus = o.status;
                 o.status = newStatus;
-                
+
                 // If transitioning to RETURNED (Đã chuyển hoàn Hàng) from a non-returned state, return stock to inventory!
                 if (newStatus === 'RETURNED' && oldStatus !== 'RETURNED') {
                     const invItem = inventory.find(i => i.name === o.product);
@@ -1632,7 +1632,7 @@
                         showToast("Hoàn trả tồn kho", `Đã cộng lại ${o.quantity || 1} sản phẩm ${o.product} vào tồn kho tại vị trí ${invItem.location}.`);
                     }
                 }
-                
+
                 // Uncheck error state checkbox if moving to delivering
                 const checkbox = document.getElementById('toggle-details-error');
                 if (checkbox) {
@@ -1660,7 +1660,7 @@
             setTimeout(() => {
                 if (text) text.innerText = "Gửi lại";
                 if (spinner) spinner.classList.add('hidden');
-                
+
                 const failedRow = document.getElementById('failed-notif-row');
                 if (failedRow) {
                     failedRow.innerHTML = `
@@ -1679,28 +1679,28 @@
         function populatePrintLayout(o) {
             const prCode = document.getElementById('print-order-code');
             if (prCode) prCode.innerText = `#${o.id}`;
-            
+
             const prName = document.getElementById('print-receiver-name');
             if (prName) prName.innerText = o.name;
-            
+
             const prPhone = document.getElementById('print-receiver-phone');
             if (prPhone) prPhone.innerText = o.phone;
-            
+
             const prAddr = document.getElementById('print-receiver-address');
             if (prAddr) prAddr.innerText = o.address;
-            
+
             const prTrack = document.getElementById('print-tracking-number');
             if (prTrack) prTrack.innerText = o.tracking;
-            
+
             const prProd = document.getElementById('print-product-name');
             if (prProd) prProd.innerText = o.product;
-            
+
             const prW = document.getElementById('print-weight');
             if (prW) prW.innerText = `${o.weight} kg`;
-            
+
             const prCod = document.getElementById('print-cod');
             if (prCod) prCod.innerText = o.cod.toLocaleString('vi-VN') + " đ";
-            
+
             const prStatus = document.getElementById('print-status');
             if (prStatus) {
                 const statusLabels = { PENDING_APPROVAL: "Chờ Duyệt", REJECTED: "Từ Chối Duyệt", PENDING: "Đã tiếp nhận", DELIVERING: "Đang Vận Chuyển", SUCCESS: "Thành Công", FAILED: "Chờ xử lý", RETURNED: "Hoàn Hàng" };
@@ -1795,7 +1795,7 @@
                     date: new Date().toISOString().split('T')[0],
                     creator: "Sales phụ trách"
                 };
-                
+
                 orders.push(newOrderObj);
 
                 // Clear fields
@@ -1814,7 +1814,7 @@
             }, 2000);
         }
 
-        
+
         // --- DETAILS TAB NAVIGATION SWITCHER ---
         function switchDetailsTab(tabId) {
             if (tabId === 'general') {
@@ -1834,9 +1834,9 @@
         function openEditOrderPopup() {
             const o = orders.find(ord => ord.id === activeOrderId);
             if (!o) return;
-            
+
             document.getElementById('edit-validation-error').classList.add('hidden');
-            
+
             document.getElementById('edit-name').value = o.name;
             document.getElementById('edit-phone').value = o.phone;
             document.getElementById('edit-address').value = o.address;
@@ -1844,9 +1844,9 @@
             document.getElementById('edit-price').value = o.price || (o.cod > 0 ? o.cod : 20000000);
             document.getElementById('edit-qty').value = o.quantity || 1;
             document.getElementById('edit-weight').value = o.weight;
-            
+
             calculateEditCOD();
-            
+
             document.getElementById('edit-order-modal').classList.remove('hidden');
         }
 
@@ -1909,20 +1909,20 @@
             if (invItem) {
                 const oldProductQtyInThisOrder = (o.product === product) ? (o.quantity || 1) : 0;
                 const netRequiredQty = qty - oldProductQtyInThisOrder;
-                
+
                 if (netRequiredQty > invItem.qty) {
                     errDiv.innerText = `Số lượng yêu cầu vượt quá tồn kho khả dụng hiện tại (Còn lại: ${invItem.qty} sản phẩm).`;
                     errDiv.classList.remove('hidden');
                     return;
                 }
-                
+
                 invItem.qty -= netRequiredQty;
             }
 
             // 4. Calculate diffs and append logs
             const timestamp = new Date().toLocaleTimeString('vi-VN') + ' ' + new Date().toLocaleDateString('vi-VN');
             const diffs = [];
-            
+
             if (o.name !== name) diffs.push({ field: 'Họ tên người nhận', old: o.name, new: name });
             if (o.phone !== phone) diffs.push({ field: 'SĐT liên lạc', old: o.phone, new: phone });
             if (o.address !== address) diffs.push({ field: 'Địa chỉ nhận hàng', old: o.address, new: address });
@@ -1933,7 +1933,7 @@
             if (o.cod !== cod) diffs.push({ field: 'Tiền thu hộ COD', old: o.cod.toLocaleString('vi-VN') + ' đ', new: cod.toLocaleString('vi-VN') + ' đ' });
 
             if (!o.history) o.history = [];
-            
+
             diffs.forEach(diff => {
                 o.history.push({
                     time: timestamp,
@@ -1968,13 +1968,13 @@
             if (!file) return;
 
             showToast("Đang nạp tệp đối soát", "Portal đang đối chiếu dữ liệu thu hộ từ đối tác 247Express...");
-            
+
             setTimeout(() => {
                 reconciliationDiscrepancies = [
                     { id: "247-00125", name: "Le Van C", tracking: "247KLO456", invoice: 15000000, collected: 14800000, discrepancy: 200000, status: "Lệch COD" },
                     { id: "247-00128", name: "Đỗ Văn F", tracking: "247XYZ777", invoice: 2500000, collected: 2500000, discrepancy: 0, status: "Khớp đối soát" }
                 ];
-                
+
                 renderReconciliationTable();
                 document.getElementById('reconcile-empty-state').classList.add('hidden');
                 document.getElementById('reconcile-data-container').classList.remove('hidden');
@@ -2004,7 +2004,7 @@
                     </td>
                     <td class="p-4 text-center">
                         ${item.discrepancy > 0 ? `
-                            <button onclick="resolveSingleDiscrepancy('${item.id}')" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg text-xs shadow transition">
+                            <button type="button" onclick="resolveSingleDiscrepancy('${item.id}')" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg text-xs shadow transition">
                                 Tất Toán
                             </button>
                         ` : `
@@ -2021,13 +2021,13 @@
                 showToast("Không có đơn khớp", "Không phát hiện thêm đơn hàng nào có công nợ trùng khớp hoàn toàn.");
                 return;
             }
-            
+
             matches.forEach(item => {
                 item.status = "Đã Tất Toán";
                 const o = orders.find(ord => ord.id === item.id);
                 if (o) o.paymentStatus = "Đã Tất Toán";
             });
-            
+
             renderReconciliationTable();
             showToast("Tất toán tự động", `Đã tất toán công nợ tự động thành công cho ${matches.length} đơn hàng.`);
         }
@@ -2038,7 +2038,7 @@
                 showToast("Không có đơn lệch", "Hiện không có đơn hàng nào lệch công nợ cần đối soát.");
                 return;
             }
-            
+
             resolveSingleDiscrepancy(discrepancyItem.id);
         }
 
@@ -2048,13 +2048,13 @@
 
             item.discrepancy = 0;
             item.status = "Khớp đối soát (Đã xử lý)";
-            
+
             const o = orders.find(ord => ord.id === id);
             if (o) {
                 o.status = "SUCCESS";
                 o.paymentStatus = "Đã tất toán";
             }
-            
+
             renderReconciliationTable();
             showToast("Tất toán thành công", `Đã xử lý đối soát tất toán thủ công thành công cho đơn #${id}.`);
             updateDashboardMetrics();
@@ -2063,13 +2063,13 @@
 
         function switchRole(role) {
             currentRole = role;
-            
+
             // Sync Header Display Name, Role name, Avatar letter and styling
             const roleInfo = {
                 SALES: { name: "Nguyễn Văn Sales", title: "Sales phụ trách (Maker)", char: "S", bg: "bg-blue-600", defaultTab: "dashboard" },
                 CHECKER: { name: "Trần Thị Checker", title: "Quản trị viên (Checker)", char: "C", bg: "bg-purple-600", defaultTab: "dashboard" },
                 WH: { name: "Vũ Văn Kho", title: "Thủ kho chuyên trách", char: "K", bg: "bg-amber-600", defaultTab: "replenish-inventory" },
-                
+
             };
 
             const info = roleInfo[role] || roleInfo.SALES;
@@ -2099,6 +2099,7 @@
             if (switcher) switcher.value = role;
 
             // Switch to default tab for that role
+            if (role === 'ACCOUNTANT') {
                 switchTab('reconcile-cod');
             } else {
                 switchTab(info.defaultTab);
@@ -2166,10 +2167,10 @@
                         <td class="py-4 px-6 text-slate-600 text-sm">${o.creator || 'Sales phụ trách'}</td>
                         <td class="py-4 px-6 text-right font-semibold text-slate-900 text-sm">${o.cod.toLocaleString('vi-VN')} đ</td>
                         <td class="py-4 px-6 text-center space-x-2">
-                            <button onclick="approveOrder('${o.id}')" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg text-xs transition">
+                            <button type="button" onclick="approveOrder('${o.id}')" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg text-xs transition">
                                 <i class="fa-solid fa-check mr-1"></i> Duyệt
                             </button>
-                            <button onclick="openRejectModal('${o.id}')" class="px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-lg text-xs transition">
+                            <button type="button" onclick="openRejectModal('${o.id}')" class="px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-lg text-xs transition">
                                 <i class="fa-solid fa-ban mr-1"></i> Từ chối
                             </button>
                         </td>
@@ -2182,7 +2183,7 @@
             if (o) {
                 o.status = 'PENDING';
                 o.tracking = "247XYZ" + (Math.floor(Math.random() * 900) + 100);
-                
+
                 showToast("Phê duyệt thành công", `Đơn hàng #${orderId} đã được phê duyệt và chuyển sang Đã tiếp nhận.`);
                 updateDashboardMetrics();
                 renderCheckerApprovalTable();
@@ -2249,7 +2250,7 @@
                             <span class="px-3 py-1 bg-slate-100 border border-slate-200 text-slate-800 text-xs font-bold rounded-lg">${item.qty} chiếc</span>
                         </td>
                         <td class="py-4 px-6 text-center">
-                            <button onclick="openReplenishModal('${item.code}')" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg text-xs transition flex items-center gap-1 mx-auto">
+                            <button type="button" onclick="openReplenishModal('${item.code}')" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg text-xs transition flex items-center gap-1 mx-auto">
                                 <i class="fa-solid fa-circle-plus"></i> Nhập bổ sung
                             </button>
                         </td>
@@ -2356,10 +2357,10 @@
 
                 // Add to replenish log
                 const now = new Date();
-                const timestamp = now.getFullYear() + '-' + 
-                                  String(now.getMonth() + 1).padStart(2, '0') + '-' + 
-                                  String(now.getDate()).padStart(2, '0') + ' ' + 
-                                  String(now.getHours()).padStart(2, '0') + ':' + 
+                const timestamp = now.getFullYear() + '-' +
+                                  String(now.getMonth() + 1).padStart(2, '0') + '-' +
+                                  String(now.getDate()).padStart(2, '0') + ' ' +
+                                  String(now.getHours()).padStart(2, '0') + ':' +
                                   String(now.getMinutes()).padStart(2, '0');
 
                 const newLog = {
@@ -2386,13 +2387,13 @@
         const flowPhases = [
             {
                 id: 1,
-                name: "Khởi tạo & Đồng bộ",
+                name: "Khởi tạo &amp; Đồng bộ",
                 steps: [
-                    { id: "1.1", title: "1. Tạo đơn & Upload file", source: 1, target: 2, direction: 'right', description: "Nhân viên Sales hoặc Admin điền form tạo đơn vận chuyển mới và đính kèm tài liệu CO/CQ của hàng hóa.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-circle-check text-emerald-500 mr-1.5'></i> Họ tên, SĐT, Địa chỉ, Tên sản phẩm, Khối lượng bắt buộc điền.</li><li class='mb-1.5'><i class='fa-solid fa-circle-check text-emerald-500 mr-1.5'></i> Số điện thoại người nhận phải hợp lệ tại Việt Nam (10 số, bắt đầu bằng 0).</li><li class='mb-1.5'><i class='fa-solid fa-circle-check text-emerald-500 mr-1.5'></i> Dung lượng file CO/CQ tối đa 5MB.</li></ul>" },
-                    { id: "1.2", title: "2. Validate Form & File Size", source: 2, target: 2, direction: 'self', description: "Hệ thống Portal thực hiện validate dữ liệu nhập vào và kích thước file CO/CQ.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-circle-info text-blue-500 mr-1.5'></i> Nếu có lỗi xảy ra, Portal hiển thị thông báo lỗi inline dạng chữ đỏ ngay phía dưới trường bị lỗi.</li><li class='mb-1.5'><i class='fa-solid fa-circle-info text-blue-500 mr-1.5'></i> Nút 'Xác nhận tạo' bị vô hiệu hóa hoặc không thể thực thi thành công cho đến khi hết lỗi validation.</li></ul>" },
+                    { id: "1.1", title: "1. Tạo đơn &amp; Upload file", source: 1, target: 2, direction: 'right', description: "Nhân viên Sales hoặc Admin điền form tạo đơn vận chuyển mới và đính kèm tài liệu CO/CQ của hàng hóa.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-circle-check text-emerald-500 mr-1.5'></i> Họ tên, SĐT, Địa chỉ, Tên sản phẩm, Khối lượng bắt buộc điền.</li><li class='mb-1.5'><i class='fa-solid fa-circle-check text-emerald-500 mr-1.5'></i> Số điện thoại người nhận phải hợp lệ tại Việt Nam (10 số, bắt đầu bằng 0).</li><li class='mb-1.5'><i class='fa-solid fa-circle-check text-emerald-500 mr-1.5'></i> Dung lượng file CO/CQ tối đa 5MB.</li></ul>" },
+                    { id: "1.2", title: "2. Validate Form &amp; File Size", source: 2, target: 2, direction: 'self', description: "Hệ thống Portal thực hiện validate dữ liệu nhập vào và kích thước file CO/CQ.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-circle-info text-blue-500 mr-1.5'></i> Nếu có lỗi xảy ra, Portal hiển thị thông báo lỗi inline dạng chữ đỏ ngay phía dưới trường bị lỗi.</li><li class='mb-1.5'><i class='fa-solid fa-circle-info text-blue-500 mr-1.5'></i> Nút 'Xác nhận tạo' bị vô hiệu hóa hoặc không thể thực thi thành công cho đến khi hết lỗi validation.</li></ul>" },
                     { id: "1.3", title: "3. API Create Order", source: 2, target: 3, direction: 'right', description: "Portal thực hiện gửi request tạo vận đơn sang API 247Express sau khi các bước validate thành công.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-triangle-exclamation text-amber-500 mr-1.5'></i> Trường hợp API 247Express lỗi hoặc mất kết nối: Hệ thống Portal hiển thị banner thông báo lỗi màu đỏ kèm nút 'Thử Lại' để gửi lại yêu cầu và không làm mất dữ liệu đã nhập.</li></ul>" },
                     { id: "1.4", title: "4. Trả về Tracking Number", source: 3, target: 2, direction: 'left', description: "Hệ thống 247Express tiếp nhận, tạo đơn thành công và trả về mã vận đơn (Tracking ID).", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-database text-slate-500 mr-1.5'></i> Portal tiếp nhận mã vận đơn để làm cơ sở ánh xạ dữ liệu hành trình với đối tác 247Express.</li></ul>" },
-                    { id: "1.5", title: "5. Lưu đơn & đặt PENDING", source: 2, target: 2, direction: 'self', description: "Portal thực hiện lưu thông tin và đổi trạng thái của đơn thành PENDING.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-circle-notch text-blue-500 mr-1.5 animate-spin'></i> Cập nhật cơ sở dữ liệu và chuyển trạng thái đơn hàng của hệ thống sang PENDING (Chờ bưu tá lấy hàng).</li></ul>" },
+                    { id: "1.5", title: "5. Lưu đơn &amp; đặt PENDING", source: 2, target: 2, direction: 'self', description: "Portal thực hiện lưu thông tin và đổi trạng thái của đơn thành PENDING.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-circle-notch text-blue-500 mr-1.5 animate-spin'></i> Cập nhật cơ sở dữ liệu và chuyển trạng thái đơn hàng của hệ thống sang PENDING (Chờ bưu tá lấy hàng).</li></ul>" },
                     { id: "1.6", title: "6. Trigger SMS tạo đơn", source: 2, target: 4, direction: 'right', description: "Portal gọi dịch vụ thông báo để gửi tin nhắn cho khách hàng nhằm tăng độ tin cậy.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-shield text-emerald-500 mr-1.5'></i> Áp dụng cơ chế idempotency dựa trên ID đơn hàng để đảm bảo tin nhắn không bao giờ bị gửi lặp (ngăn chặn spam).</li></ul>" },
                     { id: "1.7", title: "7. SMS gửi Khách hàng", source: 4, target: 5, direction: 'right', description: "Hệ thống gửi SMS Brandname thành công đến thiết bị di động của khách hàng.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-envelope text-indigo-500 mr-1.5'></i> Tin nhắn mẫu: <i>'VietMec da tiep nhan don hang cua ban. Ma van don: 247XYZ123.'</i></li></ul>" },
                     { id: "1.8", title: "8. Hiển thị thông tin đơn mới", source: 2, target: 1, direction: 'left', description: "Portal hoàn tất luồng và hiển thị chi tiết đơn hàng cho Sales/Admin xem.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-desktop text-blue-500 mr-1.5'></i> Chuyển hướng người dùng về màn hình danh sách hoặc chi tiết đơn kèm thông báo thành công.</li></ul>" }
@@ -2402,10 +2403,10 @@
                 id: 2,
                 name: "Cập nhật hành trình",
                 steps: [
-                    { id: "2.1", title: "1. Bưu tá lấy hàng & quét mã", source: 3, target: 3, direction: 'self', description: "Bưu tá của 247Express đến kho VietMec lấy hàng vật lý và thực hiện quét mã vận đơn.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-qrcode text-slate-500 mr-1.5'></i> Thiết bị bưu tá cập nhật trạng thái đơn trên hệ thống 247Express thành 'Đang vận chuyển'.</li></ul>" },
+                    { id: "2.1", title: "1. Bưu tá lấy hàng &amp; quét mã", source: 3, target: 3, direction: 'self', description: "Bưu tá của 247Express đến kho VietMec lấy hàng vật lý và thực hiện quét mã vận đơn.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-qrcode text-slate-500 mr-1.5'></i> Thiết bị bưu tá cập nhật trạng thái đơn trên hệ thống 247Express thành 'Đang vận chuyển'.</li></ul>" },
                     { id: "2.2", title: "2. Webhook: Đang vận chuyển", source: 3, target: 2, direction: 'left', description: "Hệ thống 247Express bắn webhook trạng thái DELIVERING về Web Portal của VietMec.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-server text-blue-500 mr-1.5'></i> <b>Cơ chế dự phòng:</b> Nếu webhook lỗi, hệ thống chạy cronjob quét API 247Express 15 phút một lần để đồng bộ.</li></ul>" },
                     { id: "2.3", title: "3. Cập nhật DB: DELIVERING", source: 2, target: 2, direction: 'self', description: "Portal ghi nhận webhook và cập nhật trạng thái đơn trong DB thành DELIVERING.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-database text-slate-500 mr-1.5'></i> Ghi log lịch sử trạng thái mới.</li></ul>" },
-                    { id: "2.4", title: "4. Trigger SMS & Telegram Alert", source: 2, target: 4, direction: 'right', description: "Portal gọi các service để trigger gửi tin nhắn hành trình và alert Telegram.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-list-check text-blue-500 mr-1.5'></i> Đảm bảo kiểm tra trạng thái trước khi bắn tin để tránh gửi lặp.</li></ul>" },
+                    { id: "2.4", title: "4. Trigger SMS &amp; Telegram Alert", source: 2, target: 4, direction: 'right', description: "Portal gọi các service để trigger gửi tin nhắn hành trình và alert Telegram.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-list-check text-blue-500 mr-1.5'></i> Đảm bảo kiểm tra trạng thái trước khi bắn tin để tránh gửi lặp.</li></ul>" },
                     { id: "2.5", title: "5. SMS gửi Khách hàng", source: 4, target: 5, direction: 'right', description: "Hệ thống SMS gửi tin nhắn báo cho khách hàng biết đơn hàng đang được đi giao.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-mobile-screen text-indigo-500 mr-1.5'></i> Nội dung SMS: <i>'Don hang 247XYZ123 dang duoc giao den ban. Vui long chu y dien thoai.'</i></li></ul>" },
                     { id: "2.6", title: "6. Telegram gửi nhóm Sales", source: 4, target: 1, direction: 'left', description: "Bot Telegram gửi alert tự động tới group chat nội bộ của Sales.", rules: "<ul><li class='mb-1.5'><i class='fa-brands fa-telegram text-blue-400 mr-1.5'></i> Mẫu tin nhắn: <i>'[VẬN CHUYỂN] Đơn hàng #247-00123 của KH Nguyen Van A đang được đi giao. Mã vận đơn: 247XYZ123.'</i></li></ul>" },
                     { id: "2.7", title: "7. Phản hồi Webhook 200 OK", source: 2, target: 3, direction: 'right', description: "Portal trả về status HTTP 200 OK cho 247Express để kết thúc luồng nhận webhook.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-check text-emerald-500 mr-1.5'></i> Trả về response nhanh tránh gây nghẽn hàng đợi webhook bên đối tác.</li></ul>" }
@@ -2413,7 +2414,7 @@
             },
             {
                 id: 3,
-                name: "Lỗi giao hàng & Xử lý",
+                name: "Lỗi giao hàng &amp; Xử lý",
                 steps: [
                     { id: "3.1", title: "1. Webhook: Giao thất bại", source: 3, target: 2, direction: 'left', description: "Bưu tá báo giao lỗi lần 1, 247Express gửi Webhook báo giao thất bại kèm lý do.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-circle-xmark text-rose-500 mr-1.5'></i> Portal cập nhật trạng thái đơn thành <b>FAILED</b> (Tạm tính là Thất bại).</li><li class='mb-1.5'><i class='fa-solid fa-align-left text-slate-500 mr-1.5'></i> Ghi nhận và hiển thị chi tiết lý do lỗi từ bưu tá (Ví dụ: <i>'Khách thuê bao không nghe máy'</i>).</li></ul>" },
                     { id: "3.2", title: "2. Trigger Telegram Alert sự cố", source: 2, target: 4, direction: 'right', description: "Hệ thống ghi nhận sự cố, trigger Telegram alert khẩn.", rules: "<ul><li class='mb-1.5'><i class='fa-solid fa-triangle-exclamation text-rose-500 mr-1.5'></i> <b>Xử lý lỗi gửi:</b> Nếu tin nhắn SMS Brandname gửi đi bị lỗi (do nhà mạng), hệ thống hiển thị nút 'Gửi lại' màu đỏ trong trang chi tiết để gửi lại thủ công.</li></ul>" },
@@ -2431,7 +2432,7 @@
             const wrapper = document.getElementById('flow-arrows-wrapper');
             if (!wrapper) return;
             wrapper.innerHTML = '';
-            
+
             // Re-render vertical lifelines to ensure clean layer order
             wrapper.innerHTML = `
                 <div class="absolute inset-y-0 left-[9%] w-[1px] border-l border-dashed border-slate-800/80 pointer-events-none"></div>
@@ -2440,15 +2441,15 @@
                 <div class="absolute inset-y-0 left-[71%] w-[1px] border-l border-dashed border-slate-800/80 pointer-events-none"></div>
                 <div class="absolute inset-y-0 left-[91%] w-[1px] border-l border-dashed border-slate-800/80 pointer-events-none"></div>
             `;
-            
+
             const steps = flowPhases[phaseId - 1].steps;
-            
+
             steps.forEach((step, idx) => {
                 const topOffset = 15 + idx * 68; // vertical spacing
                 const colPositions = [0, 9, 29, 50, 71, 91]; // 1-indexed for columns
-                
+
                 let left, width, arrowClass, lineClass;
-                
+
                 if (step.direction === 'right') {
                     const startCol = step.source;
                     const endCol = step.target;
@@ -2498,7 +2499,7 @@
                 stepDiv.style.width = `${width}%`;
                 stepDiv.id = `flow-step-${step.id}`;
                 stepDiv.onclick = () => selectFlowStep(step.id, phaseId);
-                
+
                 stepDiv.innerHTML = innerArrowHTML;
                 wrapper.appendChild(stepDiv);
             });
@@ -2517,7 +2518,7 @@
                     div.classList.add('opacity-50');
                 }
             });
-            
+
             // Highlight the selected step arrow
             const activeDiv = document.getElementById(`flow-step-${stepId}`);
             if (activeDiv) {
@@ -2541,20 +2542,20 @@
                                 </span>
                                 <h4 class="font-bold text-slate-900 text-sm font-title leading-tight">${step.title}</h4>
                             </div>
-                            
+
                             <div class="space-y-1.5">
                                 <h5 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Mô tả Nghiệp vụ</h5>
                                 <p class="text-xs text-slate-600 leading-relaxed">${step.description}</p>
                             </div>
-                            
+
                             <div class="space-y-1.5">
-                                <h5 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Quy tắc & Kiểm tra (Rules)</h5>
+                                <h5 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Quy tắc &amp; Kiểm tra (Rules)</h5>
                                 <div class="text-xs text-slate-600 leading-relaxed max-h-48 overflow-y-auto pr-1">
                                     ${step.rules}
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-[10px] text-slate-400 font-medium">
                             <span>Nguồn: <strong class="text-slate-600">${getParticipantName(step.source)}</strong></span>
                             <span>Đích: <strong class="text-slate-650">${getParticipantName(step.target)}</strong></span>
@@ -2565,7 +2566,7 @@
         }
 
         function getParticipantName(colId) {
-            const names = ["", "Sales / Admin", "Web Portal", "247Express", "SMS & Telegram", "Khách hàng"];
+            const names = ["", "Sales / Admin", "Web Portal", "247Express", "SMS &amp; Telegram", "Khách hàng"];
             return names[colId] || "";
         }
 
@@ -2603,7 +2604,7 @@
                 if (container) container.classList.add('hidden');
                 if (details) details.classList.add('hidden');
                 if (umlBlock) umlBlock.classList.remove('hidden');
-                
+
                 // Populate PlantUML code content
                 const codeEl = document.getElementById('plantuml-code-content');
                 if (codeEl) codeEl.innerText = getPlantUMLCodeText();
@@ -2619,10 +2620,10 @@ skinparam ParticipantPadding 10
 actor "Sales / Admin" as User
 participant "Web Portal VietMec" as System
 participant "Hệ thống 247Express" as Courier
-participant "SMS & Telegram Bot" as Notif
+participant "SMS &amp; Telegram Bot" as Notif
 actor "Khách hàng" as Cust
 
-== 1. TẠO ĐƠN & ĐỒNG BỘ VẬN CHUYỂN ==
+== 1. TẠO ĐƠN &amp; ĐỒNG BỘ VẬN CHUYỂN ==
 User -> System: Điền form tạo đơn + Upload file CO/CQ
 activate System
 System -> System: Validate thông tin bắt buộc\\n& dung lượng file (< 5MB)
@@ -2630,7 +2631,7 @@ System -> Courier: Gửi yêu cầu khởi tạo đơn hàng (Create Order API)
 activate Courier
 Courier --> System: Phản hồi thành công + Trả về Mã vận đơn (Tracking Number)
 deactivate Courier
-System -> System: Lưu thông tin đơn & đặt Trạng thái: PENDING
+System -> System: Lưu thông tin đơn &amp; đặt Trạng thái: PENDING
 System -> Notif: Gửi SMS thông báo tạo đơn
 activate Notif
 Notif -> Cust: SMS Brandname: "Đơn hàng đã được tạo thành công"
@@ -2639,7 +2640,7 @@ System --> User: Hiển thị thông tin đơn hàng mới tạo
 deactivate System
 
 == 2. THEO DÕI HÀNH TRÌNH TỰ ĐỘNG ==
-Courier -> Courier: Bưu tá lấy hàng & quét mã
+Courier -> Courier: Bưu tá lấy hàng &amp; quét mã
 Courier -> System: Gửi Webhook cập nhật trạng thái: ĐANG VẬN CHUYỂN
 activate System
 System -> System: Cập nhật Trạng thái đơn: DELIVERING
@@ -2707,8 +2708,8 @@ end
     <div id="edit-order-modal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 flex items-center justify-center hidden">
         <div class="bg-white rounded-2xl border border-slate-200 w-full max-w-2xl p-8 space-y-6 shadow-2xl relative">
             <h3 class="text-xl font-bold text-slate-900 font-title border-b border-slate-100 pb-4">CHỈNH SỬA ĐƠN HÀNG</h3>
-            <button onclick="closeEditOrderPopup()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-600 text-lg transition"><i class="fa-solid fa-circle-xmark"></i></button>
-            
+            <button aria-label="Button" type="button" onclick="closeEditOrderPopup()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-600 text-lg transition"><i class="fa-solid fa-circle-xmark"></i></button>
+
             <div id="edit-validation-error" class="hidden p-4 bg-rose-50 border border-rose-200 text-rose-700 text-sm rounded-xl font-medium"></div>
 
             <form id="edit-order-form" onsubmit="saveEditedOrder(event)" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
