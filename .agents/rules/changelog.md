@@ -1,7 +1,7 @@
----
+﻿---
 paths:
   - "docs/**/*.md"
-  - ".claude/hooks/**"
+  - ".agents/hooks/**"
 ---
 
 # Activity Log Convention
@@ -71,3 +71,4 @@ Hook skip (không log):
 ## Backward-compat
 
 Docs demo cũ còn `changelog:` frontmatter → **giữ nguyên, không migrate** (docs demo sẽ bỏ khi rebuild). Parser/reader gặp field `changelog:` trong frontmatter hiểu là di sản, bỏ qua. Không tạo entry mới vào frontmatter trong bất kỳ trường hợp nào.
+

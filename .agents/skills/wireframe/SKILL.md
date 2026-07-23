@@ -1,4 +1,4 @@
----
+﻿---
 name: wireframe
 description: Sử dụng khi Business Analyst muốn phác thảo sơ bộ giao diện (UI/UX) dạng ASCII wireframe để minh họa nhanh các màn hình nghiệp vụ cho một tính năng. Kích hoạt bằng lệnh `/wireframe <yêu cầu>` hoặc `/wireframe @<tệp>` hoặc `/wireframe` (tương tác trực tiếp). Kết quả lưu tại `docs/{feature}/wireframes/{wireframe-slug}.md`.
 ---
@@ -90,9 +90,10 @@ Phát triển yêu cầu giao diện từ ý tưởng thô hoặc tài liệu ng
 
 ## Tài liệu tham chiếu (References)
 
-- @.claude/rules/ba-conventions.md
-- @.claude/rules/approval-gate.md
-- @.claude/rules/naming-conventions.md
-- @.claude/rules/resolve-oqs.md
-- @.claude/rules/changelog.md
+- @.agents/rules/ba-conventions.md
+- @.agents/rules/approval-gate.md
+- @.agents/rules/naming-conventions.md
+- @.agents/rules/resolve-oqs.md
+- @.agents/rules/changelog.md
 - @_templates/wireframe.md
+

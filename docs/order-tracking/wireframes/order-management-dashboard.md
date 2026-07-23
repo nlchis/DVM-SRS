@@ -19,10 +19,10 @@ Tài liệu này chứa phác thảo giao diện ASCII cho luồng quản lý đ
 ├────────────────────────────────────────────────────────────┤
 │ TỔNG QUAN HÔM NAY (16/7/2026)            [+ Tạo Đơn Nhanh] │
 │                                                            │
-│ ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐ │
-│ │ Chờ Giao  │ │ Đang Giao │ │ Đã giao   │ │ Thất Bại  │ │ Đang Hoàn │ │ Đã Hoàn   │ │
-│ │    12     │ │    32     │ │    96     │ │     2     │ │     3     │ │
-│ └───────────┘ └───────────┘ └───────────┘ └───────────┘ └───────────┘ │
+│ ┌──────────────┬──────────────┬────────────────┬───────────┬─────────────────┬─────────────────┐ │
+│ │ Đã tiếp nhận │ Đang đi phát │ Phát thành công│ Chờ xử lý │ Chờ chuyển hoàn │ Đã chuyển hoàn  │ │
+│ │      12      │      32      │       96       │     2     │        3        │        5        │ │
+│ └──────────────┴──────────────┴────────────────┴───────────┴─────────────────┴─────────────────┘ │
 │                                                            │
 │ TÌNH TRẠNG CHUNG THEO TUẦN (Biểu đồ)                       │
 │    100 |   * * *                                           │
@@ -42,11 +42,11 @@ Tài liệu này chứa phác thảo giao diện ASCII cho luồng quản lý đ
 ├────────────────────────────────────────────────────────────┤
 │ Tìm kiếm: [ Nhập mã/SĐT...       ]   Trạng thái: [Tất cả v]│
 │ ┌────────────────────────────────────────────────────────┐ │
-│ │ Mã Đơn    | Khách Hàng      | Trạng thái  | Thao tác   │ │
+│ │ Mã Đơn    | Khách Hàng      | Trạng thái     | Thao tác   │ │
 │ ├────────────────────────────────────────────────────────┤ │
-│ │ 247-00123 | Cong ty ABC     | Đang Giao   | [Xem] [In] │ │
-│ │ 247-00124 | TNHH Thuoc B    | Đã giao     | [Xem] [In] │ │
-│ │ 247-00125 | Cong ty ABC     | Đã Hoàn     | [Xem] [In] │ │
+│ │ 247-00123 | Cong ty ABC     | Đang đi phát   | [Xem] [In] │ │
+│ │ 247-00124 | TNHH Thuoc B    | Phát thành công| [Xem] [In] │ │
+│ │ 247-00125 | Cong ty ABC     | Đã chuyển hoàn | [Xem] [In] │ │
 │ └────────────────────────────────────────────────────────┘ │
 │ Trang: < 1 2 3 >                                           │
 └────────────────────────────────────────────────────────────┘
@@ -85,7 +85,7 @@ Tài liệu này chứa phác thảo giao diện ASCII cho luồng quản lý đ
 
 ```text
 ┌────────────────────────────────────────────────────────────┐
-│ CHI TIẾT ĐƠN HÀNG: #247-00124           Trạng thái: ĐÃ GIAO│
+│ CHI TIẾT ĐƠN HÀNG: #247-00124    Trạng thái: PHÁT THÀNH CÔNG│
 ├────────────────────────────────────────────────────────────┤
 │ KHÁCH HÀNG: TNHH Thuoc B  | SĐT: 090xxxxxxx                │
 │ HÀNG HOÁ: Sâm Ngọc Linh (5kg)| YÊU CẦU: YC001              │
@@ -95,13 +95,13 @@ Tài liệu này chứa phác thảo giao diện ASCII cho luồng quản lý đ
 │ LỊCH SỬ TRACKING (Cập nhật từ 247Express)                  │
 │ (v) 10:00 - Tạo đơn thành công (Mã vận đơn: 247XYZ123)     │
 │ (v) 14:00 - Bưu tá đã lấy hàng                             │
-│ (v) 16:00 - Đã giao hàng thành công                        │
+│ (v) 16:00 - Phát thành công                                │
 │                                                            │
 │ [ In Phiếu Xuất Kho ]                       [ Quay Lại ]   │
 │                                           [ HOÀN HÀNG ]    │
 └────────────────────────────────────────────────────────────┘
 ```
-*Lưu ý: Nút `[Hoàn Hàng]` sẽ bị làm mờ (disabled) nếu trạng thái đơn KHÁC **Đã giao**.*
+*Lưu ý: Nút `[Hoàn Hàng]` sẽ bị làm mờ (disabled) nếu trạng thái đơn KHÁC **Phát thành công**.*
 
 ---
 
@@ -120,11 +120,11 @@ Khi Sales bấm nút `[Hoàn Hàng]` từ màn hình trên.
 │ -> Lý do hoàn trả:     [ Hàng bị ẩm mốc trong túi        ] │
 │                                                            │
 │ Cảnh báo: Thao tác này sẽ chuyển trạng thái đơn hàng sang  │
-│ [Đang Hoàn] và yêu cầu shipper 247Express qua lấy hàng về.  │
+│ [Chờ chuyển hoàn] và yêu cầu shipper 247Express qua lấy.   │
 │ Lịch sử tracking cũ sẽ vẫn được giữ lại.                   │
 │                                                            │
 │                     [ HUỶ BỎ ]         [ XÁC NHẬN HOÀN ]   │
 └────────────────────────────────────────────────────────────┘
 ```
 
-Sau khi bấm Xác nhận, đơn sẽ quay về `Đang Hoàn` -> `Đang Giao` -> `Đã Hoàn`. Số lượng thực tế đã giao sẽ tự trừ đi 2kg (còn 3kg) và hiển thị trên màn hình Chi tiết đơn hàng. Trường Phí vận chuyển hoàn sẽ tự động cập nhật khi hành trình kết thúc.
+Sau khi bấm Xác nhận, đơn sẽ quay về `Chờ chuyển hoàn` -> `Đã chuyển hoàn`. Số lượng thực tế đã giao sẽ tự trừ đi 2kg (còn 3kg) và hiển thị trên màn hình Chi tiết đơn hàng. Trường Phí vận chuyển hoàn sẽ tự động cập nhật khi hành trình kết thúc.

@@ -47,7 +47,7 @@ Hệ thống phải tuân thủ nghiêm ngặt thứ tự các đầu mục (Sec
 Mỗi file Use Case BẮT BUỘC phải bao gồm các phần sau và tuân thủ nguồn lấy dữ liệu:
 - **1. Thông tin chung:** Mã UC, Tên, Actor, Độ ưu tiên. *(Lấy từ danh sách Function List / CRUD trong `brainstorm`)*.
 - **2. Mô tả & Điều kiện:** Mô tả nghiệp vụ, Tiền điều kiện (Preconditions), Hậu điều kiện (Postconditions). *(Lấy và suy luận từ phân tích luồng nghiệp vụ & Use Case Diagram trong `brainstorm` / `diagram`)*.
-- **3. Sơ đồ Flowchart luồng xử lý:** Sơ đồ trực quan Mermaid/PlantUML. *(Kế thừa trình tự tương tác và sơ đồ từ file `diagram` tương ứng, hoặc tự sinh dựa trên luồng sự kiện bên dưới)*.
+- **3. Sơ đồ Flowchart luồng xử lý:** Bắt buộc phải có khối mã Mermaid Flowchart (````mermaid graph TD ... ````) ngay TRƯỚC Luồng sự kiện thông thường theo quy chuẩn của skill `/usecase`.
 - **4. Luồng sự kiện (Course of Events):**
   - *Luồng thông thường (Normal Course):* Các bước thực thi chính.
   - *Luồng ngoại lệ (Exceptions):* Các trường hợp rẽ nhánh hoặc lỗi.
@@ -74,21 +74,22 @@ Hệ thống sẽ tự động quét và kiểm tra sự tồn tại của các 
 
 1. **Định vị tài liệu gốc:**
    - `brainstorm`: Kiểm tra tại `docs/{feature}/brainstorms/`
-   - `spec`: Kiểm tra tại `docs/{feature}/spec/spec.md` (chứa yêu cầu FR, NFR, BR, VR, STR & Errors sinh ra từ skill `/spec` độc lập)
-   - `diagram`: Kiểm tra tại `docs/{feature}/diagrams/`
+   - `spec`: Kiểm tra tại `docs/{feature}/spec/spec.md` (Single Source of Truth cho yêu cầu FR, NFR, BR, VR, STR & Errors)
+   - `diagram`: Kiểm tra tại `docs/{feature}/diagrams/`, `bpmn/`, `explores/`
    - `usecase`: Kiểm tra tại `docs/{feature}/usecases/` (kiểu file `uc-*.md`)
-   - `wireframe`: Kiểm tra tại `docs/{feature}/wireframes/` (kiểu file ASCII)
+   - `wireframe`: Kiểm tra tại `docs/{feature}/wireframes/` (kiểu file ASCII hoặc HTML)
    - `prototype`: Kiểm tra tại `docs/{feature}/prototypes/` hoặc thông tin Figma UI được đính kèm
 2. **Quy tắc chạy tự động tại các bước (Usecase & Prototype Gates):**
 
    *   **Tại bước `usecase`:**
-       - Hệ thống tự động dựa vào Phạm vi (Scope) và Danh sách tính năng (Function List) từ tài liệu `spec` và `brainstorm` để tự phân tích và liệt kê các Use Case tương ứng.
-       - Tên Use Case đề xuất bắt buộc phải tuân thủ quy chuẩn đặt tên trong skill `usecase` (dạng "**Động từ + Danh từ**" ở thể chủ động, ví dụ: `UC-<module>-01_user-login`).
-       - Hệ thống **bắt buộc dừng lại hiển thị danh sách Use Case đề xuất (Preview)** để người dùng duyệt (`Y`/`Sửa`/`Hủy`).
+       - Hệ thống tự động dựa vào Phạm vi (Scope) và Danh sách tính năng (Function List) từ tài liệu `spec` và `brainstorm` để phân tích và liệt kê các Use Case tương ứng.
+       - Tên Use Case đề xuất bắt buộc tuân thủ quy chuẩn đặt tên trong skill `usecase` (dạng "**Động từ + Danh từ**" ở thể chủ động, ví dụ: `UC-<module>-01_user-login`).
+       - Khi tự sinh Use Case, **MỖI USE CASE BẮT BUỘC PHẢI ĐÁP ỨNG ĐẦY ĐỦ NGUYÊN TẮC CỦA SKILL `/usecase`**: chuẩn 13 trường IT-BA (Karl Wiegers), Mermaid `graph TD` flowchart, Data Fields Table, Cockburn Goal Levels, và đạt 20 điểm trong quality checklist.
+       - Hệ thống hiển thị danh sách Use Case đề xuất (Preview) để người dùng duyệt (`Y`/`Sửa`/`Hủy`).
        - Sau khi người dùng duyệt đồng ý (`Y`):
-         1. Hệ thống tự động gọi skill `/usecase` để sinh file đặc tả chi tiết cho từng Use Case và lưu file tại đúng thư mục `usecases/` của `srs/` (ví dụ: `docs/{feature}/srs/usecases/uc-*.md`), đồng thời cập nhật file `usecases/index.md` và `changelog.md` của srs.
-         2. Đồng thời, hệ thống tự động chạy skill `/diagram` để vẽ sơ đồ luồng/tương tác mô tả cho Use Case đó, lưu file tại folder `diagrams/` của `srs/` (ví dụ: `docs/{feature}/srs/diagrams/`), và cập nhật file `diagrams/index.md`.
-         3. Đồng thời, hệ thống tự động chạy skill `/wireframe` để vẽ ASCII wireframe mô tả màn hình tương ứng, lưu file tại folder `wireframes/` của `srs/` (ví dụ: `docs/{feature}/srs/wireframes/`), cập nhật file `wireframes/index.md` và tệp `changelog.md` tương ứng.
+         1. Hệ thống gọi skill `/usecase` sinh file đặc tả chi tiết cho từng Use Case tại `docs/{feature}/usecases/` (và tự động đồng bộ sang `docs/{feature}/srs/usecases/`), cập nhật `usecases/index.md` và `changelog.md`.
+         2. Đồng thời gọi skill `/diagram` để sinh sơ đồ tương ứng (lưu tại thư mục sơ đồ phù hợp như `bpmn/`, `diagrams/`, v.v.), và cập nhật file `index.md`.
+         3. Đồng thời gọi skill `/wireframe` / `/wireframe-html` vẽ giao diện mô tả màn hình tương ứng tại `wireframes/`, cập nhật `wireframes/index.md` và `changelog.md`.
 
    *   **Tại bước `prototype` (sau khi chạy xong bước wireframe):**
        - Hệ thống hiển thị câu hỏi phỏng vấn trực tiếp cho người dùng: *"Bạn có cần thiết kế màn hình (prototype đồ họa) cho người dùng cuối không? (Y/N)"*
@@ -228,7 +229,8 @@ Sau khi hoàn thành việc chuẩn bị thư mục, sao chép tài liệu, và 
 - **Tập tin Index đồng bộ:** Khi có file mới được thêm vào các thư mục con trong quá trình sửa đổi sau này, file `index.md` phải được cập nhật tương ứng.
 
 ## Tài liệu tham chiếu (References)
-- @.claude/rules/ba-conventions.md
-- @.claude/rules/naming-conventions.md
-- @.claude/rules/changelog.md
-- @.claude/rules/resolve-oqs.md
+- @.agents/rules/ba-conventions.md
+- @.agents/rules/naming-conventions.md
+- @.agents/rules/changelog.md
+- @.agents/rules/resolve-oqs.md
+

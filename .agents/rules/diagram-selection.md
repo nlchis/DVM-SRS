@@ -1,16 +1,16 @@
----
+﻿---
 paths:
-  - ".claude/skills/sequence/**"
-  - ".claude/skills/activity/**"
-  - ".claude/skills/activity-swimlane/**"
-  - ".claude/skills/d2-activity/**"
-  - ".claude/skills/d2-erd/**"
-  - ".claude/skills/d2-architect/**"
-  - ".claude/skills/state/**"
-  - ".claude/skills/erd/**"
-  - ".claude/skills/dbdiagram/**"
-  - ".claude/skills/bpmn/**"
-  - ".claude/skills/usecase-diagram/**"
+  - ".agents/skills/sequence/**"
+  - ".agents/skills/activity/**"
+  - ".agents/skills/activity-swimlane/**"
+  - ".agents/skills/d2-activity/**"
+  - ".agents/skills/d2-erd/**"
+  - ".agents/skills/d2-architect/**"
+  - ".agents/skills/state/**"
+  - ".agents/skills/erd/**"
+  - ".agents/skills/dbdiagram/**"
+  - ".agents/skills/bpmn/**"
+  - ".agents/skills/usecase-diagram/**"
   - "docs/**/srs/*.md"
 ---
 
@@ -228,3 +228,4 @@ Mermaid parser strict với 1 số ký tự trong node label. Vi phạm → cả
 ## Tóm tắt 1 dòng
 
 > **Time-based → Sequence. State-based → State. Process đa-vai → Activity-swimlane (PlantUML). Process gọn cần nhúng inline → Activity (Mermaid). Scope-based → Use Case. Data-based → ERD. Chuẩn-OMG/import-BPM → BPMN.**
+

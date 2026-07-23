@@ -85,7 +85,7 @@ Hoàn hàng: `Phát thành công` -> `Chờ chuyển hoàn` -> `Đã chuyển ho
 ### 6.2 Validation Rules
 * **Tạo Yêu cầu:** Số lượng yêu cầu <= Số lượng Hợp đồng còn lại.
 * **Tạo Đơn hàng:** Số lượng giao <= Số lượng Yêu cầu giao hàng.
-* **Hoàn hàng:** Nút Hoàn hàng chỉ mở khi Đơn hàng đạt trạng thái `Đã giao`.
+* **Hoàn hàng:** Nút Hoàn hàng chỉ mở khi Đơn hàng đạt trạng thái `Phát thành công`.
 
 ## 7. Next Steps
 

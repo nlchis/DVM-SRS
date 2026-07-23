@@ -1,14 +1,14 @@
----
+﻿---
 paths:
   - "docs/**/*.md"
-  - ".claude/skills/brainstorm/**"
-  - ".claude/skills/urd/**"
-  - ".claude/skills/brd/**"
-  - ".claude/skills/prd-epic/**"
-  - ".claude/skills/srs/**"
-  - ".claude/skills/usecase/**"
-  - ".claude/skills/userguide/**"
-  - ".claude/skills/reverse-doc/**"
+  - ".agents/skills/brainstorm/**"
+  - ".agents/skills/urd/**"
+  - ".agents/skills/brd/**"
+  - ".agents/skills/prd-epic/**"
+  - ".agents/skills/srs/**"
+  - ".agents/skills/usecase/**"
+  - ".agents/skills/userguide/**"
+  - ".agents/skills/reverse-doc/**"
 ---
 
 # Resolve Open Questions (Phase E)
@@ -203,3 +203,4 @@ Nếu user skip Phase E:
 ## Tóm tắt
 
 Sau Write → **Collect OQs (own + inherited) → Prompt Y/skip/ids → Loop 1-by-1: [answer → cascade scan toàn bộ doc + downstream → L2 diff per impacted section] → Activity log qua hook → Final report**.
+

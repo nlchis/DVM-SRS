@@ -1,10 +1,10 @@
----
+﻿---
 paths:
-  - ".claude/agents/**"
-  - ".claude/skills/urd/**"
-  - ".claude/skills/brd/**"
-  - ".claude/skills/prd-epic/**"
-  - ".claude/skills/srs/**"
+  - ".agents/agents/**"
+  - ".agents/skills/urd/**"
+  - ".agents/skills/brd/**"
+  - ".agents/skills/prd-epic/**"
+  - ".agents/skills/srs/**"
 ---
 
 # Review Finding Format
@@ -99,3 +99,4 @@ Giữ agents fast + deterministic.
 ```
 
 `/cr` analyze phase parses cả 3 sections (severity findings + impacted artifacts + apply order) để build impact report.
+

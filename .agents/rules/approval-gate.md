@@ -1,4 +1,4 @@
-# Approval Gate Convention
+﻿# Approval Gate Convention
 
 > Mọi skill phải tuân thủ rule này khi write/edit file. Mục đích: human-in-the-loop (HITL) thống nhất — không skill nào tự ý ghi file mà không qua approval.
 
@@ -116,7 +116,7 @@ Mọi SKILL.md PHẢI có dòng:
 
 ```markdown
 References:
-- @.claude/rules/approval-gate.md
+- @.agents/rules/approval-gate.md
 ```
 
 Và trong Processing steps, dùng cụm từ chuẩn:
@@ -157,3 +157,4 @@ Lý do bỏ mô hình "sub-agent Write thẳng rồi rollback nếu user từ ch
 ## Tóm tắt 1 dòng
 
 > **L3 (iterate nếu sáng tạo) → L1 (plan + Y/n) → L2 (diff nếu update) → Write.**
+

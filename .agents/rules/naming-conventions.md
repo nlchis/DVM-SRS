@@ -1,4 +1,4 @@
-# Naming Conventions
+﻿# Naming Conventions
 
 ## Slugs (folder & file names)
 
@@ -45,7 +45,7 @@
 | BPMN index (master metadata) | `docs/{feature}/bpmn/{feature}-bpmn-index.md` — type `bpmn-index`, frontmatter chuẩn + bảng process (file/lanes/gateways/viewer). Output của `/bpmn`. |
 | BPMN process (XML đầy đủ) | `docs/{feature}/bpmn/{process-slug}.bpmn` — XML BPMN 2.0 chuẩn OMG **gồm cả `<bpmndi:BPMNDiagram>`** (toạ độ + waypoint do **engine chung** sinh từ IR, KHÔNG do AI). Import Camunda/Bizagi/draw.io. |
 | BPMN editor | `docs/{feature}/bpmn/{feature}-bpmn-editor.html` (bpmn-js **modeler** — kéo-thả sửa như bpmn.io + nút Tải/Lưu; đa-process dropdown). Regen bằng engine chung. Theo pattern `{feature}-{domain}-...` tránh trùng tab Obsidian. |
-| BPMN engine (dùng chung, KHÔNG per-feature) | `.claude/skills/bpmn/engine/` — `bpmn-build.mjs` + `bpmn-layout-{auto,elk}.mjs` + `bpmn-layout.mjs` + `bpmn-semcheck.mjs` + `_viewer_template.html` + `node_modules` (cài 1 lần). Chạy: `node .claude/skills/bpmn/engine/bpmn-build.mjs --dir docs/{feature}/bpmn`. |
+| BPMN engine (dùng chung, KHÔNG per-feature) | `.agents/skills/bpmn/engine/` — `bpmn-build.mjs` + `bpmn-layout-{auto,elk}.mjs` + `bpmn-layout.mjs` + `bpmn-semcheck.mjs` + `_viewer_template.html` + `node_modules` (cài 1 lần). Chạy: `node .agents/skills/bpmn/engine/bpmn-build.mjs --dir docs/{feature}/bpmn`. |
 | API assessment (đánh giá đối tác) | `docs/{feature}/integration/api-assess.md` — type `api-assess`, scorecard build-vs-buy/chọn provider. Output của `/api-assess` (bước [0] có điều kiện). Bare name trong `integration/` (nhất quán họ api-summary/api-map). |
 | API summary (hiểu contract 3rd) | `docs/{feature}/integration/api-summary.md` (hoặc `api-summary-{provider}.md` khi nhiều đối tác) — type `api-summary`. Output của `/api-doc`. |
 | API design (Integration Blueprint) | `docs/{feature}/integration/api-design.md` — type `api-design`, orchestration/state-map/source-of-truth/webhook/retry/reconciliation/degraded-UX. Output của `/api-design` (bước [2]). `/api-map` là 1 phần dưới nó. |
@@ -54,7 +54,7 @@
 | API tests (Bruno) | `docs/{feature}/test/api/api-tests.md` + `bruno/` — type `api-tests`. Output của `/api-test`. Legacy 3rd còn ở `integration/` sẽ migrate sang `test/api/` khi chạy lại. |
 | API readiness (go-live gate) | `docs/{feature}/integration/api-readiness.md` — type `api-readiness`, checklist cutover/flag/monitoring/rollback/SLA-deprecation + bảng go/no-go. Output của `/api-readiness` (bước [5]). |
 
-> **Họ integration (7 skill):** `/api-assess → /api-doc → /api-design → /api-map → /api-checklist → /api-test → /api-readiness`. Rule chung: `.claude/rules/api-integration.md`. File tên-cố-định trong `integration/` + `test/api/` dùng **bare name** (không prefix `{feature}-`) — nhất quán với họ đã có (api-summary/api-map/api-tests), và folder `integration/`+`test/api/` đã phân biệt đủ qua path feature.
+> **Họ integration (7 skill):** `/api-assess → /api-doc → /api-design → /api-map → /api-checklist → /api-test → /api-readiness`. Rule chung: `.agents/rules/api-integration.md`. File tên-cố-định trong `integration/` + `test/api/` dùng **bare name** (không prefix `{feature}-`) — nhất quán với họ đã có (api-summary/api-map/api-tests), và folder `integration/`+`test/api/` đã phân biệt đủ qua path feature.
 
 | Brainstorm | `docs/{feature}/brainstorms/{idea-slug}.md` |
 | Reverse-doc (tái lập BỘ SRS đầy đủ đa-tầng từ nguồn) | `docs/_reverse/{feature}/` — **bộ SRS đa-tầng**: `{feature}-reverse-spec.md` (SRS 12 Mục chi tiết + cột Nguồn/Nhãn + Mục 0) + `reverse-sources.md` (danh mục nguồn) + `reverse-gaps.md` (OQ/Gap/Conflict) + `srs/{feature}-reverse-{flows,states,erd}.md` (mermaid) + `usecases/{feature}-reverse-usecase-index.md` + `usecases/uc-{slug}.md`. Ghi **tách** doc chính thức trong `docs/_reverse/` (folder project-level như `_shared`/`_product`), KHÔNG đè `docs/{feature}/`. Output của `/reverse-doc`. Manifest: `docs/_reverse/reverse-plan.json`; convert tạm: `docs/_reverse/.convert/`. |
@@ -67,9 +67,9 @@
 | Test strategy | `docs/{feature}/test/test-strategy.md` — chiến lược test (durable: môi trường/data/device/ngôn ngữ; per-run: mục đích/baseline/profile). Dùng CHUNG `/test-checklist` + `/test-cases` (intake no-re-ask). Bare name trong `test/` (nhất quán). |
 | Test checklist index | `docs/{feature}/test/checklist/{feature}-checklist-index.md` — master metadata + `## Coverage` (per-obligation, nguồn edge VERIFIES) + `## Retired CHK-IDs` + frontmatter `next_chk_id`. Output của `/test-checklist`. |
 | Test cases index | `docs/{feature}/test/testcases/{feature}-testcase-index.md` — master metadata cho toàn bộ test case. Output của `/test-cases`. |
-| E2E Playwright | `docs/{feature}/test/e2e/{feature}-e2e-index.md` (master) + `specs/{scope}.spec.ts` (auto-gen, KHÔNG sửa tay) + `playwright.config.ts` + `.env.example`. Codegen từ testcases qua engine `.claude/scripts/playwright-gen.mjs`. Output của `/playwright-gen`. |
+| E2E Playwright | `docs/{feature}/test/e2e/{feature}-e2e-index.md` (master) + `specs/{scope}.spec.ts` (auto-gen, KHÔNG sửa tay) + `playwright.config.ts` + `.env.example`. Codegen từ testcases qua engine `.agents/scripts/playwright-gen.mjs`. Output của `/playwright-gen`. |
 | Traceability | `docs/_shared/traceability.md` (auto from /gap) |
-| Atlassian sync-state (mapping GỘP Jira+Confluence) | `.claude/state/atlassian/sync-state.yaml` (config + mapping + watermark/hash, 1 entry/artifact, key `mappings.jira`/`mappings.confluence`) + `base/*.json` (snapshot 3-way) + `locks/`. **Thay hẳn** `docs/_shared/jira-map.md` + `confluence-map.md` cũ (đã migrate + xóa). Output của `/jira` + `/confluence`. Xem `.claude/rules/atlassian-sync.md`. |
+| Atlassian sync-state (mapping GỘP Jira+Confluence) | `.agents/state/atlassian/sync-state.yaml` (config + mapping + watermark/hash, 1 entry/artifact, key `mappings.jira`/`mappings.confluence`) + `base/*.json` (snapshot 3-way) + `locks/`. **Thay hẳn** `docs/_shared/jira-map.md` + `confluence-map.md` cũ (đã migrate + xóa). Output của `/jira` + `/confluence`. Xem `.agents/rules/atlassian-sync.md`. |
 | Meeting | `docs/meetings/YYYY-MM-DD-{type}-{slug}.md` (project-level). Decisions/blockers/action items sống dưới dạng table TRONG file này — KHÔNG có file riêng cho decision/blocker. |
 | Inbox capture | `docs/inbox/YYYY-MM-DD-{slug}.md` (project-level) |
 | Change Request | `docs/cr/CR-{YYYYMMDD}-{NNN}.md` (project-level) |
@@ -109,7 +109,7 @@ Recommended optional fields:
 - `priority`: P0 / P1 / P2
 - `version`: semver (e.g. `0.1.0`)
 
-**Các field ĐÃ BỎ (không thêm lại):** `lang`/`tags`/`stale_reason` (diet đợt 1, 2026-07-11); `created` (git biết), `owner` (người thực hiện ghi per-event trong `docs/_shared/activity.log`), `changelog` (lịch sử sống ở `activity.log` — xem `.claude/rules/changelog.md`) — diet đợt 2, 2026-07-12.
+**Các field ĐÃ BỎ (không thêm lại):** `lang`/`tags`/`stale_reason` (diet đợt 1, 2026-07-11); `created` (git biết), `owner` (người thực hiện ghi per-event trong `docs/_shared/activity.log`), `changelog` (lịch sử sống ở `activity.log` — xem `.agents/rules/changelog.md`) — diet đợt 2, 2026-07-12.
 
 ## Doc type values
 
@@ -150,7 +150,7 @@ Recommended optional fields:
 | `change-request` | `docs/cr/CR-*.md` |
 | `impact-report` | *(deprecated as standalone)* — impact assessment giờ là section trong `docs/cr/CR-*.md`. Type value giữ để classify content cũ nếu còn file legacy. |
 | `traceability` | `docs/_shared/traceability.md` |
-| ~~`jira-map`~~ / ~~`confluence-map`~~ | **Bỏ** — mapping GỘP vào `.claude/state/atlassian/sync-state.yaml` (YAML, không frontmatter). Không còn 2 file `.md` rời ở `docs/_shared/`. |
+| ~~`jira-map`~~ / ~~`confluence-map`~~ | **Bỏ** — mapping GỘP vào `.agents/state/atlassian/sync-state.yaml` (YAML, không frontmatter). Không còn 2 file `.md` rời ở `docs/_shared/`. |
 | `export-package` | `docs/exports/*.md` |
 | `userguide-index` | `docs/userguide/{userguide|{feature}-userguide}/index.md` (master metadata cẩm nang + bảng Sections). Frontmatter `type/scope/audience/lang/status/updated/links`. Output của `/userguide`. |
 | `userguide-section` | `docs/userguide/{userguide|{feature}-userguide}/pages/{slug}.md` (trang cẩm nang, **zero frontmatter** — type này chỉ dùng để classify khi cần grep). |
@@ -198,3 +198,4 @@ Khi 1 doc reference ID của doc khác:
 - Frontmatter `links:` flat list với full path: `links: [docs/payment/srs/payment-spec.md, docs/payment/userstories/us-001.md]`
 - Body inline reference: `[[docs/payment/srs/payment-spec.md#FR-payment-001|FR-payment-001]]` (Obsidian-compatible anchor).
 - `/gap` parse cả 2 dạng để build relationship graph.
+

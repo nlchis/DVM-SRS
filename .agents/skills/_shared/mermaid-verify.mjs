@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+﻿#!/usr/bin/env node
 /*
  * mermaid-verify.mjs — compile-verify mọi block ```mermaid trong 1 file .md qua mmdc.
  *
@@ -7,8 +7,8 @@
  * tự mở IDE/Obsidian/GitHub. Script này bắt lỗi NGAY, trước khi skill báo "xong".
  *
  * Dùng:
- *   node .claude/scripts/mermaid-verify.mjs --file docs/{feature}/srs/flows.md
- *   node .claude/scripts/mermaid-verify.mjs --file docs/x/srs/x-erd.md --png /tmp/erd-review
+ *   node .agents/scripts/mermaid-verify.mjs --file docs/{feature}/srs/flows.md
+ *   node .agents/scripts/mermaid-verify.mjs --file docs/x/srs/x-erd.md --png /tmp/erd-review
  *
  * Output: mỗi block PASS/FAIL kèm heading gần nhất (## ...) để biết lỗi ở đâu trong file.
  * Exit code = số block FAIL (0 nếu tất cả pass).
@@ -125,3 +125,4 @@ for (const r of results) {
 console.log(`\n${blocks.length - failCount}/${blocks.length} block compile OK${failCount ? `, ${failCount} FAIL` : ''}`);
 if (PNG_DIR && failCount === 0) console.log(`\n→ Ảnh PNG đã lưu ở ${PNG_DIR}. Read từng ảnh để tự soi thiếu entity/sai cardinality trước khi báo xong.`);
 process.exit(failCount);
+

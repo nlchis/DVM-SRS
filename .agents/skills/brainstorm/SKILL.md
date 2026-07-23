@@ -1,4 +1,4 @@
----
+﻿---
 name: brainstorm
 description: Sử dụng khi Business Analyst muốn brainstorm tính năng hoặc chỉnh sửa tính năng mới. Kích hoạt bằng lệnh `/brainstorm <yêu cầu>` hoặc `/brainstorm` (tương tác trực tiếp). Kết quả lưu tại `docs/{feature}/brainstorms/{idea-slug}.md`.
 ---
@@ -90,10 +90,11 @@ Phát triển ý tưởng thô từ người dùng thành một tài liệu brai
 
 ## Tài liệu tham chiếu (References)
 
-- @.claude/rules/ba-conventions.md
-- @.claude/rules/approval-gate.md
-- @.claude/rules/naming-conventions.md
-- @.claude/rules/resolve-oqs.md
-- @.claude/rules/changelog.md
+- @.agents/rules/ba-conventions.md
+- @.agents/rules/approval-gate.md
+- @.agents/rules/naming-conventions.md
+- @.agents/rules/resolve-oqs.md
+- @.agents/rules/changelog.md
 - @_templates/brainstorm.md
-- @.claude/skills/brainstorm/references/example-brainstorm.md
+- @.agents/skills/brainstorm/references/example-brainstorm.md
+

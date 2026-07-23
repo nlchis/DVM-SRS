@@ -1,4 +1,4 @@
----
+﻿---
 name: spec-writer
 description: Sử dụng khi Business Analyst muốn đặc tả các yêu cầu chức năng (FR), yêu cầu phi chức năng (NFR), quy tắc nghiệp vụ (BR), quy tắc kiểm tra (VR), quy tắc chuyển đổi trạng thái (STR) và mã lỗi cho một tính năng. Kích hoạt bằng lệnh `/spec <tên tính năng>` hoặc `/spec`. Kết quả ghi trực tiếp vào `docs/{feature}/spec/spec.md`.
 ---
@@ -112,7 +112,8 @@ Dựa trên thông tin thu thập được, lập dự thảo đặc tả yêu c
 ---
 
 ## Tài liệu tham chiếu (References)
-- @.claude/rules/ba-conventions.md
-- @.claude/rules/naming-conventions.md
-- @.claude/rules/changelog.md
-- @.claude/rules/resolve-oqs.md
+- @.agents/rules/ba-conventions.md
+- @.agents/rules/naming-conventions.md
+- @.agents/rules/changelog.md
+- @.agents/rules/resolve-oqs.md
+
