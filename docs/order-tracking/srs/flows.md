@@ -66,20 +66,31 @@ deactivate Portal
 alt Admin phê duyệt đơn hàng
     Admin -> Portal: Phê duyệt đơn (Approve)
     activate Portal
-    Portal -> Portal: Tạo Bản ghi Xuất kho (Chờ duyệt), chỉ trừ tồn kho khi Đã duyệt
-    Portal -> Courier: Gọi API tạo vận đơn giao hàng qua 247Express
+    Portal -> Portal: Chuyển trạng thái đơn thành Đã duyệt, tạo Bản ghi Xuất kho (Chờ duyệt)
+    Portal -> Courier: Gửi thông tin đơn sang 247Express
     activate Courier
-    Courier --> Portal: Trả về mã vận đơn (Tracking ID)
+    alt 247Express trả về mã vận đơn thành công
+        Courier --> Portal: Trả về mã vận đơn (Tracking ID)
+        Portal -> Portal: Chuyển đơn sang Đã tiếp nhận
+        Portal -> KH: Gửi SMS thông báo Đặt hàng thành công cho khách
+    else Chưa trả về mã vận đơn hoặc kết nối chờ
+        Courier --> Portal: Chưa nhận mã vận đơn
+        Portal -> Portal: Giữ nguyên trạng thái Đã duyệt
+    end
     deactivate Courier
-    Portal -> Portal: Chuyển đơn sang Đã tiếp nhận
-    Portal -> KH: Gửi SMS thông báo Đặt hàng thành công cho khách
     deactivate Portal
 else Admin từ chối phê duyệt
     Admin -> Portal: Từ chối đơn (Reject) + Nhập lý do từ chối
     activate Portal
-    Portal -> Portal: Hủy giữ kho, cộng lại tồn kho khả dụng
+    Portal -> Portal: Hủy giữ kho khả dụng (chưa từng cộng SL Yêu cầu)
     Portal -> Portal: Chuyển trạng thái đơn thành Từ Chối
     Portal -> Sales: Báo từ chối duyệt kèm lý do
+    deactivate Portal
+else Người dùng xóa mềm đơn Chờ duyệt
+    Sales -> Portal: Nhấn nút [Xóa đơn] trên đơn Chờ duyệt
+    activate Portal
+    Portal -> Portal: Hủy giữ kho khả dụng, ẩn đơn khỏi giao diện FO
+    Portal -> Portal: Chuyển trạng thái đơn thành Đã xóa (Mềm)
     deactivate Portal
 end
 
@@ -129,19 +140,19 @@ alt Trường hợp A: Giao hàng thành công
     Portal -> Sales: Bắn cảnh báo Telegram "Giao thành công"
     deactivate Portal
     
-    alt Khách hàng có nhu cầu đổi trả (Hoàn 1 phần) sau khi nhận
-        Sales -> Portal: Nhấn nút [Hoàn hàng], nhập SP, số lượng & Lý do
+    alt Khách hàng có nhu cầu đổi trả (Hoàn 1 phần hoặc toàn bộ) sau khi nhận
+        Sales -> Portal: Nhấn nút [Hoàn hàng], nhập SP, số lượng (1 phần hoặc toàn bộ) & Lý do
         activate Portal
         Portal -> Portal: Chuyển trạng thái đơn thành Chờ chuyển hoàn
         deactivate Portal
         Courier -> Portal: Shipper lấy hàng đi hoàn
         activate Portal
-        Portal -> Portal: Chuyển trạng thái đơn thành Chờ chuyển hoàn, cộng Phí hoàn
+        Portal -> Portal: Cập nhật trạng thái Chờ chuyển hoàn, cộng Phí hoàn
         deactivate Portal
         Courier -> Portal: Hoàn hàng về kho công ty
         activate Portal
         Portal -> Portal: Chuyển trạng thái đơn thành Đã chuyển hoàn
-        Portal -> Portal: Auto Refund (Trừ đi số lượng đã giao của Yêu cầu giao hàng)
+        Portal -> Portal: Auto Refund (Trừ đi số lượng hoàn của Yêu cầu giao hàng)
         deactivate Portal
     end
 
@@ -151,7 +162,7 @@ else Trường hợp B: Giao hàng thất bại (Edge Case)
     Portal -> Portal: Cập nhật trạng thái Chờ xử lý + Lưu lý do
     Portal -> Sales: Bắn cảnh báo Telegram đơn giao thất bại
     deactivate Portal
-    alt Shipper tự động giao lại (Tối đa 3 lần)
+    alt Shipper tự động giao lại (Tối đa X lần theo quy định của 247Express)
         Courier -> Portal: Cập nhật đang giao lại
         activate Portal
         Portal -> Portal: Chuyển trạng thái đơn về Đang đi phát

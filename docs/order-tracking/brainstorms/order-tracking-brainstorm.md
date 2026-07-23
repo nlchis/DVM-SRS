@@ -47,10 +47,10 @@ Nhằm đáp ứng mô hình kinh doanh B2B phức tạp, hệ thống cần nâ
 * Quản lý Khách hàng và Hợp đồng (No Maker/Checker).
 * Admin tạo Yêu cầu giao hàng từ Hợp đồng để phân bổ số lượng.
 * Sales tạo Đơn hàng dựa trên Yêu cầu giao hàng (Hệ thống chặn nếu vượt số lượng).
-* Admin phê duyệt Đơn hàng (Sinh Bản ghi xuất kho ở trạng thái Chờ duyệt tự động in phiếu, gọi API 247Express. Chỉ trừ tồn kho khi bản ghi chuyển sang Đã duyệt).
+* Admin phê duyệt Đơn hàng (Chuyển trạng thái sang `Đã duyệt`, sinh Bản ghi xuất kho ở trạng thái Chờ duyệt, gửi thông tin sang 247Express. Khi 247Express trả về mã vận đơn, đơn mới chuyển sang `Đã tiếp nhận`).
 * Tích hợp Webhook 247Express cập nhật trạng thái tự động.
-* Cơ chế Auto Refund: Hoàn hạn mức số lượng cho Yêu cầu giao hàng khi Đơn hàng bị Chờ xử lý / Đã chuyển hoàn.
-* Hoàn hàng chủ động: Cho phép Sales bấm [Hoàn hàng 1 phần] trên đơn đã Phát thành công, tạo vòng lặp trạng thái Chờ chuyển hoàn -> Đã chuyển hoàn.
+* Cơ chế Auto Refund: Hoàn hạn mức số lượng cho Yêu cầu giao hàng khi Đơn hàng bị `Đã chuyển hoàn` (đơn `Từ Chối` hoặc `Hủy` chưa cộng số lượng nên không bị trừ).
+* Hoàn hàng chủ động: Cho phép Sales bấm [Hoàn hàng] (trả 1 phần hoặc toàn bộ đơn) trên đơn đã `Phát thành công`, tạo vòng lặp trạng thái `Chờ chuyển hoàn` -> `Đã chuyển hoàn`.
 
 ## 5. Core Flows (Happy Path)
 
@@ -60,14 +60,14 @@ Nhằm đáp ứng mô hình kinh doanh B2B phức tạp, hệ thống cần nâ
 
 ### 5.2 Luồng Tạo Đơn & Giao Hàng (Sales & Admin)
 1. Sales chọn Yêu cầu giao hàng, nhập số lượng muốn giao, upload Hóa đơn -> Gửi duyệt (`Chờ Duyệt`).
-2. Admin Phê duyệt -> `Đã tiếp nhận` (Sinh Bản ghi xuất kho tự động).
-3. Webhook cập nhật `Đã lấy hàng` (Bản ghi xuất kho tự động chuyển sang Đã duyệt, tiến hành trừ tồn kho).
+2. Admin Phê duyệt -> `Đã duyệt` (Sinh Bản ghi xuất kho Chờ duyệt & gửi đơn sang 247Express). Khi 247Express trả mã vận đơn, đơn tự chuyển sang `Đã tiếp nhận`.
+3. Webhook 247Express cập nhật `Đã lấy hàng` (Bản ghi xuất kho tự động chuyển sang Đã duyệt, tiến hành trừ tồn kho).
 4. Webhook cập nhật `Đang vận chuyển` -> `Đang đi phát` -> `Phát thành công`.
-4. Số lượng đã giao thực tế của Yêu cầu giao hàng tăng lên. Nếu đạt mốc, Yêu cầu chuyển sang `Hoàn thành`. Hợp đồng được ghi nhận số lượng.
+5. Số lượng đã giao thực tế của Yêu cầu giao hàng tăng lên. Nếu đạt mốc, Yêu cầu chuyển sang `Hoàn thành`. Hợp đồng được ghi nhận số lượng.
 
-### 5.3 Luồng Hoàn Hàng (Chủ động - Trả 1 phần)
-1. Đơn hàng đang ở `Phát thành công`. Khách báo trả lại 1 phần.
-2. Sales bấm [Hoàn hàng 1 phần], nhập số lượng trả lại -> Đơn về `Chờ chuyển hoàn`.
+### 5.3 Luồng Hoàn Hàng (Chủ động - Trả 1 phần hoặc toàn bộ)
+1. Đơn hàng đang ở `Phát thành công`. Khách báo trả lại 1 phần hoặc toàn bộ đơn.
+2. Sales bấm [Hoàn hàng], nhập số lượng trả lại -> Đơn về `Chờ chuyển hoàn`.
 3. Hàng về kho -> Nhận webhook, Đơn thành `Đã chuyển hoàn`. 
 4. Auto Refund: Số lượng đã giao của Yêu cầu giao hàng bị trừ đi. Có thể làm Yêu cầu rớt trạng thái từ `Hoàn thành` về `Chờ xử lý`. Thủ kho tự nhập tồn kho thủ công.
 
@@ -79,8 +79,9 @@ Nhằm đáp ứng mô hình kinh doanh B2B phức tạp, hệ thống cần nâ
 `Chờ xử lý` <--> `Hoàn thành` (Auto tính toán dựa trên số lượng Đơn giao hàng).
 
 #### Đơn hàng (Order Entity)
-`Chờ duyệt` -> `Đã tiếp nhận` -> `Đã lấy hàng` -> `Đang vận chuyển` -> `Đang đi phát` -> `Phát thành công`.
+`Chờ duyệt` -> `Đã duyệt` -> `Đã tiếp nhận` -> `Đã lấy hàng` -> `Đang vận chuyển` -> `Đang đi phát` -> `Phát thành công`.
 Hoàn hàng: `Phát thành công` -> `Chờ chuyển hoàn` -> `Đã chuyển hoàn`.
+Xóa đơn: `Chờ duyệt` -> `Đã xóa (Mềm)` (Hủy tạm giữ kho & ẩn khỏi FO).
 
 ### 6.2 Validation Rules
 * **Tạo Yêu cầu:** Số lượng yêu cầu <= Số lượng Hợp đồng còn lại.

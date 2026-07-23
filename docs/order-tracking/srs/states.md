@@ -107,12 +107,25 @@ skinparam ArrowColor #334155
 
 state "Chờ Duyệt" as PENDING_APPROVAL
 
+state "Đã xóa (Mềm)" as SOFT_DELETED
+note right of SOFT_DELETED
+  Hủy tạm giữ kho & ẩn khỏi FO
+end note
+
 state "Từ Chối" as REJECTED
 note right of REJECTED
   Hủy tạm giữ kho
 end note
 
+state "Đã duyệt" as APPROVED
+note right of APPROVED
+  Gửi thông tin sang 247Express
+end note
+
 state "Đã tiếp nhận" as AWAITING_SHIPPING
+note right of AWAITING_SHIPPING
+  Đã nhận Mã vận đơn 247
+end note
 
 state "Hủy" as CANCELLED
 note right of CANCELLED
@@ -137,8 +150,10 @@ note right of RETURNED
   Thủ kho tự kiểm đếm để cộng tồn kho.
 end note
 
-PENDING_APPROVAL --> AWAITING_SHIPPING : Admin Phê duyệt
+PENDING_APPROVAL --> SOFT_DELETED : Người dùng bấm [Xóa đơn]
 PENDING_APPROVAL --> REJECTED : Admin Từ chối
+PENDING_APPROVAL --> APPROVED : Admin Phê duyệt
+APPROVED --> AWAITING_SHIPPING : 247Express trả Mã vận đơn
 
 AWAITING_SHIPPING --> CANCELLED : Sales bấm Hủy đơn
 AWAITING_SHIPPING --> PICKED_UP : Nhận thông tin [Đã lấy hàng] từ 247
@@ -148,14 +163,15 @@ DELIVERING --> SUCCESS : Nhận thông tin [Phát thành công] từ 247
 DELIVERING --> FAILED : Nhận thông tin [Chờ xử lý] từ 247
 
 ' Luồng giao lỗi và tự động hoàn
-FAILED --> DELIVERING : Nhận thông tin [Đang đi phát] từ 247
+FAILED --> DELIVERING : Nhận thông tin [Đang đi phát] từ 247 (Tối đa X lần)
 FAILED --> RETURNING : Nhận thông tin [Chờ chuyển hoàn] từ 247
 RETURNING --> RETURNED : Nhận thông tin [Đã chuyển hoàn] từ 247
 
-' Luồng khách yêu cầu hoàn sau khi đã nhận thành công (Trả 1 phần)
-SUCCESS --> RETURNING : Sales bấm [Hoàn hàng 1 phần] (Yêu cầu hoàn)
+' Luồng khách yêu cầu hoàn sau khi đã nhận thành công (Trả 1 phần hoặc toàn bộ)
+SUCCESS --> RETURNING : Sales bấm [Hoàn hàng] (1 phần hoặc toàn bộ)
 RETURNING --> RETURNED : Nhận thông tin [Đã chuyển hoàn] từ 247
 
+SOFT_DELETED --> [*]
 REJECTED --> [*]
 CANCELLED --> [*]
 RETURNED --> [*]
@@ -167,8 +183,10 @@ RETURNED --> [*]
 | Trạng thái | Ý nghĩa | Chuyển trạng thái khi |
 |---|---|---|
 | **Chờ Duyệt** | Đơn giao hàng vừa được Sales tạo, chờ Admin phê duyệt. | Sales tạo đơn thành công. |
+| **Đã xóa (Mềm)** | Đơn hàng ở trạng thái Chờ duyệt bị người dùng xóa. | Người dùng bấm [Xóa đơn] khi đơn ở trạng thái Chờ duyệt. |
 | **Từ Chối** | Đơn hàng bị Admin từ chối phê duyệt. | Admin bấm Từ chối. |
-| **Đã tiếp nhận** | Đơn hàng đã được duyệt, 247Express đã nhận thông tin vận đơn. | Admin phê duyệt đơn. |
+| **Đã duyệt** | Admin phê duyệt đơn, hệ thống đang gửi thông tin sang 247Express. | Admin phê duyệt đơn. |
+| **Đã tiếp nhận** | Đơn hàng đã nhận mã vận đơn từ 247Express. | 247Express trả về mã vận đơn (Tracking ID). |
 | **Hủy** | Đơn hàng bị hủy bỏ trước khi bưu tá đến lấy hàng. | Sales chủ động hủy đơn khi ở trạng thái Đã tiếp nhận. |
 | **Đã lấy hàng** | Bưu tá 247Express đã đến kho và lấy hàng thành công. | Nhận thông tin [Đã lấy hàng] từ 247. |
 | **Đang vận chuyển** | Hàng hóa đang luân chuyển giữa các kho của 247Express. | Nhận thông tin [Đang vận chuyển] từ 247. |

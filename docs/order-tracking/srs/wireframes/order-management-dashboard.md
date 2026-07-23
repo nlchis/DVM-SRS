@@ -105,7 +105,7 @@ Tài liệu này chứa phác thảo giao diện ASCII cho luồng quản lý đ
 
 ---
 
-## 5. Popup Xác nhận Hoàn hàng (Trả hàng 1 phần)
+## 5. Popup Xác nhận Hoàn hàng (Trả 1 phần hoặc toàn bộ đơn)
 
 Khi Sales bấm nút `[Hoàn Hàng]` từ màn hình trên.
 
@@ -116,7 +116,7 @@ Khi Sales bấm nút `[Hoàn Hàng]` từ màn hình trên.
 │ Bạn đang thao tác trên đơn hàng: #247-00124                │
 │ Số lượng ban đầu: Sâm Ngọc Linh (5 kg)                     │
 │                                                            │
-│ -> Nhập Số lượng hoàn: [ 2 ] kg                            │
+│ -> Nhập Số lượng hoàn: [ 2 ] kg (Hoàn 1 phần hoặc cả đơn) │
 │ -> Lý do hoàn trả:     [ Hàng bị ẩm mốc trong túi        ] │
 │                                                            │
 │ Cảnh báo: Thao tác này sẽ chuyển trạng thái đơn hàng sang  │
@@ -127,4 +127,10 @@ Khi Sales bấm nút `[Hoàn Hàng]` từ màn hình trên.
 └────────────────────────────────────────────────────────────┘
 ```
 
-Sau khi bấm Xác nhận, đơn sẽ quay về `Chờ chuyển hoàn` -> `Đã chuyển hoàn`. Số lượng thực tế đã giao sẽ tự trừ đi 2kg (còn 3kg) và hiển thị trên màn hình Chi tiết đơn hàng. Trường Phí vận chuyển hoàn sẽ tự động cập nhật khi hành trình kết thúc.
+Sau khi bấm Xác nhận, đơn sẽ quay về `Chờ chuyển hoàn` -> `Đã chuyển hoàn`. Số lượng thực tế đã giao sẽ tự trừ đi số lượng hoàn (ví dụ trừ 2kg còn 3kg hoặc trừ toàn bộ 5kg) và hiển thị trên màn hình Chi tiết đơn hàng. Trường Phí vận chuyển hoàn sẽ tự động cập nhật khi hành trình kết thúc.
+
+---
+
+## 6. Thao tác Xóa mềm đơn hàng (Chờ duyệt)
+
+*Lưu ý: Nút `[Xóa đơn]` chỉ hiển thị với người dùng có quyền khi đơn ở trạng thái **Chờ Duyệt**. Khi bấm Xóa đơn, hệ thống lập tức giải phóng số lượng tồn kho bị tạm giữ và ẩn bản ghi khỏi danh sách màn hình FO.*

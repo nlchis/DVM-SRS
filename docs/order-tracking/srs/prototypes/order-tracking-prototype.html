@@ -331,7 +331,8 @@
                         <select id="status-filter" onchange="filterOrders()" class="bg-slate-50 border border-slate-200 rounded-lg text-sm px-3 py-2 focus:outline-none focus:border-blue-500 focus:bg-white transition-all">
                             <option value="ALL">Tất cả</option>
                             <option value="PENDING_APPROVAL">Chờ Duyệt</option>
-                            <option value="REJECTED">Từ Chối Duyệt</option>
+                            <option value="APPROVED">Đã duyệt</option>
+                            <option value="REJECTED">Từ Chối</option>
                             <option value="AWAITING_SHIPPING">Đã tiếp nhận</option>
                             <option value="PICKED_UP">Đã lấy hàng</option>
                             <option value="IN_TRANSIT">Đang vận chuyển</option>
@@ -1207,6 +1208,8 @@
         function getStatusBadgeHTML(status) {
             const styles = {
                 PENDING_APPROVAL: { text: "Chờ Duyệt", bg: "bg-indigo-50 text-indigo-600", dot: "bg-indigo-500" },
+                APPROVED: { text: "Đã duyệt", bg: "bg-sky-50 text-sky-600", dot: "bg-sky-500" },
+                SOFT_DELETED: { text: "Đã xóa (Mềm)", bg: "bg-slate-200 text-slate-400", dot: "bg-slate-400" },
                 REJECTED: { text: "Từ Chối", bg: "bg-slate-100 text-slate-600", dot: "bg-slate-500" },
                 AWAITING_SHIPPING: { text: "Đã tiếp nhận", bg: "bg-blue-50 text-blue-600", dot: "bg-blue-500" },
                 CANCELLED: { text: "Hủy", bg: "bg-gray-100 text-gray-500", dot: "bg-gray-400" },
