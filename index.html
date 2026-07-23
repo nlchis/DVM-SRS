@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VietMec - Cổng Điều Hướng Tài Liệu & Interactive Prototype</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-title { font-family: 'Outfit', sans-serif; }
+    </style>
+    <script>
+        // Auto redirect to prototype after 3 seconds if user does not click
+        setTimeout(() => {
+            if (!window.userClicked) {
+                window.location.href = "docs/order-tracking/prototypes/order-tracking-prototype.html";
+            }
+        }, 3000);
+    </script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-blue-500 selection:text-white">
+
+    <!-- Header -->
+    <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white text-xl shadow-lg shadow-blue-600/30">
+                    <i class="fa-solid fa-cube"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-white font-title text-lg leading-tight">VietMec B2B Portal</h1>
+                    <p class="text-xs text-slate-400">Hệ Thống Theo Dõi Đơn Hàng & Chuỗi Cung Ứng</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2 text-xs font-semibold px-3 py-1.5 bg-blue-950 text-blue-400 border border-blue-800/50 rounded-full">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>SRS v1.3.3 Approved (@nlchis)</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-6 py-12 flex-1 space-y-10">
+        <div class="text-center max-w-2xl mx-auto space-y-4">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-white font-title tracking-tight">Trung Tâm Điều Hướng Tài Liệu & Interactive Prototype</h2>
+            <p class="text-slate-400 text-sm leading-relaxed">
+                Chào mừng bạn đến với Cổng điều hướng phân hệ **Theo Dõi Đơn Hàng B2B** thuộc VietMec. Vui lòng chọn tài liệu hoặc truy cập ngay bản mẫu thử nghiệm tương tác bên dưới.
+            </p>
+            <div class="pt-2">
+                <a onclick="window.userClicked=true;" href="docs/order-tracking/prototypes/order-tracking-prototype.html" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3.5 rounded-xl shadow-lg shadow-blue-600/30 transition-all duration-300 transform hover:-translate-y-0.5">
+                    <i class="fa-solid fa-play"></i>
+                    <span>Truy cập Interactive Prototype Ngay</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Navigation Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-6">
+            <!-- Card 1: Interactive Prototype -->
+            <a onclick="window.userClicked=true;" href="docs/order-tracking/prototypes/order-tracking-prototype.html" class="group bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 hover:border-blue-500/60 p-6 rounded-2xl transition-all duration-300 flex flex-col justify-between space-y-4 shadow-lg hover:shadow-blue-500/10">
+                <div class="space-y-3">
+                    <div class="w-12 h-12 bg-blue-500/10 text-blue-400 rounded-xl flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-desktop"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white font-title group-hover:text-blue-400 transition-colors">Interactive Prototype</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Bản mẫu giao diện Front-end tương tác thực tế với đầy đủ 12 trạng thái đơn, Quản lý Khách hàng, Hợp đồng & Nhập xuất kho.</p>
+                </div>
+                <div class="text-xs font-semibold text-blue-400 flex items-center gap-1.5 pt-2">
+                    <span>Mở Prototype</span>
+                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </div>
+            </a>
+
+            <!-- Card 2: SRS Document -->
+            <a onclick="window.userClicked=true;" href="docs/order-tracking/srs/srs.md" class="group bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 hover:border-purple-500/60 p-6 rounded-2xl transition-all duration-300 flex flex-col justify-between space-y-4 shadow-lg hover:shadow-purple-500/10">
+                <div class="space-y-3">
+                    <div class="w-12 h-12 bg-purple-500/10 text-purple-400 rounded-xl flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-file-contract"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white font-title group-hover:text-purple-400 transition-colors">Tài Liệu Đặc Tả SRS (v1.3.3)</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Tổng hợp toàn bộ yêu cầu phần mềm, quy tắc nghiệp vụ BR, 12 trạng thái đơn hàng và các Yêu cầu phi chức năng nghiệp vụ.</p>
+                </div>
+                <div class="text-xs font-semibold text-purple-400 flex items-center gap-1.5 pt-2">
+                    <span>Đọc SRS Specification</span>
+                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </div>
+            </a>
+
+            <!-- Card 3: Use Cases & Flowcharts -->
+            <a onclick="window.userClicked=true;" href="docs/order-tracking/usecases/index.md" class="group bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 hover:border-emerald-500/60 p-6 rounded-2xl transition-all duration-300 flex flex-col justify-between space-y-4 shadow-lg hover:shadow-emerald-500/10">
+                <div class="space-y-3">
+                    <div class="w-12 h-12 bg-emerald-500/10 text-emerald-400 rounded-xl flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-diagram-project"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white font-title group-hover:text-emerald-400 transition-colors">9 Use Cases & Flowcharts</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Đặc tả chi tiết 9 Use Cases chuẩn IT-BA (UC-01 đến UC-09) kèm Sơ đồ Flowchart PlantUML và liên kết Wireframes.</p>
+                </div>
+                <div class="text-xs font-semibold text-emerald-400 flex items-center gap-1.5 pt-2">
+                    <span>Xem 9 Use Cases</span>
+                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 py-6 text-center text-xs text-slate-500 bg-slate-950/60">
+        <p>© 2026 VietMec Order Tracking System. Tac giả: <strong class="text-slate-300">@nlchis</strong> (Business Analyst).</p>
+    </footer>
+
+</body>
+</html>
