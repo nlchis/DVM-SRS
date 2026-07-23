@@ -17,7 +17,7 @@ Produce mermaid `stateDiagram-v2` cho 1 entity của feature, capture: states + 
 - **KHÔNG L3 iterate** — mermaid không render trong chat. User review từ rendered file, muốn sửa thì gọi lại skill và nói cần đổi gì.
 - **Auto-detect states** từ:
   - `docs/{feature}/brainstorms/*.md` Mục 6.3 State Transitions table.
-  - `docs/{feature}/srs/{feature}-spec.md` Mục 4 Business Rules nếu mention state transition.
+  - `docs/{feature}/spec/spec.md` Mục 4 Business Rules nếu mention state transition.
   - Nếu không có → clarifying questions. User muốn dùng nguồn khác → tag `@file` hoặc dán nội dung trong câu chat.
 - **Invalid transitions explicit** — table riêng trong section liệt kê transitions KHÔNG được phép.
 - **Vietnamese-first** trong description/notes, auto-detect từ seed. Muốn tiếng Anh thì nói "viết bằng tiếng Anh". Mermaid syntax keywords giữ English.

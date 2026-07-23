@@ -130,6 +130,14 @@
 
         <!-- Navigation Links -->
         <nav id="sidebar-nav" class="flex-1 py-6 px-4 space-y-1 overflow-y-auto">
+            <button onclick="switchTab('customers')" id="nav-customers" class="role-nav-item role-sales w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-left transition-all duration-200 hover:bg-slate-900 hover:text-white">
+                <i class="fa-solid fa-users w-5 text-center text-lg"></i>
+                <span>Quản lý Khách hàng</span>
+            </button>
+            <button onclick="switchTab('contracts')" id="nav-contracts" class="role-nav-item role-sales w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-left transition-all duration-200 hover:bg-slate-900 hover:text-white">
+                <i class="fa-solid fa-file-contract w-5 text-center text-lg"></i>
+                <span>Hợp đồng & Yêu cầu</span>
+            </button>
             <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-active w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-left transition-all duration-200 hover:bg-slate-900 hover:text-white">
                 <i class="fa-solid fa-chart-pie w-5 text-center text-lg"></i>
                 <span>Dashboard Tổng quan</span>
@@ -797,7 +805,135 @@
             </section>
 
             <!-- TAB 7: REPLENISH INVENTORY -->
-            <section id="panel-replenish-inventory" class="space-y-6 tab-panel hidden">
+            
+            <!-- PANEL: QUẢN LÝ KHÁCH HÀNG B2B (UC-order-01) -->
+            <section id="panel-customers" class="space-y-6 tab-panel hidden">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900 font-title flex items-center gap-2">
+                            <i class="fa-solid fa-building text-blue-600"></i> Quản lý Hồ sơ Khách hàng & Hợp đồng Cam kết (B2B)
+                        </h2>
+                        <p class="text-xs text-slate-500 mt-1">Quản lý danh sách đối tác B2B, lưu trữ tệp Hợp đồng đính kèm và hạn mức số lượng sản phẩm cam kết theo phụ lục.</p>
+                    </div>
+                    <button onclick="openCustomerModal()" class="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2.5 rounded-xl text-sm shadow-md shadow-blue-600/20 transition-all duration-200">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span>+ Thêm Khách Hàng Mới</span>
+                    </button>
+                </div>
+
+                <!-- Customer Search & Table Card -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+                    <div class="p-4 border-b border-slate-100 flex flex-wrap items-center justify-between gap-3 bg-slate-50/50">
+                        <div class="relative flex-1 min-w-[240px]">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
+                            <input type="text" id="customer-search-input" onkeyup="filterCustomers()" placeholder="Tìm kiếm theo Tên khách, MST, SĐT hoặc Mã KH..." class="w-full pl-10 pr-4 py-2 text-sm bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <span id="customer-count-badge" class="text-xs font-semibold px-3 py-1 bg-blue-50 text-blue-700 rounded-full">Tổng: 3 Khách hàng</span>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-slate-600">
+                            <thead class="bg-slate-100/70 text-slate-700 font-semibold text-xs uppercase tracking-wider border-b border-slate-200">
+                                <tr>
+                                    <th class="py-3.5 px-4">Mã KH</th>
+                                    <th class="py-3.5 px-4">Khách hàng / Doanh nghiệp</th>
+                                    <th class="py-3.5 px-4">MST / SĐT</th>
+                                    <th class="py-3.5 px-4">Tệp Hợp đồng đính kèm</th>
+                                    <th class="py-3.5 px-4">Sản phẩm cam kết</th>
+                                    <th class="py-3.5 px-4">Số Hợp đồng</th>
+                                    <th class="py-3.5 px-4 text-center">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customers-table-body" class="divide-y divide-slate-100">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PANEL: QUẢN LÝ HỢP ĐỒNG & YÊU CẦU GIAO HÀNG (UC-order-02 & UC-order-03) -->
+            <section id="panel-contracts" class="space-y-6 tab-panel hidden">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900 font-title flex items-center gap-2">
+                            <i class="fa-solid fa-file-signature text-purple-600"></i> Quản lý Hợp đồng B2B, Phụ lục & Yêu cầu Giao hàng
+                        </h2>
+                        <p class="text-xs text-slate-500 mt-1">Định nghĩa Hạn mức số lượng Hợp đồng, thêm Phụ lục Addendum nới quota, và cắt giao đợt thành Yêu cầu giao hàng (Delivery Request).</p>
+                    </div>
+                </div>
+
+                <!-- Sub Navigation Tabs for Contracts & Delivery Requests -->
+                <div class="flex border-b border-slate-200 gap-4">
+                    <button onclick="switchContractSubTab('contracts-list')" id="subtab-btn-contracts" class="py-2.5 px-4 font-semibold text-sm border-b-2 border-purple-600 text-purple-700 transition">
+                        <i class="fa-solid fa-file-contract mr-1"></i> Danh sách Hợp đồng B2B
+                    </button>
+                    <button onclick="switchContractSubTab('delivery-requests')" id="subtab-btn-requests" class="py-2.5 px-4 font-semibold text-sm border-b-2 border-transparent text-slate-500 hover:text-slate-700 transition">
+                        <i class="fa-solid fa-truck-ramp-box mr-1"></i> Yêu cầu Giao hàng (Delivery Requests)
+                    </button>
+                </div>
+
+                <!-- SUBTAB 1: CONTRACTS LIST -->
+                <div id="subtab-contracts-list" class="space-y-4">
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+                        <div class="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+                            <h3 class="font-bold text-slate-800 text-sm">Hợp đồng B2B Đang quản lý</h3>
+                            <span class="text-xs text-slate-500">Sales tạo & quản lý quota cam kết</span>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm text-slate-600">
+                                <thead class="bg-slate-100/70 text-slate-700 font-semibold text-xs uppercase tracking-wider border-b border-slate-200">
+                                    <tr>
+                                        <th class="py-3.5 px-4">Mã Hợp đồng</th>
+                                        <th class="py-3.5 px-4">Khách hàng B2B</th>
+                                        <th class="py-3.5 px-4">Hạn mức Cam kết</th>
+                                        <th class="py-3.5 px-4">Đã trích xuất</th>
+                                        <th class="py-3.5 px-4">Hạn mức còn lại</th>
+                                        <th class="py-3.5 px-4">Trạng thái</th>
+                                        <th class="py-3.5 px-4 text-center">Thao tác Quota</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="contracts-table-body" class="divide-y divide-slate-100">
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTAB 2: DELIVERY REQUESTS -->
+                <div id="subtab-delivery-requests" class="space-y-4 hidden">
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+                        <div class="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+                            <div>
+                                <h3 class="font-bold text-slate-800 text-sm">Yêu cầu Giao hàng (Delivery Requests)</h3>
+                                <p class="text-xs text-slate-500">Cắt từ Hợp đồng do Admin tạo - Đóng vai trò Quota để Sales chạy đơn</p>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm text-slate-600">
+                                <thead class="bg-slate-100/70 text-slate-700 font-semibold text-xs uppercase tracking-wider border-b border-slate-200">
+                                    <tr>
+                                        <th class="py-3.5 px-4">Mã Yêu cầu</th>
+                                        <th class="py-3.5 px-4">Hợp đồng gốc</th>
+                                        <th class="py-3.5 px-4">Khách hàng</th>
+                                        <th class="py-3.5 px-4">Chi tiết SP cắt giao đợt</th>
+                                        <th class="py-3.5 px-4">SL Quota Yêu cầu</th>
+                                        <th class="py-3.5 px-4">SL Đã giao thực tế</th>
+                                        <th class="py-3.5 px-4">Trạng thái</th>
+                                        <th class="py-3.5 px-4 text-center">Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="delivery-requests-table-body" class="divide-y divide-slate-100">
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+<section id="panel-replenish-inventory" class="space-y-6 tab-panel hidden">
                 <!-- Stock list card -->
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
                     <div class="flex items-center justify-between border-b border-slate-100 pb-4">
@@ -911,7 +1047,163 @@
     </div>
 
         <!-- CHECKER REJECTION REASON MODAL -->
-    <div id="checker-reject-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-305">
+    
+    <!-- MODAL: THÊM / SỬA KHÁCH HÀNG B2B (UC-order-01) -->
+    <div id="modal-customer" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-slate-100 p-6 space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                <h3 class="text-lg font-bold text-slate-900 font-title flex items-center gap-2">
+                    <i class="fa-solid fa-user-plus text-blue-600"></i> <span id="modal-customer-title">Thêm Hồ Sơ Khách Hàng B2B Mới</span>
+                </h3>
+                <button onclick="closeCustomerModal()" class="text-slate-400 hover:text-slate-600 text-lg w-8 h-8 rounded-lg flex items-center justify-center hover:bg-slate-100 transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form id="customer-form" onsubmit="event.preventDefault(); saveCustomer();" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Tên Khách Hàng / Doanh nghiệp <span class="text-red-500">*</span></label>
+                        <input type="text" id="cust-name" required placeholder="Nhập tên công ty hoặc bệnh viện..." class="w-full text-sm px-3.5 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Mã Số Thuế (MST) <span class="text-red-500">*</span></label>
+                        <input type="text" id="cust-mst" required placeholder="Nhập 10 chữ số MST..." class="w-full text-sm px-3.5 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Số Điện Thoại liên hệ <span class="text-red-500">*</span></label>
+                        <input type="text" id="cust-phone" required placeholder="0901234567" class="w-full text-sm px-3.5 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Email gửi thông báo</label>
+                        <input type="email" id="cust-email" placeholder="contact@domain.com" class="w-full text-sm px-3.5 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Địa chỉ giao hàng mặc định</label>
+                    <input type="text" id="cust-address" placeholder="Nhập số nhà, tên đường, Phường/Xã, Quận/Huyện..." class="w-full text-sm px-3.5 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+
+                <!-- Section: File hợp đồng / Phụ lục đính kèm -->
+                <div class="border border-dashed border-blue-200 bg-blue-50/40 p-4 rounded-xl space-y-2">
+                    <label class="block text-xs font-bold text-blue-900 flex items-center justify-between">
+                        <span><i class="fa-solid fa-paperclip mr-1 text-blue-600"></i> Đính kèm tệp Hợp đồng / Phụ lục (.pdf, .docx, .png ≤ 10MB)</span>
+                    </label>
+                    <div class="flex items-center gap-3">
+                        <input type="file" id="cust-file-input" class="text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer">
+                        <span id="cust-file-name" class="text-xs text-slate-600 font-medium">HopDong_Mau_2026.pdf</span>
+                    </div>
+                </div>
+
+                <!-- Section: Khai báo Danh sách Sản phẩm cam kết theo Hợp đồng / Phụ lục -->
+                <div class="space-y-3 pt-2">
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Danh sách Sản phẩm cam kết theo Hợp đồng</h4>
+                        <button type="button" onclick="addCommittedProductRow()" class="text-xs font-semibold text-blue-600 hover:text-blue-700">
+                            <i class="fa-solid fa-plus mr-1"></i>+ Thêm sản phẩm
+                        </button>
+                    </div>
+
+                    <div id="committed-products-list" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+                        <!-- Dynamic Rows -->
+                    </div>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-4 border-t border-slate-100">
+                    <button type="button" onclick="closeCustomerModal()" class="px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-100 transition">Hủy bỏ</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl text-sm font-semibold bg-blue-600 text-white hover:bg-blue-700 shadow-md shadow-blue-600/20 transition">Lưu Hồ Sơ Khách Hàng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: THÊM PHỤ LỤC ADDENDUM (UC-order-02) -->
+    <div id="modal-addendum" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full border border-slate-100 p-6 space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                <h3 class="text-lg font-bold text-slate-900 font-title flex items-center gap-2">
+                    <i class="fa-solid fa-file-circle-plus text-purple-600"></i> Thêm Phụ Lục Addendum (Nới Quota Hợp Đồng)
+                </h3>
+                <button onclick="closeAddendumModal()" class="text-slate-400 hover:text-slate-600 text-lg w-8 h-8 rounded-lg flex items-center justify-center hover:bg-slate-100 transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form onsubmit="event.preventDefault(); saveAddendum();" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Hợp đồng gốc</label>
+                    <input type="text" id="addendum-contract-id" readonly class="w-full text-sm px-3.5 py-2 bg-slate-100 border border-slate-200 rounded-xl font-mono text-slate-700">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Tên / Mã Phụ lục mới <span class="text-red-500">*</span></label>
+                    <input type="text" id="addendum-name" required placeholder="Ví dụ: Phụ lục 01 - Nới số lượng đợt 2" class="w-full text-sm px-3.5 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Số lượng cam kết bổ sung (chiếc/hộp) <span class="text-red-500">*</span></label>
+                    <input type="number" id="addendum-extra-qty" required min="1" value="50" class="w-full text-sm px-3.5 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:outline-none">
+                </div>
+
+                <div class="border border-dashed border-purple-200 bg-purple-50/40 p-4 rounded-xl space-y-2">
+                    <label class="block text-xs font-bold text-purple-900">Tải lên tệp Phụ lục mới đính kèm</label>
+                    <input type="file" class="text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-purple-600 file:text-white hover:file:bg-purple-700 cursor-pointer">
+                </div>
+
+                <div class="flex justify-end gap-3 pt-4 border-t border-slate-100">
+                    <button type="button" onclick="closeAddendumModal()" class="px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-100 transition">Hủy bỏ</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl text-sm font-semibold bg-purple-600 text-white hover:bg-purple-700 shadow-md shadow-purple-600/20 transition">Xác Nhận Thêm Phụ Lục</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: TẠO YÊU CẦU GIAO HÀNG (UC-order-03) -->
+    <div id="modal-delivery-request" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full border border-slate-100 p-6 space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                <h3 class="text-lg font-bold text-slate-900 font-title flex items-center gap-2">
+                    <i class="fa-solid fa-truck-ramp-box text-blue-600"></i> Tạo Yêu Cầu Giao Hàng (Delivery Request)
+                </h3>
+                <button onclick="closeDeliveryRequestModal()" class="text-slate-400 hover:text-slate-600 text-lg w-8 h-8 rounded-lg flex items-center justify-center hover:bg-slate-100 transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form onsubmit="event.preventDefault(); saveDeliveryRequest();" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Hợp đồng trích xuất <span class="text-red-500">*</span></label>
+                    <select id="req-contract-select" onchange="updateReqContractQuota()" class="w-full text-sm px-3.5 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        <!-- Populated dynamically -->
+                    </select>
+                </div>
+
+                <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl flex items-center justify-between text-xs text-amber-900">
+                    <span><i class="fa-solid fa-circle-info mr-1 text-amber-600"></i> Hạn mức Hợp đồng còn lại:</span>
+                    <span id="req-remaining-quota-badge" class="font-bold text-sm text-amber-700">120 chiếc</span>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Số lượng trích xuất cho đợt giao này <span class="text-red-500">*</span></label>
+                    <input type="number" id="req-cut-qty" required min="1" value="20" class="w-full text-sm px-3.5 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    <p class="text-[11px] text-slate-400 mt-1">Yêu cầu giao hàng đóng vai trò Quota để Sales chọn tạo các đơn hàng nhỏ.</p>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Ghi chú đợt giao</label>
+                    <textarea id="req-notes" rows="2" placeholder="Ghi chú đóng gói hoặc ưu tiên giao..." class="w-full text-sm px-3.5 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-4 border-t border-slate-100">
+                    <button type="button" onclick="closeDeliveryRequestModal()" class="px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-100 transition">Hủy bỏ</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl text-sm font-semibold bg-blue-600 text-white hover:bg-blue-700 shadow-md shadow-blue-600/20 transition">Lưu Yêu Cầu Giao Hàng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<div id="checker-reject-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-305">
         <div class="bg-white p-6 rounded-2xl shadow-xl max-w-md w-full mx-4 space-y-4">
             <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                 <h3 class="text-base font-bold text-slate-900 font-title"><i class="fa-solid fa-ban text-rose-500 mr-2"></i>Từ Chối Duyệt Đơn</h3>
@@ -1031,6 +1323,283 @@
             if (weightInput) weightInput.addEventListener('wheel', preventScrollOnNumber, { passive: false });
         });
 
+        
+        // Data Structures for B2B Customers, Contracts, Addendums, Delivery Requests
+        let customersData = [
+            { id: "KH-001", name: "Công ty Cổ phần Bệnh viện Thu Cúc", mst: "0102030405", phone: "0901234567", email: "contact@thucuchospital.vn", address: "286 Thụy Khuê, Tây Hồ, Hà Nội", contractNo: "HD-2026-THUCUC", file: "HopDong_ThuCuc_2026.pdf", products: [{ name: "Macbook Pro M3", qty: 50, price: 20000000 }, { name: "Máy Đo Huyết Áp Omron", qty: 100, price: 1500000 }] },
+            { id: "KH-002", name: "Công ty TNHH Dược phẩm Đông Á", mst: "0309876543", phone: "0912345678", email: "info@donga-pharma.vn", address: "Số 15 Lê Duẩn, Quận 1, TP. HCM", contractNo: "HD-2026-DONGA", file: "HopDong_DongA_2026.pdf", products: [{ name: "Máy Đo Huyết Áp Omron", qty: 200, price: 1400000 }] },
+            { id: "KH-003", name: "Nhà thuốc An Kang", mst: "0401122334", phone: "0988776655", email: "dat-hang@ankang.vn", address: "Số 88 Điện Biên Phủ, Quận 3, TP. HCM", contractNo: "HD-2026-ANKANG", file: "HopDong_AnKang_2026.pdf", products: [{ name: "Khẩu Trang Y Tế 4 Lớp", qty: 1000, price: 50000 }] }
+        ];
+
+        let contractsData = [
+            { id: "HD-2026-THUCUC", customerName: "Công ty Cổ phần Bệnh viện Thu Cúc", totalAmount: 1150000000, totalCommitted: 150, totalExtracted: 30, status: "ACTIVE", file: "HopDong_ThuCuc_2026.pdf" },
+            { id: "HD-2026-DONGA", customerName: "Công ty TNHH Dược phẩm Đông Á", totalAmount: 280000000, totalCommitted: 200, totalExtracted: 50, status: "ACTIVE", file: "HopDong_DongA_2026.pdf" },
+            { id: "HD-2026-ANKANG", customerName: "Nhà thuốc An Kang", totalAmount: 50000000, totalCommitted: 1000, totalExtracted: 200, status: "ACTIVE", file: "HopDong_AnKang_2026.pdf" }
+        ];
+
+        let deliveryRequestsData = [
+            { id: "YCGH-2026-001", contractId: "HD-2026-THUCUC", customerName: "Công ty Cổ phần Bệnh viện Thu Cúc", product: "Macbook Pro M3 (30 chiếc)", quota: 30, delivered: 5, status: "PENDING" },
+            { id: "YCGH-2026-002", contractId: "HD-2026-DONGA", customerName: "Công ty TNHH Dược phẩm Đông Á", product: "Máy Đo Huyết Áp Omron (50 chiếc)", quota: 50, delivered: 50, status: "COMPLETED" }
+        ];
+
+        function renderCustomersTable() {
+            const tbody = document.getElementById('customers-table-body');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            customersData.forEach(c => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50/70 transition";
+                const prodSummary = c.products.map(p => `${p.name} (${p.qty} cái)`).join(', ');
+
+                tr.innerHTML = `
+                    <td class="py-3.5 px-4 font-mono text-xs font-semibold text-blue-600">${c.id}</td>
+                    <td class="py-3.5 px-4 font-semibold text-slate-800">
+                        ${c.name}
+                        <div class="text-[11px] text-slate-400 font-normal">${c.address}</div>
+                    </td>
+                    <td class="py-3.5 px-4">
+                        <div class="text-xs font-semibold text-slate-700">${c.mst}</div>
+                        <div class="text-xs text-slate-500">${c.phone}</div>
+                    </td>
+                    <td class="py-3.5 px-4">
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-blue-50 text-blue-700 rounded-lg text-xs font-medium cursor-pointer hover:bg-blue-100 transition">
+                            <i class="fa-solid fa-file-pdf text-red-500"></i> ${c.file}
+                        </span>
+                    </td>
+                    <td class="py-3.5 px-4 text-xs text-slate-600 font-medium max-w-[220px] truncate">${prodSummary}</td>
+                    <td class="py-3.5 px-4 font-mono text-xs text-slate-700">${c.contractNo}</td>
+                    <td class="py-3.5 px-4 text-center">
+                        <button onclick="editCustomer('${c.id}')" class="text-blue-600 hover:text-blue-800 text-xs font-semibold px-2 py-1 rounded hover:bg-blue-50 transition">
+                            <i class="fa-solid fa-pen-to-square mr-1"></i>Sửa
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderContractsTable() {
+            const tbody = document.getElementById('contracts-table-body');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            contractsData.forEach(ct => {
+                const remaining = ct.totalCommitted - ct.totalExtracted;
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50/70 transition";
+
+                tr.innerHTML = `
+                    <td class="py-3.5 px-4 font-mono text-xs font-semibold text-purple-600">${ct.id}</td>
+                    <td class="py-3.5 px-4 font-semibold text-slate-800">${ct.customerName}</td>
+                    <td class="py-3.5 px-4 text-xs font-bold text-slate-900">${ct.totalCommitted} chiếc</td>
+                    <td class="py-3.5 px-4 text-xs text-blue-600 font-semibold">${ct.totalExtracted} chiếc</td>
+                    <td class="py-3.5 px-4 text-xs text-emerald-600 font-bold">${remaining} chiếc</td>
+                    <td class="py-3.5 px-4">
+                        <span class="px-2.5 py-1 rounded-full text-xs font-semibold ${ct.status === 'ACTIVE' ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-100 text-slate-600'}">
+                            ${ct.status === 'ACTIVE' ? 'Còn hiệu lực' : 'Hết hiệu lực'}
+                        </span>
+                    </td>
+                    <td class="py-3.5 px-4 text-center space-x-1">
+                        <button onclick="openAddendumModal('${ct.id}')" class="text-purple-600 hover:text-purple-800 text-xs font-semibold px-2 py-1 rounded hover:bg-purple-50 transition">
+                            <i class="fa-solid fa-plus mr-1"></i>+ Phụ lục
+                        </button>
+                        <button onclick="openDeliveryRequestModal('${ct.id}')" class="text-blue-600 hover:text-blue-800 text-xs font-semibold px-2 py-1 rounded hover:bg-blue-50 transition">
+                            <i class="fa-solid fa-truck-ramp-box mr-1"></i>+ Tạo YCGH
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderDeliveryRequestsTable() {
+            const tbody = document.getElementById('delivery-requests-table-body');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            deliveryRequestsData.forEach(r => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50/70 transition";
+
+                tr.innerHTML = `
+                    <td class="py-3.5 px-4 font-mono text-xs font-semibold text-blue-600">${r.id}</td>
+                    <td class="py-3.5 px-4 font-mono text-xs text-slate-600">${r.contractId}</td>
+                    <td class="py-3.5 px-4 font-semibold text-slate-800">${r.customerName}</td>
+                    <td class="py-3.5 px-4 text-xs text-slate-600 font-medium">${r.product}</td>
+                    <td class="py-3.5 px-4 text-xs font-bold text-slate-900">${r.quota} chiếc</td>
+                    <td class="py-3.5 px-4 text-xs font-bold text-emerald-600">${r.delivered} chiếc</td>
+                    <td class="py-3.5 px-4">
+                        <span class="px-2.5 py-1 rounded-full text-xs font-semibold ${r.status === 'COMPLETED' ? 'bg-emerald-50 text-emerald-700' : (r.status === 'CANCELLED' ? 'bg-rose-50 text-rose-700' : 'bg-amber-50 text-amber-700')}">
+                            ${r.status === 'COMPLETED' ? 'Hoàn thành' : (r.status === 'CANCELLED' ? 'Đã hủy' : 'Chờ xử lý')}
+                        </span>
+                    </td>
+                    <td class="py-3.5 px-4 text-center">
+                        ${r.status !== 'CANCELLED' ? `<button onclick="cancelDeliveryRequest('${r.id}')" class="text-rose-600 hover:text-rose-800 text-xs font-semibold px-2 py-1 rounded hover:bg-rose-50 transition"><i class="fa-solid fa-ban mr-1"></i>Hủy YCGH</button>` : '<span class="text-xs text-slate-400">---</span>'}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function switchContractSubTab(subTab) {
+            document.getElementById('subtab-contracts-list').classList.add('hidden');
+            document.getElementById('subtab-delivery-requests').classList.add('hidden');
+            document.getElementById('subtab-btn-contracts').className = "py-2.5 px-4 font-semibold text-sm border-b-2 border-transparent text-slate-500 hover:text-slate-700 transition";
+            document.getElementById('subtab-btn-requests').className = "py-2.5 px-4 font-semibold text-sm border-b-2 border-transparent text-slate-500 hover:text-slate-700 transition";
+
+            if (subTab === 'contracts-list') {
+                document.getElementById('subtab-contracts-list').classList.remove('hidden');
+                document.getElementById('subtab-btn-contracts').className = "py-2.5 px-4 font-semibold text-sm border-b-2 border-purple-600 text-purple-700 transition";
+            } else {
+                document.getElementById('subtab-delivery-requests').classList.remove('hidden');
+                document.getElementById('subtab-btn-requests').className = "py-2.5 px-4 font-semibold text-sm border-b-2 border-purple-600 text-purple-700 transition";
+            }
+        }
+
+        function openCustomerModal() {
+            document.getElementById('modal-customer').classList.remove('hidden');
+            document.getElementById('committed-products-list').innerHTML = `
+                <div class="flex items-center gap-2">
+                    <input type="text" value="Macbook Pro M3" class="flex-1 text-xs px-3 py-1.5 border border-slate-200 rounded-lg">
+                    <input type="number" value="20" class="w-24 text-xs px-3 py-1.5 border border-slate-200 rounded-lg" placeholder="Số lượng">
+                    <input type="number" value="20000000" class="w-32 text-xs px-3 py-1.5 border border-slate-200 rounded-lg" placeholder="Đơn giá">
+                </div>
+            `;
+        }
+
+        function closeCustomerModal() {
+            document.getElementById('modal-customer').classList.add('hidden');
+        }
+
+        function addCommittedProductRow() {
+            const list = document.getElementById('committed-products-list');
+            const div = document.createElement('div');
+            div.className = "flex items-center gap-2";
+            div.innerHTML = `
+                <input type="text" placeholder="Tên sản phẩm cam kết..." class="flex-1 text-xs px-3 py-1.5 border border-slate-200 rounded-lg">
+                <input type="number" value="10" class="w-24 text-xs px-3 py-1.5 border border-slate-200 rounded-lg" placeholder="Số lượng">
+                <input type="number" value="1000000" class="w-32 text-xs px-3 py-1.5 border border-slate-200 rounded-lg" placeholder="Đơn giá">
+            `;
+            list.appendChild(div);
+        }
+
+        function saveCustomer() {
+            const name = document.getElementById('cust-name').value || "Khách Hàng Mới";
+            const mst = document.getElementById('cust-mst').value || "0109998877";
+            const phone = document.getElementById('cust-phone').value || "0900000000";
+
+            const newCust = {
+                id: `KH-00${customersData.length + 1}`,
+                name: name,
+                mst: mst,
+                phone: phone,
+                email: "contact@new.vn",
+                address: "TP. Hồ Chí Minh",
+                contractNo: `HD-2026-KH0${customersData.length + 1}`,
+                file: "HopDong_DinhKem_2026.pdf",
+                products: [{ name: "Sản phẩm Cam kết Mới", qty: 50, price: 500000 }]
+            };
+            customersData.unshift(newCust);
+            renderCustomersTable();
+            closeCustomerModal();
+            showNotification("Đã lưu Hồ sơ Khách hàng & Hợp đồng cam kết thành công!", "success");
+        }
+
+        function openAddendumModal(contractId) {
+            document.getElementById('addendum-contract-id').value = contractId;
+            document.getElementById('modal-addendum').classList.remove('hidden');
+        }
+
+        function closeAddendumModal() {
+            document.getElementById('modal-addendum').classList.add('hidden');
+        }
+
+        function saveAddendum() {
+            const contractId = document.getElementById('addendum-contract-id').value;
+            const extraQty = parseInt(document.getElementById('addendum-extra-qty').value) || 50;
+
+            const contract = contractsData.find(c => c.id === contractId);
+            if (contract) {
+                contract.totalCommitted += extraQty;
+                renderContractsTable();
+            }
+            closeAddendumModal();
+            showNotification(`Đã nới thêm ${extraQty} sản phẩm vào Hợp đồng ${contractId} thành công!`, "success");
+        }
+
+        function openDeliveryRequestModal(contractId) {
+            const select = document.getElementById('req-contract-select');
+            select.innerHTML = '';
+            contractsData.forEach(c => {
+                const remaining = c.totalCommitted - c.totalExtracted;
+                const opt = document.createElement('option');
+                opt.value = c.id;
+                opt.innerText = `${c.id} - ${c.customerName} (Còn: ${remaining} cái)`;
+                if (c.id === contractId) opt.selected = true;
+                select.appendChild(opt);
+            });
+            updateReqContractQuota();
+            document.getElementById('modal-delivery-request').classList.remove('hidden');
+        }
+
+        function updateReqContractQuota() {
+            const contractId = document.getElementById('req-contract-select').value;
+            const contract = contractsData.find(c => c.id === contractId);
+            if (contract) {
+                const remaining = contract.totalCommitted - contract.totalExtracted;
+                document.getElementById('req-remaining-quota-badge').innerText = `${remaining} chiếc`;
+            }
+        }
+
+        function closeDeliveryRequestModal() {
+            document.getElementById('modal-delivery-request').classList.add('hidden');
+        }
+
+        function saveDeliveryRequest() {
+            const contractId = document.getElementById('req-contract-select').value;
+            const cutQty = parseInt(document.getElementById('req-cut-qty').value) || 20;
+
+            const contract = contractsData.find(c => c.id === contractId);
+            if (!contract) return;
+
+            const remaining = contract.totalCommitted - contract.totalExtracted;
+            if (cutQty > remaining) {
+                showNotification(`Lỗi hạn mức: Số lượng trích xuất (${cutQty}) vượt quá hạn mức còn lại (${remaining})!`, "error");
+                return;
+            }
+
+            contract.totalExtracted += cutQty;
+
+            const newReq = {
+                id: `YCGH-2026-00${deliveryRequestsData.length + 1}`,
+                contractId: contract.id,
+                customerName: contract.customerName,
+                product: `Sản phẩm trích xuất (${cutQty} chiếc)`,
+                quota: cutQty,
+                delivered: 0,
+                status: "PENDING"
+            };
+            deliveryRequestsData.unshift(newReq);
+
+            renderContractsTable();
+            renderDeliveryRequestsTable();
+            closeDeliveryRequestModal();
+            showNotification(`Tạo Yêu cầu giao hàng ${newReq.id} thành công!`, "success");
+        }
+
+        function cancelDeliveryRequest(reqId) {
+            const req = deliveryRequestsData.find(r => r.id === reqId);
+            if (!req) return;
+            if (req.delivered > 0) {
+                showNotification("Không thể hủy: Yêu cầu giao hàng đã có đơn giao hàng phát thành công!", "error");
+                return;
+            }
+            req.status = "CANCELLED";
+            renderDeliveryRequestsTable();
+            showNotification(`Đã hủy Yêu cầu giao hàng ${reqId} thành công!`, "success");
+        }
+
         // Tab Navigation switching logic
         function switchTab(tabId) {
             // Hide all tab panels
@@ -1057,11 +1626,18 @@
                 'order-details': 'Chi tiết Đơn hàng & Tracking',
                 'system-flow': 'Sơ đồ Luồng Hệ thống',
                 'checker-approval': 'Duyệt Đơn Hàng (Checker)',
+                'customers': 'Quản lý Hồ sơ Khách hàng & Hợp đồng (B2B)',
+                'contracts': 'Quản lý Hợp đồng B2B & Yêu cầu Giao hàng',
                 'replenish-inventory': 'Quản lý Tồn kho & Nhập kho'
             };
             document.getElementById('header-title').innerText = titles[tabId] || 'Hệ thống';
 
-            if (tabId === 'dashboard') {
+            if (tabId === 'customers') {
+                renderCustomersTable();
+            } else if (tabId === 'contracts') {
+                renderContractsTable();
+                renderDeliveryRequestsTable();
+            } else if (tabId === 'dashboard') {
                 updateDashboardMetrics();
                 if (shippingChart) {
                     shippingChart.destroy();

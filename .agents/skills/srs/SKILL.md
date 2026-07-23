@@ -1,4 +1,4 @@
-﻿---
+---
 name: srs-compiler
 description: Tổng hợp tài liệu đặc tả yêu cầu phần mềm (SRS) cho dự án dựa trên kết quả brainstorm, spec, diagram, usecase, wireframe, và prototype. Khi kích hoạt bằng lệnh /srs, hệ thống sẽ tự động gọi /workflow để quét và chuẩn bị các tài liệu tiền đề, sau đó biên dịch thành tệp SRS.md hoàn chỉnh và hiển thị tab preview đặc tả trước khi lưu tệp chính thức.
 ---
@@ -29,8 +29,8 @@ Hệ thống tự động kích hoạt skill `/workflow` ([srs/workflow/SKILL.md
 
 ---
 
-### Giai đoạn 2: Biên Dịch Tài Liệu SRS
-Sau khi cấu trúc thư mục và tài liệu tiền đề trong `docs/{feature}/srs/` đã sẵn sàng, hệ thống tiến hành biên dịch thành tệp `SRS.md` theo cấu trúc chi tiết dưới đây:
+### Giai đoạn 2: Biên Dịch Tài Liệu SRS (Đọc Trực Tiếp Từ Thư Mục Gốc)
+Sau khi các tài liệu tiền đề tại `docs/{feature}/` đã sẵn sàng, hệ thống tiến hành đọc dữ liệu trực tiếp từ các thư mục gốc (`spec/spec.md`, `brainstorms/`, `usecases/`, `wireframes/`, `prototypes/`, `diagrams/`) và biên dịch thành tệp `docs/{feature}/srs/srs.md` duy nhất mà **KHÔNG SAO CHÉP / CLONE** bất kỳ file gốc nào thành tệp trùng lặp. Cấu trúc chi tiết của tệp `srs.md`:
 
 #### **Phần 1: Giới thiệu (Introduction)**
 *   **1.1. Mục đích (Purpose):** Khái quát mục tiêu của tài liệu SRS và đối tượng độc giả (lấy từ tài liệu `brainstorm`).

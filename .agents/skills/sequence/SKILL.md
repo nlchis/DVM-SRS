@@ -34,7 +34,7 @@ Muốn dùng nguồn khác thay vì gõ mô tả trực tiếp → tag `@file` h
 
 Today: !`date +%Y-%m-%d`
 Features có flows.md: !`for d in docs/*/srs/*-flows.md; do [ -f "$d" ] && echo "$d"; done | head -10`
-In-progress features: !`for d in docs/*/srs/*-spec.md; do grep -l "status: draft\|status: in-review" "$d" 2>/dev/null; done | head -5`
+In-progress features: !`for d in docs/*/spec/spec.md; do grep -l "status: draft\|status: in-review" "$d" 2>/dev/null; done | head -5`
 
 ## Approach
 

@@ -1,11 +1,11 @@
-# Đặc Tả Ca Sử Dụng: UC-order-06 - Quản lý Nhập/Xuất Kho Thủ Công (Maker/Checker)
+# Đặc Tả Ca Sử Dụng: UC-order-09 - Quản lý Nhập/Xuất Kho Thủ Công (Maker/Checker)
 
 Tài liệu này đặc tả chi tiết ca sử dụng cho phép Thủ kho tạo các bản ghi Nhập kho hoặc Xuất kho thủ công, được theo dõi qua vòng đời duyệt Maker/Checker bởi Quản lý kho.
 
 ---
 
 ## 1. Tóm tắt Ca sử dụng (Use Case Summary)
-* **Mã ca sử dụng:** UC-order-06
+* **Mã ca sử dụng:** UC-order-09
 * **Tên ca sử dụng:** Quản lý Nhập/Xuất kho thủ công (Maker/Checker)
 * **Tác nhân chính:** Thủ kho (Maker), Quản lý kho (Checker)
 * **Độ ưu tiên:** P0 - Quan trọng bậc nhất
@@ -72,3 +72,9 @@ stop
 Bên cạnh luồng thủ công trên, các **Bản ghi Xuất kho tự động** (do Admin duyệt đơn sinh ra) ban đầu sẽ nằm ở trạng thái **Chờ duyệt** (và tự động in Phiếu xuất kho). Bản ghi này không cho phép duyệt/từ chối thủ công mà sẽ tự động chuyển sang **Đã duyệt** (tiến hành trừ tồn kho thực tế) khi bưu tá đến lấy hàng. 
 * Tại màn hình chi tiết Bản ghi Xuất kho, người dùng có thể tải/in **Phiếu Xuất Kho**.
 * Hệ thống sẽ hiển thị rõ tham chiếu **Mã vận đơn (Tracking ID)** liên kết với lần xuất kho này.
+
+
+---
+
+## 6. Giao diện Phác thảo (Wireframe)
+Xem chi tiết tại: [order-management-dashboard.md](../wireframes/order-management-dashboard.md)

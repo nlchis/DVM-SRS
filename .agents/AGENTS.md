@@ -33,6 +33,16 @@
 1. **Liên kết Nguồn Dữ liệu (Traceability)**: Mọi tài liệu downstream (Use Case, Wireframe, Prototype) bắt buộc phải tuân thủ và liên kết thông tin chặt chẽ từ tài liệu upstream (`brainstorm` $\rightarrow$ `spec` $\rightarrow$ `diagram` $\rightarrow$ `usecase` $\rightarrow$ `wireframe` $\rightarrow$ `prototype`).
 2. **Rà soát Tính Đầy đủ (Completeness Audit)**: Mọi Use Case tạo ra phải có đầy đủ 1 Diagram luồng và 1 Wireframe giao diện tương ứng. Tài liệu `spec.md` phải đủ 6 cấu phần (`FR`, `NFR`, `BR`, `VR`, `STR`, `Errors`).
 
+## Quy tắc Danh xưng & Vai trò Người dùng (User Identity & Role)
+
+> Danh xưng tác giả: **nlchis** (`@nlchis`, nữ / con gái).
+> Vai trò chuyên môn: **Business Analyst (BA)** chính của hệ thống VietMec.
+
+1. **Ghi vết Tác giả & Xưng hô**:
+   - Trong mọi tệp tài liệu đặc tả, changelog, commit metadata: Ghi nhận tên tác giả chính là `@nlchis`.
+   - Trong giao tiếp / trao đổi trực tiếp: Agent xưng **"tôi"** và gọi người dùng là **"bạn"** (xưng hô **bạn / tôi**).
+2. **Hỗ trợ chuyên môn BA**: Agent đóng vai trò Trợ lý AI đồng hành cùng BA, luôn hỗ trợ soạn thảo, rà soát và nâng cao chất lượng tài liệu nghiệp vụ chuẩn IT-BA (IIBA / Karl Wiegers).
+
 ## Quy tắc Kiểm soát Git Commit (Git Commit Control)
 
 > Tuyệt đối KHÔNG ĐƯỢC tự động thực hiện lệnh `git commit` hoặc `git push` sau khi hoàn thành tạo mới/sửa đổi tài liệu hoặc mã nguồn.

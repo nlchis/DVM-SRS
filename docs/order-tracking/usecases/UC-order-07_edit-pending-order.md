@@ -1,15 +1,15 @@
-# Đặc Tả Use Case: UC-order-04 - Chỉnh sửa đơn hàng Chờ Duyệt
+# Đặc Tả Use Case: UC-order-07 - Chỉnh sửa đơn hàng Chờ Duyệt
 
 ## 1. Thông tin chung (General Information)
 
 | Thuộc tính | Mô tả chi tiết |
 | :--- | :--- |
-| **Mã Use Case (UC ID):** | UC-order-04 |
+| **Mã Use Case (UC ID):** | UC-order-07 |
 | **Tên Use Case:** | Chỉnh sửa đơn hàng Chờ Duyệt |
 | **Người tạo:** | @nlchis |
 | **Cập nhật lần cuối bởi:** | @nlchis |
 | **Ngày tạo:** | 2026-07-03 |
-| **Ngày cập nhật:** | 2026-07-03 |
+| **Ngày cập nhật:** | 2026-07-24 |
 | **Tác nhân (Actor):** | Sales phụ trách (Tác nhân chính - quyền Maker), Hệ thống (Tác nhân phụ) |
 | **Độ ưu tiên:** | Cao (P0) |
 | **Tần suất sử dụng:** | Diễn ra khi Sales phát hiện nhập sai thông tin và đơn chưa được Admin duyệt. |
@@ -25,7 +25,7 @@ Cho phép bất kỳ nhân viên Sales nào (quyền Maker) thực hiện sửa 
 
 ### Điều kiện tiên quyết (Preconditions)
 1. Người dùng đăng nhập thành công và có vai trò Sales (Maker).
-2. Đơn hàng cần sửa đang ở trạng thái **Chờ Duyệt** (**Chờ Duyệt**).
+2. Đơn hàng cần sửa đang ở trạng thái **Chờ Duyệt**.
 
 ### Điều kiện sau khi hoàn thành (Postconditions)
 1. Dữ liệu đơn hàng được cập nhật thành công trên hệ thống Portal.
@@ -80,13 +80,13 @@ stop
 7. Hệ thống đóng popup chỉnh sửa, hiển thị thông báo thành công và cập nhật lại giao diện hiển thị chi tiết đơn.
 
 ### Luồng ngoại lệ (Exceptions)
-* **UC-order-04.EX.1: Dữ liệu nhập sai quy định**
+* **UC-order-07.EX.1: Dữ liệu nhập sai quy định**
   * Tại bước 6, nếu SĐT sai định dạng, thiếu trường bắt buộc, hoặc file Hóa đơn vượt quá 5MB.
   * Hệ thống chặn lưu, giữ nguyên popup và hiển thị thông báo lỗi chi tiết tại các trường tương ứng trên form.
-* **UC-order-04.EX.2: Xung đột thao tác đồng thời (Maker/Checker Race)**
+* **UC-order-07.EX.2: Xung đột thao tác đồng thời (Maker/Checker Race)**
   * Tại bước 6, khi hệ thống phát hiện Đơn hàng đã chuyển sang trạng thái Đã tiếp nhận hoặc Từ Chối.
   * Hệ thống hủy giao dịch chỉnh sửa, đóng popup và báo lỗi: *"Đơn hàng đã được duyệt hoặc thay đổi bởi người khác. Vui lòng tải lại trang"*.
-* **UC-order-04.EX.3: Tồn kho thực tế không đủ đáp ứng**
+* **UC-order-07.EX.3: Tồn kho thực tế không đủ đáp ứng**
   * Tại bước 6, nếu Sales chỉnh sửa tăng số lượng hoặc thay đổi sang sản phẩm khác mà số lượng yêu cầu lớn hơn tồn kho khả dụng thời gian thực tế của sản phẩm đó.
   * Hệ thống chặn không cho lưu, giữ nguyên popup và hiển thị thông báo lỗi: *"Số lượng yêu cầu vượt quá tồn kho khả dụng hiện tại (Còn lại: X sản phẩm)"*.
 
@@ -113,22 +113,6 @@ stop
 
 ---
 
-## 6. Giao diện Phác thảo (Wireframes)
+## 6. Giao diện Phác thảo (Wireframe)
 
-### Màn hình 3: Form Popup Chỉnh sửa Đơn hàng (Sales - Maker)
-```text
-┌────────────────────────────────────────────────────────────┐
-│ popup: CHỈNH SỬA ĐƠN HÀNG #247-00123                       │
-├────────────────────────────────────────────────────────────┤
-│ NGƯỜI NHẬN:  [ Nguyen Van A                            ]   │
-│ ĐIỆN THOẠI:  [ 0901234567                              ]   │
-│ ĐỊA CHỈ:     [ Số 10 Đường số 4, Thủ Đức               ]   │
-│ SẢN PHẨM:    [ Macbook Pro M3                          v]  │
-│ ĐƠN GIÁ:     [ 20,000,000  ] đ     SỐ LƯỢNG:   [ 1 ] chiếc │
-│ K.LƯỢNG:     [ 1.5 ] kg          COD THU HỘ: [ 20,000,000]đ│
-│ CHỨNG TỪ:    [ CO_CQ_Macbook_M3.pdf ]        [ Tải lên ]   │
-├────────────────────────────────────────────────────────────┤
-│                                                            │
-│                     [ HUỶ BỎ ]    [ Lưu ]                  │
-└────────────────────────────────────────────────────────────┘
-```
+Xem chi tiết tại: [order-management-dashboard.md](../wireframes/order-management-dashboard.md)

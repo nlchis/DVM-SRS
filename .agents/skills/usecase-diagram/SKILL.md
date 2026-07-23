@@ -37,7 +37,7 @@ Mermaid **không có cú pháp use-case-diagram gốc** — bản trước dùng
 - **Auto-detect** actors + use cases từ:
   - `docs/{feature}/usecases/uc-*.md` — pull title + primary actor.
   - `docs/{feature}/{feature}-urd.md` Mục 2 User Types.
-  - `docs/{feature}/srs/{feature}-spec.md` actor mentions.
+  - `docs/{feature}/spec/spec.md` actor mentions.
 - **Vietnamese-first** labels, auto-detect từ ngữ cảnh feature. Muốn tiếng Anh thì nói "viết bằng tiếng Anh". PlantUML syntax giữ English.
 - **Per @../../rules/diagram-selection.md** — nếu feature chỉ 1 actor + 1 use case → warn "overkill, có thể skip".
 - **Ảnh + bảng nhúng vào `{feature}-usecase-index.md`** (section `## Diagram / Actors / Relationships`), KHÔNG tạo file `.md` wrapper riêng.

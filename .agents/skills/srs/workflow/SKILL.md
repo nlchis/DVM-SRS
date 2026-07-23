@@ -129,31 +129,70 @@ Hệ thống sẽ tự động quét và kiểm tra sự tồn tại của các 
 Sau khi đã hoàn thành việc thu thập và chạy cascade các skill (tức là đã có đầy đủ tài liệu brainstorm, spec, diagrams, usecases, wireframes, prototypes), hệ thống bắt buộc phải thực hiện đánh giá tính đầy đủ của bộ tài liệu và đưa ra đề xuất triển khai dựng SRS:
 
 1. **Đối chiếu chéo thông tin (Completeness Audit):**
-   *   **Brainstorm Completeness Check:** Kiểm tra xem tệp tin brainstorm trong `brainstorms/` đã có đầy đủ các cấu phần thông tin cần thiết theo yêu cầu của skill `/brainstorm` chưa, bao gồm:
-       - Mục tiêu nghiệp vụ (Cockburn Goal Levels - Summary, User Goal, Subfunction)
-       - Nhu cầu nghiệp vụ (5W1H Framework)
-       - Sơ đồ hành trình hệ thống/người dùng (PlantUML)
-       - Danh sách tính năng (CRUD Brainstorming)
-       - Quy tắc nghiệp vụ (Business Rules dạng mã `BR-{feature}-{NNN}`)
-       - Luồng ngoại lệ & Rủi ro nghiệp vụ (Exception Flows dạng `EF-{feature}-{NNN}` & Risks dạng `R-{NNN}`)
-       - Câu hỏi mở (Open Questions)
-   *   **Spec Completeness Check:** Kiểm tra xem tệp tin `spec.md` (hoặc dữ liệu đầu vào spec) đã chứa đầy đủ 6 cấu phần/bảng dữ liệu theo đúng định nghĩa của skill `/spec` chưa, bao gồm:
-       - Yêu cầu chức năng FR (dạng mã `FR-{feature}-{NNN}`)
-       - Yêu cầu phi chức năng NFR đo lường được (dạng mã `NFR-{feature}-{NNN}`)
-       - Quy tắc nghiệp vụ BR (dạng mã `BR-{feature}-{NNN}`)
-       - Quy tắc kiểm tra dữ liệu VR (dạng mã `VR-{feature}-{NNN}`)
-       - Quy tắc chuyển đổi trạng thái STR (dạng mã `STR-{feature}-{NNN}`)
-       - Bảng mã lỗi nghiệp vụ Errors (dạng mã `E-{feature}-{NNN}`)
-   *   **Use Cases vs Scope & Function List:** Đối chiếu số lượng và phạm vi các Use Case đã sinh ra trong thư mục `usecases/` với Scope và Function List trong `brainstorm` và `spec.md` để đảm bảo đã bao phủ 100% nghiệp vụ, không bị sót phân hệ hay tính năng nào.
-   *   **Diagrams vs Use Cases:** Đảm bảo có đúng 1 sơ đồ luồng tổng thể hệ thống và có đầy đủ sơ đồ luồng xử lý dữ liệu (dạng Mermaid/PlantUML) tương ứng cho TỪNG Use Case.
-   *   **Wireframes vs Use Cases:** Đảm bảo có ít nhất 1 màn hình wireframe mô tả giao diện tương ứng cho TỪNG Use Case.
-   *   **Prototypes vs Use Cases:** Nếu người dùng yêu cầu thiết kế UI/Prototype (Figma), đảm bảo đã có link/hình ảnh màn hình tương ứng cho từng Use Case.
+   *   **Brainstorm Completeness Check:** Kiểm tra xem tệp tin brainstorm trong `brainstorms/` đã có đầy đủ các cấu phần thông tin cần thiết theo yêu cầu của skill `/brainstorm` chưa.
+   *   **Spec Completeness Check:** Kiểm tra xem tệp tin `spec.md` (hoặc dữ liệu đầu vào spec) đã chứa đầy đủ 6 cấu phần/bảng dữ liệu theo đúng định nghĩa của skill `/spec` chưa (`FR`, `NFR`, `BR`, `VR`, `STR`, `Errors`).
+   *   **Use Cases vs Scope & Function List:** Đối chiếu số lượng và phạm vi các Use Case trong thư mục `usecases/` với Scope trong `brainstorm` và `spec.md` để đảm bảo bao phủ 100% nghiệp vụ.
+   *   **Diagrams vs Use Cases:** Đảm bảo có sơ đồ luồng tổng thể hệ thống và sơ đồ luồng tương ứng cho từng Use Case.
+   *   **Wireframes vs Use Cases:** Đảm bảo có ít nhất 1 màn hình wireframe mô tả giao diện tương ứng cho từng Use Case.
 
 2. **Báo cáo Đánh giá & Đề xuất triển khai (Action Proposal):**
-   *   Hệ thống tổng hợp kết quả đối chiếu thành một bảng báo cáo đánh giá chi tiết (các tài liệu đã đạt, các phần còn thiếu hoặc cần bổ sung/chỉnh sửa).
-   *   **Bổ sung thông tin còn thiếu:** Nếu phát hiện brainstorm hoặc spec thiếu bất kỳ cấu phần bắt buộc nào theo yêu cầu của skill tương ứng, hệ thống **bắt buộc phải bổ sung bước thu thập thông tin còn thiếu** vào đề xuất triển khai (ví dụ: tự động đặt câu hỏi làm rõ hoặc gọi skill `/brainstorm`, `/spec` để bổ sung phần khuyết trước khi tiến hành khởi tạo thư mục và biên dịch).
-   *   Đưa ra đề xuất triển khai cụ thể: Cấu trúc thư mục SRS sẽ được dựng thế nào, các nội dung biên dịch chính cho tệp `SRS.md` và lộ trình thực hiện tiếp theo.
-   *   **Approval Gate:** Hệ thống **bắt buộc phải dừng lại, hiển thị bảng Đánh giá & Đề xuất triển khai** này để xin phê duyệt của người dùng (`Y`/`Sửa`/`Hủy`). Chỉ khi người dùng duyệt đồng ý (`Y`), hệ thống mới được phép chuyển sang Bước 3 để khởi tạo cấu trúc thư mục và biên dịch tài liệu.
+   *   Hệ thống tổng hợp kết quả đối chiếu thành một bảng báo cáo đánh giá chi tiết (các tài liệu đã đạt, các phần còn thiếu).
+   *   **Approval Gate:** Hệ thống hiển thị bảng Đánh giá & Đề xuất triển khai để người dùng duyệt (`Y`/`Sửa`/`Hủy`). Chỉ khi người dùng duyệt (`Y`), hệ thống mới chuyển sang Bước 3.
+
+---
+
+### Bước 3: Tự Động Khởi Tạo Thư Mục SRS (Không Tạo File Trùng Lặp)
+
+Sau khi người dùng phê duyệt kết quả đánh giá ở Bước 2, hệ thống tiến hành khởi tạo thư mục lưu trữ tài liệu SRS tổng hợp.
+
+**Quy tắc Không Trùng Lặp File (No Duplicate Cloned Files):**
+- Tất cả tài liệu nghiệp vụ gốc NẰM DUY NHẤT tại các thư mục chuẩn tương ứng trong `docs/{feature}/`:
+  - `docs/{feature}/brainstorms/` (Tài liệu brainstorm)
+  - `docs/{feature}/spec/spec.md` (SSOT - Yêu cầu FR, NFR, BR, VR, STR, Errors)
+  - `docs/{feature}/diagrams/`, `bpmn/`, `explores/` (Các sơ đồ nghiệp vụ)
+  - `docs/{feature}/usecases/` (Các tệp đặc tả Use Case `uc-*.md`)
+  - `docs/{feature}/wireframes/` (Phác thảo giao diện ASCII / HTML)
+  - `docs/{feature}/prototypes/` (Prototype tương tác HTML / Figma)
+- **TUYỆT ĐỐI KHÔNG SAO CHÉP / CLONE** các file gốc này vào thư mục `docs/{feature}/srs/`.
+- Thư mục `docs/{feature}/srs/` CHỈ CHỨA các file biên dịch và theo dõi tổng hợp:
+```
+docs/{feature}/srs/
+├── srs.md                   # Tài liệu SRS biên dịch tổng hợp chính
+├── changelog.md             # Nhật ký lưu lại mọi thay đổi trong quá trình soạn thảo SRS
+├── flows.md                 # (Nếu có) Sơ đồ Sequence Diagram tổng hợp các luồng
+└── states.md                # (Nếu có) Sơ đồ State Diagram tổng hợp trạng thái các thực thể
+```
+
+---
+
+### Bước 4: Tạo Bản Mục Lục (Index) Tại Thư Mục Gốc
+
+Thay vì sao chép file vào `srs/`, hệ thống trực tiếp tạo/cập nhật file `index.md` tại các thư mục gốc tương ứng (`docs/{feature}/usecases/index.md`, `docs/{feature}/wireframes/index.md`, v.v.) nếu số tệp tin trong thư mục đó $> 1$.
+
+Nội dung file `index.md` bao gồm:
+- Tiêu đề thư mục (ví dụ: `# Tổng Quan Use Cases - Order Tracking`)
+- Bảng danh sách các tệp tin kèm relative links và mô tả ngắn gọn 1-2 dòng về mục đích của file.
+
+---
+
+### Bước 5: Khởi Tạo Nhật Ký Thay Đổi (changelog.md)
+
+Tự động tạo file `changelog.md` trong thư mục `docs/{feature}/srs/changelog.md` (hoặc `docs/{feature}/changelog.md`). File này dùng để lưu trữ toàn bộ các chỉnh sửa nghiệp vụ do người dùng hoặc hệ thống thực hiện trong quá trình soạn thảo và hoàn thiện tài liệu.
+
+Cấu trúc file `changelog.md` phải trình bày dạng bảng markdown với các thông tin rõ ràng:
+```markdown
+# Nhật Ký Thay Đổi Tài Liệu SRS - {Feature Name}
+
+| Thời gian | Mục thay đổi | Skill liên quan | Nội dung thay đổi chi tiết | Tác giả |
+| :--- | :--- | :--- | :--- | :--- |
+| YYYY-MM-DD HH:mm | [Mục lục/Phân hệ thay đổi] | [Tên skill kích hoạt] | [Mô tả chi tiết nội dung thay đổi] | [Tác giả thay đổi, ví dụ: @current_user hoặc AI BA] |
+```
+
+---
+
+### Bước 6: Chuyển Tiếp Tới Biên Dịch SRS (Chỉ dành cho lệnh gọi từ /srs)
+
+Sau khi hoàn thành việc chuẩn bị thư mục và khởi tạo changelog, hệ thống tự động chuyển tiếp quyền điều khiển sang Giai đoạn 2 (Biên dịch) và Giai đoạn 3 (Phê duyệt nháp) của skill `/srs` cha để đọc trực tiếp từ các thư mục gốc và sinh tài liệu đặc tả `srs.md` hoàn chỉnh.huyển sang Bước 3 để khởi tạo cấu trúc thư mục và biên dịch tài liệu.
 
 ---
 

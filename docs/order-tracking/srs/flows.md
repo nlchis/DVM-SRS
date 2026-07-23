@@ -94,12 +94,12 @@ else Người dùng xóa mềm đơn Chờ duyệt
     deactivate Portal
 end
 
-opt Sales hủy đơn hàng trước khi bưu tá lấy hàng (Đơn ở trạng thái Đã tiếp nhận)
-    Sales -> Portal: Nhấn [Hủy đơn hàng]
+opt Sales hoặc Admin hủy đơn hàng trước khi bưu tá lấy hàng (Đơn ở trạng thái Đã duyệt hoặc Đã tiếp nhận)
+    Sales -> Portal: Nhấn nút [Hủy đơn hàng]
     activate Portal
     Portal -> Portal: Chuyển trạng thái đơn thành Hủy
     Portal -> Portal: Chuyển Bản ghi Xuất kho (Chờ duyệt) thành Hủy
-    Portal -> Portal: Hủy vận đơn bên 247Express (nếu có)
+    Portal -> Portal: Hủy vận đơn bên 247Express (nếu có mã vận đơn)
     Portal -> Portal: Giải phóng tồn kho khả dụng
     deactivate Portal
 end
@@ -174,8 +174,8 @@ else Trường hợp B: Giao hàng thất bại (Edge Case)
         deactivate Portal
         Courier -> Portal: Hoàn hàng về kho công ty
         activate Portal
-        Portal -> Portal: Chuyển trạng thái đơn thành Đã chuyển hoàn (Thủ kho tự kiểm đếm nhập kho)
-        Portal -> Portal: Auto Refund (Trừ đi số lượng đã giao của Yêu cầu giao hàng)
+        Portal -> Portal: Chuyển trạng thái đơn thành Đã chuyển hoàn
+        Portal -> Portal: Thủ kho tự kiểm đếm nhập kho thủ công.
         deactivate Portal
     end
 end
@@ -186,14 +186,3 @@ Portal -> Portal: Ghi nhận doanh thu đơn hàng
 @enduml
 ```
 
----
-
-## Flow: Luồng tạo đơn hàng (BPMN)
-
-Sơ đồ quy trình này đã được nâng cấp lên định dạng **BPMN 2.0 chuẩn OMG**.
-
-![Luồng tạo đơn hàng (BPMN)](../bpmn/create-order.png)
-
-👉 **Mở tab riêng (kéo thả, zoom)**: [order-tracking-bpmn-editor.html](file:///d:/VietMec/docs/order-tracking/bpmn/order-tracking-bpmn-editor.html)
-👉 **Xem danh sách thống kê**: [BPMN Index](file:///d:/VietMec/docs/order-tracking/bpmn/order-tracking-bpmn-index.md)
-👉 **File gốc XML**: [create-order.bpmn](file:///d:/VietMec/docs/order-tracking/bpmn/create-order.bpmn)

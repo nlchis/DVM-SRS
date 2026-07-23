@@ -154,8 +154,9 @@ PENDING_APPROVAL --> SOFT_DELETED : Người dùng bấm [Xóa đơn]
 PENDING_APPROVAL --> REJECTED : Admin Từ chối
 PENDING_APPROVAL --> APPROVED : Admin Phê duyệt
 APPROVED --> AWAITING_SHIPPING : 247Express trả Mã vận đơn
+APPROVED --> CANCELLED : Sales/Admin bấm Hủy đơn
 
-AWAITING_SHIPPING --> CANCELLED : Sales bấm Hủy đơn
+AWAITING_SHIPPING --> CANCELLED : Sales/Admin bấm Hủy đơn
 AWAITING_SHIPPING --> PICKED_UP : Nhận thông tin [Đã lấy hàng] từ 247
 PICKED_UP --> IN_TRANSIT : Nhận thông tin [Đang vận chuyển] từ 247
 IN_TRANSIT --> DELIVERING : Nhận thông tin [Đang đi phát] từ 247

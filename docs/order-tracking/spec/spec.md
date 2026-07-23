@@ -52,14 +52,14 @@ Hệ thống quản lý chuỗi cung ứng B2B dựa trên 4 thực thể (Entit
 | **BR-delivery-001** | Hủy Yêu cầu giao hàng | Chỉ cho phép Admin hủy nếu Yêu cầu chưa có Đơn giao hàng nào, hoặc tất cả các đơn đều đang ở trạng thái **Từ Chối** / **Đã chuyển hoàn** / **Hủy**. Báo lỗi "Yêu cầu hủy đơn giao hàng trước" nếu vi phạm. |
 | **BR-delivery-002** | Trạng thái Yêu cầu giao hàng | Hệ thống tự tính toán dựa trên Đơn giao hàng: Nếu *SL đã giao thực tế* < *SL yêu cầu* -> **Chờ xử lý**. Nếu *SL đã giao thực tế* = *SL yêu cầu* -> **Hoàn thành**. |
 | **BR-delivery-003** | Ghi nhận số lượng Yêu cầu | Số lượng "đã giao thực tế" của Yêu cầu giao hàng CHỈ tăng lên khi một Đơn giao hàng đạt trạng thái **Phát thành công**. |
-| **BR-delivery-004** | Auto Refund Số lượng (Hoàn hàng) | Khi 1 đơn hàng đã **Phát thành công** bị chuyển thành **Đã chuyển hoàn**, hệ thống mới thực hiện Auto Refund trừ đi số lượng hoàn khỏi *Số lượng đã giao thực tế* của Yêu cầu giao hàng (có thể lùi trạng thái Yêu cầu từ Hoàn thành về Chờ xử lý). Đơn ở trạng thái **Từ Chối** hoặc **Hủy** chưa từng được cộng số lượng nên KHÔNG bị trừ số lượng đã giao. |
+| **BR-delivery-004** | Auto Refund Số lượng (Hoàn hàng) | Khi 1 đơn hàng đã **Phát thành công** bị khách trả hàng và chuyển thành **Đã chuyển hoàn**, hệ thống mới thực hiện Auto Refund trừ đi số lượng hoàn khỏi *Số lượng đã giao thực tế* của Yêu cầu giao hàng (có thể lùi trạng thái Yêu cầu từ Hoàn thành về Chờ xử lý). Đơn ở trạng thái **Chờ xử lý** bị chuyển hoàn tự động (giao thất bại quá hạn) hoặc đơn **Từ Chối** / **Hủy** chưa từng được cộng vào Yêu cầu giao hàng nên KHÔNG bị trừ số lượng đã giao. |
 | **BR-order-tracking-005** | Hạn chế quyền sửa của Sales | Sales có quyền sửa đơn khi ở trạng thái **Chờ Duyệt**. Đơn bị Khóa (Disable) nút sửa nếu đã được duyệt hoặc từ chối. |
 | **BR-order-tracking-007** | Phí Vận Chuyển | Chi phí vận chuyển đi do Công ty chi trả. Khi phát sinh hoàn hàng do Khách yêu cầu, hệ thống tự cộng thêm **Phí vận chuyển hoàn** vào đơn hàng để Kế toán theo dõi. |
 | **BR-order-tracking-009** | Khấu trừ tồn kho tự động | Khi Admin duyệt đơn, hệ thống chuyển đơn sang **Đã duyệt**, sinh Bản ghi Xuất kho (Chờ duyệt) và gửi thông tin sang 247Express. Khi 247Express trả mã vận đơn, đơn sang **Đã tiếp nhận**. Khi bưu tá lấy hàng (**Đã lấy hàng**), Bản ghi Xuất kho tự chuyển sang **Đã duyệt** để trừ kho thực tế. |
 | **BR-order-tracking-010** | Không tự động cộng tồn kho | Khi Đơn hàng chuyển sang **Đã chuyển hoàn**, hệ thống KHÔNG tự động cộng lại tồn kho. Thủ kho phải tự tạo Bản ghi Nhập kho thủ công (Maker/Checker). |
 | **BR-order-tracking-016** | Hoàn trả tạm giữ kho | Khi bản ghi Xuất kho thủ công (Chờ duyệt) bị Quản lý kho Từ chối, hệ thống phải hoàn trả lại số lượng tồn kho khả dụng đã tạm giữ trước đó. |
 | **BR-order-tracking-015** | Hoàn hàng (1 phần hoặc toàn bộ) | Nút [Hoàn hàng] chỉ được mở (enabled) khi đơn ở trạng thái **Phát thành công**. Cho phép nhập số lượng hoàn từ 1 đến toàn bộ số lượng đơn. Không tạo đơn hàng mới. Mọi cập nhật trạng thái vòng Hoàn hàng (**Chờ chuyển hoàn** -> **Đã chuyển hoàn**) sẽ ghi đè lên đơn hiện tại nhưng lưu giữ song song lịch sử tracking cũ. |
-| **BR-order-tracking-017** | Xóa mềm đơn Chờ duyệt | Thao tác Xóa mềm chỉ áp dụng khi đơn hàng ở trạng thái **Chờ Duyệt**. Khi xóa thành công, hệ thống lập tức giải phóng số lượng tồn kho khả dụng bị tạm giữ, đồng thời ẩn đơn hàng khỏi màn hình danh sách FO (Front Office). |
+| **BR-order-tracking-017** | Phân định Hủy đơn & Xóa đơn | Đơn ở trạng thái **Chờ Duyệt** được phép bấm [Xóa đơn] (Xóa mềm, nhả tồn kho khả dụng & ẩn khỏi FO). Đơn ở trạng thái **Đã duyệt** hoặc **Đã tiếp nhận** (trước khi lấy hàng) được phép bấm [Hủy đơn] (Hủy vận đơn 247Express, hủy bản ghi xuất kho Chờ duyệt & nhả kho khả dụng). |
 
 ---
 
@@ -74,7 +74,7 @@ Hệ thống quản lý chuỗi cung ứng B2B dựa trên 4 thực thể (Entit
 | **Chờ Duyệt** | Admin nhấn Từ chối (Reject) | **Từ Chối** | Hủy tạm giữ kho khả dụng (không ảnh hưởng SL đã giao của Yêu cầu). |
 | **Chờ Duyệt** | Admin nhấn Phê duyệt (Approve) | **Đã duyệt** | Sinh Bản ghi Xuất kho (Chờ duyệt), gửi thông tin đơn sang 247Express. Giữ nguyên trạng thái Đã duyệt nếu chưa có mã vận đơn. |
 | **Đã duyệt** | API / Webhook 247Express trả Mã vận đơn | **Đã tiếp nhận** | Cập nhật Mã vận đơn (Tracking ID) vào đơn hàng. |
-| **Đã tiếp nhận** | Sales nhấn Hủy đơn (Trước khi lấy hàng) | **Hủy** | Hủy vận đơn 247Express, hủy Bản ghi Xuất kho, giải phóng tồn kho khả dụng. |
+| **Đã duyệt** / **Đã tiếp nhận** | Sales/Admin nhấn [Hủy đơn] (Trước khi lấy hàng) | **Hủy** | Hủy vận đơn 247Express (nếu có), hủy Bản ghi Xuất kho, giải phóng tồn kho khả dụng. |
 | **Đã tiếp nhận** | Webhook 247Express lấy hàng | **Đã lấy hàng** | Bản ghi Xuất kho tự chuyển sang **Đã duyệt** (Trừ kho thực tế). |
 | **Đã lấy hàng** | Webhook 247Express luân chuyển kho | **Đang vận chuyển** | Cập nhật thông tin vị trí luân chuyển. |
 | **Đang vận chuyển** | Webhook 247Express đi phát | **Đang đi phát** | Gửi SMS "Đang đi phát hàng" cho khách, gửi Telegram cho Sales. |

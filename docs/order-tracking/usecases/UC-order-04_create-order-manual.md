@@ -1,10 +1,10 @@
-# Đặc Tả Use Case: UC-order-01 - Tạo đơn giao hàng (Từ Yêu cầu)
+# Đặc Tả Use Case: UC-order-04 - Tạo đơn giao hàng (Từ Yêu cầu)
 
 ## 1. Thông tin chung (General Information)
 
 | Thuộc tính | Mô tả chi tiết |
 | :--- | :--- |
-| **Mã Use Case (UC ID):** | UC-order-01 |
+| **Mã Use Case (UC ID):** | UC-order-04 |
 | **Tên Use Case:** | Tạo đơn giao hàng từ Yêu cầu |
 | **Người tạo:** | System |
 | **Ngày tạo:** | 2026-07-02 |
@@ -73,7 +73,7 @@ stop
 11. Đưa Sales về trang chi tiết đơn hàng Chờ Duyệt.
 
 ### Luồng ngoại lệ (Exceptions)
-**UC-order-01.EX.1: Vượt hạn mức yêu cầu**
+**UC-order-04.EX.1: Vượt hạn mức yêu cầu**
 1. Tại bước 9, nếu số lượng Sales nhập > số lượng còn lại của Yêu cầu giao hàng.
 2. Hệ thống báo lỗi: *"Số lượng giao vượt quá hạn mức cho phép của Yêu cầu."*
 3. Chặn lưu dữ liệu.
@@ -93,4 +93,4 @@ stop
 ---
 
 ## 6. Giao diện Phác thảo (Wireframe)
-Xem chi tiết tại: [order-management-dashboard.md](../../wireframes/order-management-dashboard.md)
+Xem chi tiết tại: [order-management-dashboard.md](../wireframes/order-management-dashboard.md)
