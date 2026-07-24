@@ -316,30 +316,14 @@
 </tr>
 </tbody></table></div>
 <hr class="my-6 border-slate-200">
+<!-- Section 5 Hidden per user request -->
+<div class="hidden">
 <h2 id="sec-5-c-t-giao-di-n-ng-i-d-ng-wireframes-prototypes-" class="text-2xl font-bold text-slate-900 font-title mt-10 mb-4 pt-4 border-t border-slate-200 flex items-center gap-2.5 leading-snug">
                 <span class="w-2 h-6 bg-blue-600 rounded-full shrink-0"></span>
                 <span>5. Đặc Tả Giao Diện Người Dùng (Wireframes & Prototypes)</span>
             </h2>
-<h3 id="sub-5-1-ph-c-th-o-giao-di-n-ascii-wireframes-" class="text-lg font-bold text-slate-800 font-title mt-6 mb-3 flex items-center gap-2">
-                <i class="fa-solid fa-chevron-right text-blue-500 text-xs shrink-0"></i>
-                <span>5.1 Phác thảo giao diện ASCII (Wireframes)</span>
-            </h3>
-<p class="text-slate-700 text-[15px] leading-[1.75] my-3">Các màn hình phác thảo giao diện hệ thống quản lý nội bộ bao gồm:</p>
-<div class="flex items-start gap-2.5 my-2 text-sm text-slate-700"><span class="font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded text-xs border border-blue-100 shrink-0">1</span><div>Dashboard tổng quan thống kê theo tuần.</div></div>
-<div class="flex items-start gap-2.5 my-2 text-sm text-slate-700"><span class="font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded text-xs border border-blue-100 shrink-0">2</span><div>Quản lý danh sách đơn hàng lọc theo trạng thái.</div></div>
-<div class="flex items-start gap-2.5 my-2 text-sm text-slate-700"><span class="font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded text-xs border border-blue-100 shrink-0">3</span><div>Form tạo đơn vận chuyển mới dành cho Sales (Maker).</div></div>
-<div class="flex items-start gap-2.5 my-2 text-sm text-slate-700"><span class="font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded text-xs border border-blue-100 shrink-0">4</span><div>Chi tiết đơn hàng và timeline tracking hành trình dọc.</div></div>
-<div class="flex items-start gap-2.5 my-2 text-sm text-slate-700"><span class="font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded text-xs border border-blue-100 shrink-0">5</span><div>Form báo lỗi nhập liệu inline và banner lỗi kết nối API.</div></div>
-<div class="flex items-start gap-2.5 my-2 text-sm text-slate-700"><span class="font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded text-xs border border-blue-100 shrink-0">6</span><div>Trang chi tiết xử lý đơn giao thất bại (Giao lại / Hoàn hàng).</div></div>
-<div class="flex items-start gap-2.5 my-2 text-sm text-slate-700"><span class="font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded text-xs border border-blue-100 shrink-0">7</span><div>Màn hình duyệt đơn hàng kèm popup nhập lý do từ chối dành cho Admin (Checker).</div></div>
-<div class="flex items-start gap-2.5 my-2 text-sm text-slate-700"><span class="font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded text-xs border border-blue-100 shrink-0">8</span><div>Định dạng in Phiếu xuất kho và nhãn dán vận đơn K80 của Thủ kho.</div></div>
 <p class="text-slate-700 text-[15px] leading-[1.75] my-3">Toàn bộ các phác thảo được tài liệu hóa chi tiết tại tệp <strong class="font-semibold text-slate-800">order-management-dashboard.md</strong>.</p>
-<h3 id="sub-5-2-b-n-m-u-th-nghi-m-t-ng-t-c-prototype-" class="text-lg font-bold text-slate-800 font-title mt-6 mb-3 flex items-center gap-2">
-                <i class="fa-solid fa-chevron-right text-blue-500 text-xs shrink-0"></i>
-                <span>5.2 Bản mẫu thử nghiệm tương tác (Prototype)</span>
-            </h3>
-<p class="text-slate-700 text-[15px] leading-[1.75] my-3">Bản mẫu tương tác Front-end Premium (sử dụng Tailwind CSS, HSL palette, Chart.js, in thử nghiệm và giả lập các kịch bản Edge Cases) được triển khai hoàn chỉnh tại tệp <a href="../prototypes/order-tracking-prototype.html" class="text-blue-600 hover:text-blue-800 underline font-medium">order-tracking-prototype.html</a>.</p>
-<hr class="my-6 border-slate-200">
+</div>
 <h2 id="sec-6-y-u-c-u-phi-ch-c-n-ng-nghi-p-v-business-non-functional-requirements-nfr-" class="text-2xl font-bold text-slate-900 font-title mt-10 mb-4 pt-4 border-t border-slate-200 flex items-center gap-2.5 leading-snug">
                 <span class="w-2 h-6 bg-blue-600 rounded-full shrink-0"></span>
                 <span>6. Yêu Cầu Phi Chức Năng Nghiệp Vụ (Business Non-Functional Requirements - NFR)</span>
@@ -355,8 +339,9 @@
                 <span>7. Tài Liệu Nghiệp Vụ Đi Kèm (Appendix)</span>
             </h2>
 <ul class="space-y-1.5 my-3 pl-5 text-slate-700 list-disc marker:text-blue-500 text-sm">
-<li>Toàn bộ bảng mã lỗi nghiệp vụ Wordings, các giới hạn thông số nghiệp vụ (Limits & Quotas) và các phân tích rủi ro hệ thống chi tiết được lưu trữ nguyên bản tại tệp đặc tả kỹ thuật nghiệp vụ <strong class="font-semibold text-slate-800">spec.md</strong>.</li>
-<li>Quá trình tư duy, brainstorm phân tích các Edge cases nghiệp vụ thực tế được lưu trữ tại <strong class="font-semibold text-slate-800">order-tracking-brainstorm.md</strong>.</li>
+<li>Toàn bộ bảng mã lỗi nghiệp vụ Wordings, các giới hạn thông số nghiệp vụ (Limits & Quotas) và các phân tích rủi ro hệ thống chi tiết được lưu trữ nguyên bản tại tệp <a href="../spec/spec.md" class="text-blue-600 hover:text-blue-800 underline font-medium font-mono">spec.md</a>.</li>
+<li>Quá trình tư duy, brainstorm phân tích các Edge cases nghiệp vụ thực tế được lưu trữ tại tệp <a href="../brainstorms/order-tracking-brainstorm.md" class="text-blue-600 hover:text-blue-800 underline font-medium font-mono">order-tracking-brainstorm.md</a>.</li>
+<li>Phác thảo chi tiết giao diện ASCII Wireframes được tham chiếu tại tệp <a href="../wireframes/order-management-dashboard.md" class="text-blue-600 hover:text-blue-800 underline font-medium font-mono">order-management-dashboard.md</a>.</li>
 </ul>
             </section>
 
