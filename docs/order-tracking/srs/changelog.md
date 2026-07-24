@@ -27,6 +27,8 @@ Tài liệu ghi lại lịch sử cập nhật cấu trúc và nội dung của 
 | **v1.3.5** | 2026-07-24 | @nlchis | Cập nhật cấu trúc `srs-preview.html`: Ẩn Section 5 (Đặc tả Giao diện) và chuẩn hóa Section 7 (Tài liệu đi kèm) hiển thị danh sách đường dẫn tham chiếu đến tên tệp thay vì nhúng nội dung chi tiết. | `[srs]`, `[prototype]` |
 | **v1.3.6** | 2026-07-24 | @nlchis | Đổ đầy 100% nội dung Mục 7 (Tài liệu Nghiệp vụ Đi kèm): Đổ trực tiếp các bảng chi tiết Mã lỗi (Error Codes E-001/002), Quy tắc Nghiệp vụ (BR-001 đến BR-017), Chu kỳ chuyển đổi trạng thái (STR-001 & STR-002) và Phân tích Nhu cầu Người dùng (Capabilities Breakdown) ra ngoài giao diện `srs-preview.html`. | `[srs]`, `[prototype]` |
 | **v1.3.7** | 2026-07-24 | @nlchis | Loại bỏ hoàn toàn khối Mục 5 (Đặc tả Giao diện Wireframes) khỏi tệp `srs-preview.html` để tập trung 100% vào nội dung nghiệp vụ SRS. | `[srs]`, `[prototype]` |
+| **v1.3.8** | 2026-07-24 | @nlchis | Chuẩn hóa Mục 5 của UC-05 (Duyệt/Từ chối đơn) và UC-09 (Quản lý Nhập/Xuất kho thủ công) thành bảng Mô tả Trường dữ liệu Màn hình (Data Field Tables) gồm STT, Tên trường, Định dạng, Bắt buộc và Ràng buộc chi tiết. | `[usecases]`, `[prototype]` |
+
 
 
 

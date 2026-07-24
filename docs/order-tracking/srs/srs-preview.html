@@ -2389,20 +2389,68 @@ stop
 <li>Đơn hàng giữ nguyên ở trạng thái <strong class="font-semibold text-slate-900">Đã duyệt</strong>. Hệ thống hiển thị nút [Thử gửi lại 247Express] để Admin/Sales chủ động gửi lại request.</li>
 </ul>
 <hr class="my-6 border-slate-200">
-<h2 id="sec-5-y-u-c-u-c-bi-t-giao-di-n-" class="text-2xl font-bold text-slate-900 font-title mt-10 mb-4 pt-4 border-t border-slate-200 flex items-center gap-2.5 leading-snug">
+<h2 id="sec-5-m-t-tr-ng-d-li-u-m-n-h-nh-uc-05" class="text-2xl font-bold text-slate-900 font-title mt-10 mb-4 pt-4 border-t border-slate-200 flex items-center gap-2.5 leading-snug">
                 <span class="w-2 h-6 bg-blue-600 rounded-full shrink-0"></span>
-                <span>5. Yêu cầu đặc biệt & Giao diện</span>
+                <span>5. Mô tả trường dữ liệu màn hình</span>
             </h2>
-<h3 id="sub-y-u-c-u-c-bi-t-" class="text-lg font-bold text-slate-800 font-title mt-6 mb-3 flex items-center gap-2">
-                <i class="fa-solid fa-chevron-right text-blue-500 text-xs shrink-0"></i>
-                <span>Yêu cầu đặc biệt</span>
-            </h3>
-<ul class="space-y-1.5 my-3 pl-5 text-slate-700 list-disc marker:text-blue-500 text-sm">
-<li>Popup nhập lý do từ chối bắt buộc Admin phải gõ tối thiểu 10 ký tự.</li>
-<li>Nút [Xóa đơn] chỉ hiển thị khi đơn ở trạng thái <strong class="font-semibold text-slate-900">Chờ Duyệt</strong>.</li>
-<li>Nút [Hủy đơn] hiển thị khi đơn ở trạng thái <strong class="font-semibold text-slate-900">Đã duyệt</strong> hoặc <strong class="font-semibold text-slate-900">Đã tiếp nhận</strong> (trước khi lấy hàng).</li>
-</ul>
-<hr class="my-6 border-slate-200">
+<div class="overflow-x-auto my-6 rounded-xl border border-slate-200 shadow-sm"><table class="w-full text-left text-sm text-slate-700">
+<thead class="bg-slate-100 text-slate-900 font-bold uppercase text-[11px] border-b border-slate-200"><tr>
+<th class="px-4 py-3">STT</th>
+<th class="px-4 py-3">Tên trường dữ liệu</th>
+<th class="px-4 py-3">Định dạng</th>
+<th class="px-4 py-3">Bắt buộc?</th>
+<th class="px-4 py-3">Mô tả chi tiết ràng buộc</th>
+</tr></thead><tbody class="divide-y divide-slate-200 bg-white">
+<tr class="hover:bg-slate-50 transition">
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">1</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Mã đơn hàng / Tracking ID</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Text (Read-only)</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Y</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Mã định danh đơn hàng do hệ thống sinh tự động.</td>
+</tr>
+<tr class="hover:bg-slate-50 transition">
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">2</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Thông tin Khách hàng &amp; Sản phẩm</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Read-only</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Y</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Tự động trích xuất từ Yêu cầu giao hàng (Tên KH, SĐT, Sản phẩm, Số lượng, File Hóa đơn).</td>
+</tr>
+<tr class="hover:bg-slate-50 transition">
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">3</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Nút [Phê Duyệt]</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Button Action</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">N</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Duyệt đơn sang Đã duyệt, sinh Bản ghi Xuất kho (Chờ duyệt) &amp; đẩy API sang 247Express.</td>
+</tr>
+<tr class="hover:bg-slate-50 transition">
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">4</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Nút [Từ Chối]</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Button Action</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">N</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Mở Popup yêu cầu Admin nhập lý do từ chối duyệt đơn.</td>
+</tr>
+<tr class="hover:bg-slate-50 transition">
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">5</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Lý do từ chối</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Textarea</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Y (khi Từ chối)</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Bắt buộc nhập khi bấm Từ chối. Độ dài tối thiểu 10 ký tự, tối đa 200 ký tự.</td>
+</tr>
+<tr class="hover:bg-slate-50 transition">
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">6</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Nút [Xóa đơn]</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Button Action</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">N</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Chỉ hiển thị ở trạng thái Chờ Duyệt. Giải phóng kho tạm giữ &amp; chuyển đơn sang Đã xóa (Mềm).</td>
+</tr>
+<tr class="hover:bg-slate-50 transition">
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">7</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Nút [Hủy đơn hàng]</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Button Action</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">N</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Hiển thị ở trạng thái Đã duyệt / Đã tiếp nhận (trước khi bưu tá lấy hàng). Hủy vận đơn 247Express &amp; giải phóng kho.</td>
+</tr>
+</tbody></table></div><hr class="my-6 border-slate-200">
             </div>
         </div>
 
@@ -3177,16 +3225,75 @@ stop
 <li><strong class="font-semibold text-slate-900">Nếu Từ chối:</strong> Hệ thống đổi trạng thái thành <strong class="font-semibold text-slate-900">Từ chối</strong>. Nếu là phiếu xuất kho, hệ thống hoàn trả lại số lượng tạm giữ.</li>
 </ul>
 <hr class="my-6 border-slate-200">
-<h2 id="sec-5-m-n-h-nh-chi-ti-t-l-xu-t-nh-k-m-lu-ng-t-ng-t-n-h-ng-" class="text-2xl font-bold text-slate-900 font-title mt-10 mb-4 pt-4 border-t border-slate-200 flex items-center gap-2.5 leading-snug">
+<h2 id="sec-5-m-t-tr-ng-d-li-u-m-n-h-nh-uc-09" class="text-2xl font-bold text-slate-900 font-title mt-10 mb-4 pt-4 border-t border-slate-200 flex items-center gap-2.5 leading-snug">
                 <span class="w-2 h-6 bg-blue-600 rounded-full shrink-0"></span>
-                <span>5. Màn hình Chi tiết Lô xuất (Đính kèm luồng Tự động từ Đơn hàng)</span>
+                <span>5. Mô tả trường dữ liệu màn hình</span>
             </h2>
-<p class="text-slate-700 text-[15px] leading-[1.75] my-3">Bên cạnh luồng thủ công trên, các <strong class="font-semibold text-slate-900">Bản ghi Xuất kho tự động</strong> (do Admin duyệt đơn sinh ra) ban đầu sẽ nằm ở trạng thái <strong class="font-semibold text-slate-900">Chờ duyệt</strong> (và tự động in Phiếu xuất kho). Bản ghi này không cho phép duyệt/từ chối thủ công mà sẽ tự động chuyển sang <strong class="font-semibold text-slate-900">Đã duyệt</strong> (tiến hành trừ tồn kho thực tế) khi bưu tá đến lấy hàng. </p>
-<ul class="space-y-1.5 my-3 pl-5 text-slate-700 list-disc marker:text-blue-500 text-sm">
-<li>Tại màn hình chi tiết Bản ghi Xuất kho, người dùng có thể tải/in <strong class="font-semibold text-slate-900">Phiếu Xuất Kho</strong>.</li>
-<li>Hệ thống sẽ hiển thị rõ tham chiếu <strong class="font-semibold text-slate-900">Mã vận đơn (Tracking ID)</strong> liên kết với lần xuất kho này.</li>
-</ul>
-<hr class="my-6 border-slate-200">
+<div class="overflow-x-auto my-6 rounded-xl border border-slate-200 shadow-sm"><table class="w-full text-left text-sm text-slate-700">
+<thead class="bg-slate-100 text-slate-900 font-bold uppercase text-[11px] border-b border-slate-200"><tr>
+<th class="px-4 py-3">STT</th>
+<th class="px-4 py-3">Tên trường dữ liệu</th>
+<th class="px-4 py-3">Định dạng</th>
+<th class="px-4 py-3">Bắt buộc?</th>
+<th class="px-4 py-3">Mô tả chi tiết ràng buộc</th>
+</tr></thead><tbody class="divide-y divide-slate-200 bg-white">
+<tr class="hover:bg-slate-50 transition">
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">1</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Loại phiếu kho</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Dropdown</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Y</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Chọn loại giao dịch: "Nhập kho thủ công" hoặc "Xuất kho thủ công".</td>
+</tr>
+<tr class="hover:bg-slate-50 transition">
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">2</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Sản phẩm</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Dropdown / Search</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Y</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Chọn mặt hàng thực hiện nhập/xuất kho từ danh mục sản phẩm.</td>
+</tr>
+<tr class="hover:bg-slate-50 transition">
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">3</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Số lượng</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Number</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Y</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Giá trị phải &gt; 0. Nếu là phiếu xuất kho, số lượng phải &lt;= số lượng tồn kho khả dụng hiện tại.</td>
+</tr>
+<tr class="hover:bg-slate-50 transition">
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">4</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Lý do nhập/xuất</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Text / Textarea</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Y</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Nhập nguyên nhân điều chỉnh tồn kho (VD: Nhập kho hoàn hàng, Kiểm đếm bù hàng, Xuất mẫu).</td>
+</tr>
+<tr class="hover:bg-slate-50 transition">
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">5</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Tệp chứng từ đính kèm</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Upload</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">N</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Đính kèm phiếu kiểm đếm hoặc chứng từ xác nhận (tối đa 10MB, định dạng .pdf, .png, .docx).</td>
+</tr>
+<tr class="hover:bg-slate-50 transition">
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">6</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Mã vận đơn (Tracking ID)</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Text (Read-only)</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">N</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Hiển thị mã vận đơn 247Express tham chiếu nếu là bản ghi Xuất kho tự động sinh ra từ Đơn hàng.</td>
+</tr>
+<tr class="hover:bg-slate-50 transition">
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">7</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Nút [Lưu / Gửi duyệt]</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Button Action</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">N</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Khởi tạo bản ghi ở trạng thái Chờ duyệt. Nếu xuất kho, tạm giữ tồn kho khả dụng tương ứng.</td>
+</tr>
+<tr class="hover:bg-slate-50 transition">
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">8</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Nút [Phê Duyệt] / [Từ Chối]</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Button Action</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">N</td>
+<td class="px-4 py-3.5 text-[14px] leading-[1.7]">Dành cho Quản lý kho (Checker): Duyệt để cập nhật tồn kho thực tế &amp; in Phiếu in (PDF); hoặc Từ chối để hủy tạm giữ.</td>
+</tr>
+</tbody></table></div><hr class="my-6 border-slate-200">
             </div>
         </div>
             </section>
