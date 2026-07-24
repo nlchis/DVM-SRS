@@ -338,11 +338,268 @@
                 <span class="w-2 h-6 bg-blue-600 rounded-full shrink-0"></span>
                 <span>7. Tài Liệu Nghiệp Vụ Đi Kèm (Appendix)</span>
             </h2>
-<ul class="space-y-1.5 my-3 pl-5 text-slate-700 list-disc marker:text-blue-500 text-sm">
-<li>Toàn bộ bảng mã lỗi nghiệp vụ Wordings, các giới hạn thông số nghiệp vụ (Limits & Quotas) và các phân tích rủi ro hệ thống chi tiết được lưu trữ nguyên bản tại tệp <a href="../spec/spec.md" class="text-blue-600 hover:text-blue-800 underline font-medium font-mono">spec.md</a>.</li>
-<li>Quá trình tư duy, brainstorm phân tích các Edge cases nghiệp vụ thực tế được lưu trữ tại tệp <a href="../brainstorms/order-tracking-brainstorm.md" class="text-blue-600 hover:text-blue-800 underline font-medium font-mono">order-tracking-brainstorm.md</a>.</li>
-<li>Phác thảo chi tiết giao diện ASCII Wireframes được tham chiếu tại tệp <a href="../wireframes/order-management-dashboard.md" class="text-blue-600 hover:text-blue-800 underline font-medium font-mono">order-management-dashboard.md</a>.</li>
-</ul>
+<p class="text-slate-700 text-[15px] leading-[1.75] my-3">Tổng hợp chi tiết toàn bộ Bảng Mã lỗi Nghiệp vụ, Quy tắc Nghiệp vụ chi tiết, Quy tắc Chuyển đổi Trạng thái và Phân tích Nhu cầu Người dùng được trích xuất trực tiếp từ bộ hồ sơ nghiệp vụ hệ thống:</p>
+
+<h3 class="text-lg font-bold text-slate-800 font-title mt-6 mb-3 flex items-center gap-2">
+    <i class="fa-solid fa-triangle-exclamation text-amber-500 text-xs shrink-0"></i>
+    <span>7.1 Bảng Mã Lỗi Nghiệp Vụ (Business Error Codes - E)</span>
+</h3>
+<div class="overflow-x-auto my-4 rounded-xl border border-slate-200 shadow-sm">
+    <table class="w-full text-left text-sm text-slate-700">
+        <thead class="bg-slate-100 text-slate-900 font-bold uppercase text-[11px] border-b border-slate-200">
+            <tr>
+                <th class="px-4 py-3">Mã lỗi</th>
+                <th class="px-4 py-3">Tên lỗi</th>
+                <th class="px-4 py-3">Điều kiện xuất hiện</th>
+                <th class="px-4 py-3">Câu thông báo phản hồi (Wording)</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-200 bg-white">
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-3.5 text-[14px] leading-[1.7] font-mono font-bold text-rose-600">E-delivery-001</td>
+                <td class="px-4 py-3.5 text-[14px] leading-[1.7] font-semibold text-slate-900">Lỗi Hủy Yêu cầu</td>
+                <td class="px-4 py-3.5 text-[14px] leading-[1.7]">Admin bấm hủy nhưng Yêu cầu vẫn còn Đơn giao hàng đang chạy (Chưa Từ Chối / Đã chuyển hoàn / Hủy).</td>
+                <td class="px-4 py-3.5 text-[14px] leading-[1.7] font-medium text-slate-800">"Vui lòng yêu cầu hủy/từ chối các đơn giao hàng trực thuộc trước."</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-3.5 text-[14px] leading-[1.7] font-mono font-bold text-rose-600">E-order-002</td>
+                <td class="px-4 py-3.5 text-[14px] leading-[1.7] font-semibold text-slate-900">Lỗi Hạn mức SL</td>
+                <td class="px-4 py-3.5 text-[14px] leading-[1.7]">Sales nhập số lượng đơn &gt; Tổng số lượng Yêu cầu giao hàng.</td>
+                <td class="px-4 py-3.5 text-[14px] leading-[1.7] font-medium text-slate-800">"Số lượng giao vượt quá hạn mức cho phép của Yêu cầu."</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h3 class="text-lg font-bold text-slate-800 font-title mt-6 mb-3 flex items-center gap-2">
+    <i class="fa-solid fa-gavel text-purple-600 text-xs shrink-0"></i>
+    <span>7.2 Bảng Quy Tắc Nghiệp Vụ Chi Tiết (Detailed Business Rules - BR)</span>
+</h3>
+<div class="overflow-x-auto my-4 rounded-xl border border-slate-200 shadow-sm">
+    <table class="w-full text-left text-sm text-slate-700">
+        <thead class="bg-slate-100 text-slate-900 font-bold uppercase text-[11px] border-b border-slate-200">
+            <tr>
+                <th class="px-4 py-3">Mã BR</th>
+                <th class="px-4 py-3">Tên quy tắc</th>
+                <th class="px-4 py-3">Mô tả chính sách chi tiết</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-200 bg-white">
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-3 text-[13px] font-mono font-bold text-blue-600">BR-contract-001</td>
+                <td class="px-4 py-3 text-[13px] font-semibold text-slate-900">Trạng thái Hợp đồng</td>
+                <td class="px-4 py-3 text-[13px]">Chỉ có <strong>Còn hiệu lực</strong> và <strong>Hết hiệu lực</strong>. Do Sales tự quyết định.</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-3 text-[13px] font-mono font-bold text-blue-600">BR-contract-002</td>
+                <td class="px-4 py-3 text-[13px] font-semibold text-slate-900">Ghi nhận số lượng Hợp đồng</td>
+                <td class="px-4 py-3 text-[13px]">Số lượng "đã giao" của Hợp đồng CHỈ được cộng dồn khi Yêu cầu giao hàng của đợt đó đạt trạng thái <strong>Hoàn thành</strong>.</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-3 text-[13px] font-mono font-bold text-blue-600">BR-delivery-001</td>
+                <td class="px-4 py-3 text-[13px] font-semibold text-slate-900">Hủy Yêu cầu giao hàng</td>
+                <td class="px-4 py-3 text-[13px]">Chỉ cho phép Admin hủy nếu Yêu cầu chưa có Đơn giao hàng nào, hoặc tất cả các đơn đều đang ở trạng thái <strong>Từ Chối</strong> / <strong>Đã chuyển hoàn</strong> / <strong>Hủy</strong>. Báo lỗi "Yêu cầu hủy đơn giao hàng trước" nếu vi phạm.</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-3 text-[13px] font-mono font-bold text-blue-600">BR-delivery-002</td>
+                <td class="px-4 py-3 text-[13px] font-semibold text-slate-900">Trạng thái Yêu cầu giao hàng</td>
+                <td class="px-4 py-3 text-[13px]">Hệ thống tự tính toán dựa trên Đơn giao hàng: Nếu <em>SL đã giao thực tế</em> &lt; <em>SL yêu cầu</em> -&gt; <strong>Chờ xử lý</strong>. Nếu <em>SL đã giao thực tế</em> = <em>SL yêu cầu</em> -&gt; <strong>Hoàn thành</strong>.</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-3 text-[13px] font-mono font-bold text-blue-600">BR-delivery-003</td>
+                <td class="px-4 py-3 text-[13px] font-semibold text-slate-900">Ghi nhận số lượng Yêu cầu</td>
+                <td class="px-4 py-3 text-[13px]">Số lượng "đã giao thực tế" của Yêu cầu giao hàng CHỈ tăng lên khi một Đơn giao hàng đạt trạng thái <strong>Phát thành công</strong>.</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-3 text-[13px] font-mono font-bold text-blue-600">BR-delivery-004</td>
+                <td class="px-4 py-3 text-[13px] font-semibold text-slate-900">Auto Refund Số lượng (Hoàn hàng)</td>
+                <td class="px-4 py-3 text-[13px]">Khi 1 đơn hàng đã <strong>Phát thành công</strong> bị chuyển thành <strong>Đã chuyển hoàn</strong>, hệ thống mới thực hiện Auto Refund trừ đi số lượng hoàn khỏi <em>Số lượng đã giao thực tế</em> của Yêu cầu giao hàng (có thể lùi trạng thái Yêu cầu từ Hoàn thành về Chờ xử lý). Đơn ở trạng thái <strong>Từ Chối</strong> hoặc <strong>Hủy</strong> chưa từng được cộng số lượng nên KHÔNG bị trừ số lượng đã giao.</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-3 text-[13px] font-mono font-bold text-blue-600">BR-order-tracking-005</td>
+                <td class="px-4 py-3 text-[13px] font-semibold text-slate-900">Hạn chế quyền sửa của Sales</td>
+                <td class="px-4 py-3 text-[13px]">Sales có quyền sửa đơn khi ở trạng thái <strong>Chờ Duyệt</strong>. Đơn bị Khóa (Disable) nút sửa nếu đã được duyệt hoặc từ chối.</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-3 text-[13px] font-mono font-bold text-blue-600">BR-order-tracking-007</td>
+                <td class="px-4 py-3 text-[13px] font-semibold text-slate-900">Phí Vận Chuyển</td>
+                <td class="px-4 py-3 text-[13px]">Chi phí vận chuyển đi do Công ty chi trả. Khi phát sinh hoàn hàng do Khách yêu cầu, hệ thống tự cộng thêm <strong>Phí vận chuyển hoàn</strong> vào đơn hàng để Kế toán theo dõi.</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-3 text-[13px] font-mono font-bold text-blue-600">BR-order-tracking-009</td>
+                <td class="px-4 py-3 text-[13px] font-semibold text-slate-900">Khấu trừ tồn kho tự động</td>
+                <td class="px-4 py-3 text-[13px]">Khi Admin duyệt đơn, hệ thống chuyển đơn sang <strong>Đã duyệt</strong>, sinh Bản ghi Xuất kho (Chờ duyệt) và gửi thông tin sang 247Express. Khi 247Express trả mã vận đơn, đơn sang <strong>Đã tiếp nhận</strong>. Khi bưu tá lấy hàng (<strong>Đã lấy hàng</strong>), Bản ghi Xuất kho tự chuyển sang <strong>Đã duyệt</strong> để trừ kho thực tế.</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-3 text-[13px] font-mono font-bold text-blue-600">BR-order-tracking-010</td>
+                <td class="px-4 py-3 text-[13px] font-semibold text-slate-900">Không tự động cộng tồn kho</td>
+                <td class="px-4 py-3 text-[13px]">Khi Đơn hàng chuyển sang <strong>Đã chuyển hoàn</strong>, hệ thống KHÔNG tự động cộng lại tồn kho. Thủ kho phải tự tạo Bản ghi Nhập kho thủ công (Maker/Checker).</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-3 text-[13px] font-mono font-bold text-blue-600">BR-order-tracking-015</td>
+                <td class="px-4 py-3 text-[13px] font-semibold text-slate-900">Hoàn hàng (1 phần hoặc toàn bộ)</td>
+                <td class="px-4 py-3 text-[13px]">Nút [Hoàn hàng] chỉ được mở (enabled) khi đơn ở trạng thái <strong>Phát thành công</strong>. Cho phép nhập số lượng hoàn từ 1 đến toàn bộ số lượng đơn. Không tạo đơn hàng mới. Mọi cập nhật trạng thái vòng Hoàn hàng (<strong>Chờ chuyển hoàn</strong> -&gt; <strong>Đã chuyển hoàn</strong>) sẽ ghi đè lên đơn hiện tại nhưng lưu giữ song song lịch sử tracking cũ.</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-3 text-[13px] font-mono font-bold text-blue-600">BR-order-tracking-016</td>
+                <td class="px-4 py-3 text-[13px] font-semibold text-slate-900">Hoàn trả tạm giữ kho</td>
+                <td class="px-4 py-3 text-[13px]">Khi bản ghi Xuất kho thủ công (Chờ duyệt) bị Quản lý kho Từ chối, hệ thống phải hoàn trả lại số lượng tồn kho khả dụng đã tạm giữ trước đó.</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-3 text-[13px] font-mono font-bold text-blue-600">BR-order-tracking-017</td>
+                <td class="px-4 py-3 text-[13px] font-semibold text-slate-900">Xóa mềm đơn Chờ duyệt</td>
+                <td class="px-4 py-3 text-[13px]">Thao tác Xóa mềm chỉ áp dụng khi đơn hàng ở trạng thái <strong>Chờ Duyệt</strong>. Khi xóa thành công, hệ thống lập tức giải phóng số lượng tồn kho khả dụng bị tạm giữ, đồng thời ẩn đơn hàng khỏi màn hình danh sách FO (Front Office).</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h3 class="text-lg font-bold text-slate-800 font-title mt-6 mb-3 flex items-center gap-2">
+    <i class="fa-solid fa-arrows-spin text-emerald-600 text-xs shrink-0"></i>
+    <span>7.3 Quy Tắc Chuyển Đổi Trạng Thái Chi Tiết (State Transition Rules - STR)</span>
+</h3>
+<div class="overflow-x-auto my-4 rounded-xl border border-slate-200 shadow-sm">
+    <table class="w-full text-left text-sm text-slate-700">
+        <thead class="bg-slate-100 text-slate-900 font-bold uppercase text-[11px] border-b border-slate-200">
+            <tr>
+                <th class="px-4 py-3">Trạng thái ban đầu</th>
+                <th class="px-4 py-3">Sự kiện kích hoạt (Trigger)</th>
+                <th class="px-4 py-3">Trạng thái tiếp theo</th>
+                <th class="px-4 py-3">Hành vi hệ thống đi kèm</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-200 bg-white text-[13px]">
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-2.5 text-slate-500 font-mono">(Khởi tạo)</td>
+                <td class="px-4 py-2.5">Sales tạo đơn từ Yêu cầu</td>
+                <td class="px-4 py-2.5 font-bold text-amber-600">Chờ Duyệt</td>
+                <td class="px-4 py-2.5">Tạm giữ tồn kho khả dụng.</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-2.5 font-bold text-amber-600">Chờ Duyệt</td>
+                <td class="px-4 py-2.5">Người dùng nhấn [Xóa đơn]</td>
+                <td class="px-4 py-2.5 font-bold text-slate-500">Đã xóa (Mềm)</td>
+                <td class="px-4 py-2.5">Hủy tạm giữ kho khả dụng, ẩn bản ghi khỏi giao diện FO.</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-2.5 font-bold text-amber-600">Chờ Duyệt</td>
+                <td class="px-4 py-2.5">Admin nhấn Từ chối (Reject)</td>
+                <td class="px-4 py-2.5 font-bold text-rose-600">Từ Chối</td>
+                <td class="px-4 py-2.5">Hủy tạm giữ kho khả dụng (không ảnh hưởng SL đã giao của Yêu cầu).</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-2.5 font-bold text-amber-600">Chờ Duyệt</td>
+                <td class="px-4 py-2.5">Admin nhấn Phê duyệt (Approve)</td>
+                <td class="px-4 py-2.5 font-bold text-blue-600">Đã duyệt</td>
+                <td class="px-4 py-2.5">Sinh Bản ghi Xuất kho (Chờ duyệt), gửi thông tin đơn sang 247Express. Giữ nguyên trạng thái Đã duyệt nếu chưa có mã vận đơn.</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-2.5 font-bold text-blue-600">Đã duyệt</td>
+                <td class="px-4 py-2.5">API / Webhook 247Express trả Mã vận đơn</td>
+                <td class="px-4 py-2.5 font-bold text-blue-600">Đã tiếp nhận</td>
+                <td class="px-4 py-2.5">Cập nhật Mã vận đơn (Tracking ID) vào đơn hàng.</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-2.5 font-bold text-blue-600">Đã tiếp nhận</td>
+                <td class="px-4 py-2.5">Sales nhấn Hủy đơn (Trước khi lấy hàng)</td>
+                <td class="px-4 py-2.5 font-bold text-rose-600">Hủy</td>
+                <td class="px-4 py-2.5">Hủy vận đơn 247Express, hủy Bản ghi Xuất kho, giải phóng tồn kho khả dụng.</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-2.5 font-bold text-blue-600">Đã tiếp nhận</td>
+                <td class="px-4 py-2.5">Webhook 247Express lấy hàng</td>
+                <td class="px-4 py-2.5 font-bold text-purple-600">Đã lấy hàng</td>
+                <td class="px-4 py-2.5">Bản ghi Xuất kho tự chuyển sang Đã duyệt (Trừ kho thực tế).</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-2.5 font-bold text-purple-600">Đã lấy hàng</td>
+                <td class="px-4 py-2.5">Webhook 247Express luân chuyển kho</td>
+                <td class="px-4 py-2.5 font-bold text-indigo-600">Đang vận chuyển</td>
+                <td class="px-4 py-2.5">Cập nhật thông tin vị trí luân chuyển.</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-2.5 font-bold text-indigo-600">Đang vận chuyển</td>
+                <td class="px-4 py-2.5">Webhook 247Express đi phát</td>
+                <td class="px-4 py-2.5 font-bold text-cyan-600">Đang đi phát</td>
+                <td class="px-4 py-2.5">Gửi SMS "Đang đi phát hàng" cho khách, gửi Telegram cho Sales.</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-2.5 font-bold text-cyan-600">Đang đi phát</td>
+                <td class="px-4 py-2.5">Webhook Giao hàng thất bại</td>
+                <td class="px-4 py-2.5 font-bold text-amber-600">Chờ xử lý</td>
+                <td class="px-4 py-2.5">Cập nhật lý do thất bại, gửi Telegram cho Sales.</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-2.5 font-bold text-cyan-600">Đang đi phát</td>
+                <td class="px-4 py-2.5">Webhook Giao thành công</td>
+                <td class="px-4 py-2.5 font-bold text-emerald-600">Phát thành công</td>
+                <td class="px-4 py-2.5">Cộng Số lượng đã giao thực tế vào Yêu cầu giao hàng. Gửi SMS thành công.</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-2.5 font-bold text-amber-600">Chờ xử lý</td>
+                <td class="px-4 py-2.5">Webhook Tự động giao lại</td>
+                <td class="px-4 py-2.5 font-bold text-cyan-600">Đang đi phát</td>
+                <td class="px-4 py-2.5">Ghi nhận lượt giao lại (tối đa X lần theo quy định 247Express).</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-2.5 font-bold text-amber-600">Chờ xử lý</td>
+                <td class="px-4 py-2.5">Webhook Tự động chuyển hoàn (quá hạn)</td>
+                <td class="px-4 py-2.5 font-bold text-orange-600">Chờ chuyển hoàn</td>
+                <td class="px-4 py-2.5">Ghi nhận hành trình chuyển hoàn về kho công ty.</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-2.5 font-bold text-emerald-600">Phát thành công</td>
+                <td class="px-4 py-2.5">Sales bấm [Hoàn hàng] (1 phần hoặc toàn bộ)</td>
+                <td class="px-4 py-2.5 font-bold text-orange-600">Chờ chuyển hoàn</td>
+                <td class="px-4 py-2.5">Lưu trữ số lượng hoàn, lý do hoàn và tính Phí vận chuyển hoàn.</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-2.5 font-bold text-orange-600">Chờ chuyển hoàn</td>
+                <td class="px-4 py-2.5">Webhook Hoàn kho thành công</td>
+                <td class="px-4 py-2.5 font-bold text-rose-700">Đã chuyển hoàn</td>
+                <td class="px-4 py-2.5">Auto Refund trừ Số lượng đã giao thực tế của Yêu cầu giao hàng. (Thủ kho tự nhập tồn kho thủ công).</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h3 class="text-lg font-bold text-slate-800 font-title mt-6 mb-3 flex items-center gap-2">
+    <i class="fa-solid fa-users-viewfinder text-blue-600 text-xs shrink-0"></i>
+    <span>7.4 Phân Tích Nhu Cầu & Đóng Gói Năng Lực (User Pain Points & Capabilities Breakdown)</span>
+</h3>
+<div class="overflow-x-auto my-4 rounded-xl border border-slate-200 shadow-sm">
+    <table class="w-full text-left text-sm text-slate-700">
+        <thead class="bg-slate-100 text-slate-900 font-bold uppercase text-[11px] border-b border-slate-200">
+            <tr>
+                <th class="px-4 py-3">Vai trò Người dùng</th>
+                <th class="px-4 py-3">Điểm nghẽn nghiệp vụ (Pain Point)</th>
+                <th class="px-4 py-3">Nhu cầu giải pháp chính (Primary Need)</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-200 bg-white text-[13px]">
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-3 font-semibold text-slate-900">Khách hàng (B2B/Cá nhân)</td>
+                <td class="px-4 py-3">Cần theo dõi tiến độ giao hàng của từng đợt theo hợp đồng đã ký.</td>
+                <td class="px-4 py-3">Nhận thông báo SMS hành trình đơn hàng và có thể yêu cầu trả hàng nếu hàng lỗi.</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-3 font-semibold text-slate-900">Sales phụ trách</td>
+                <td class="px-4 py-3">Quản lý hợp đồng và đơn hàng thủ công mất thời gian, dễ sai sót số lượng.</td>
+                <td class="px-4 py-3">Quản lý Hợp đồng tập trung. Tạo đơn nhanh chóng từ Yêu cầu giao hàng có sẵn.</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-3 font-semibold text-slate-900">Admin</td>
+                <td class="px-4 py-3">Khó kiểm soát việc Sales xuất hàng vượt quá số lượng trên hợp đồng.</td>
+                <td class="px-4 py-3">Tạo Yêu cầu giao hàng cấp hạn mức cho Sales. Phê duyệt đơn hàng xuất kho.</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-4 py-3 font-semibold text-slate-900">Thủ kho</td>
+                <td class="px-4 py-3">Gặp khó khăn trong định vị sản phẩm và đếm hàng hoàn.</td>
+                <td class="px-4 py-3">In phiếu xuất kho tự động và kiểm đếm nhập kho thủ công khi có hàng hoàn.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
             </section>
 
             <!-- 3. System Diagrams Section -->
