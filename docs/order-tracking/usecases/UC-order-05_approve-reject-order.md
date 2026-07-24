@@ -114,17 +114,12 @@ stop
 
 ---
 
-## 5. Mô tả trường dữ liệu màn hình
+## 5. Yêu cầu đặc biệt & Giao diện
 
-| STT | Tên trường dữ liệu | Định dạng | Bắt buộc? | Mô tả chi tiết ràng buộc |
-|:---:|:---|:---|:---:|:---|
-| 1 | Mã đơn hàng / Tracking ID | Text (Read-only) | Y | Mã định danh đơn hàng do hệ thống sinh tự động. |
-| 2 | Thông tin Khách hàng & Sản phẩm | Read-only | Y | Tự động trích xuất từ Yêu cầu giao hàng (Tên KH, SĐT, Sản phẩm, Số lượng, File Hóa đơn). |
-| 3 | Nút [Phê Duyệt] | Button Action | N | Duyệt đơn sang Đã duyệt, sinh Bản ghi Xuất kho (Chờ duyệt) & đẩy API sang 247Express. |
-| 4 | Nút [Từ Chối] | Button Action | N | Mở Popup yêu cầu Admin nhập lý do từ chối duyệt đơn. |
-| 5 | Lý do từ chối | Textarea | Y (khi Từ chối) | Bắt buộc nhập khi bấm Từ chối. Độ dài tối thiểu 10 ký tự, tối đa 200 ký tự. |
-| 6 | Nút [Xóa đơn] | Button Action | N | Chỉ hiển thị ở trạng thái Chờ Duyệt. Giải phóng kho tạm giữ & chuyển đơn sang Đã xóa (Mềm). |
-| 7 | Nút [Hủy đơn hàng] | Button Action | N | Hiển thị ở trạng thái Đã duyệt / Đã tiếp nhận (trước khi bưu tá lấy hàng). Hủy vận đơn 247Express & giải phóng kho. |
+### Yêu cầu đặc biệt
+- Popup nhập lý do từ chối bắt buộc Admin phải gõ tối thiểu 10 ký tự.
+- Nút [Xóa đơn] chỉ hiển thị khi đơn ở trạng thái **Chờ Duyệt**.
+- Nút [Hủy đơn] hiển thị khi đơn ở trạng thái **Đã duyệt** hoặc **Đã tiếp nhận** (trước khi lấy hàng).
 
 
 ---

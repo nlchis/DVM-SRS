@@ -68,18 +68,10 @@ stop
 
 ---
 
-## 5. Mô tả trường dữ liệu màn hình
-
-| STT | Tên trường dữ liệu | Định dạng | Bắt buộc? | Mô tả chi tiết ràng buộc |
-|:---:|:---|:---|:---:|:---|
-| 1 | Loại phiếu kho | Dropdown | Y | Chọn loại giao dịch: "Nhập kho thủ công" hoặc "Xuất kho thủ công". |
-| 2 | Sản phẩm | Dropdown / Search | Y | Chọn mặt hàng thực hiện nhập/xuất kho từ danh mục sản phẩm. |
-| 3 | Số lượng | Number | Y | Giá trị phải > 0. Nếu là phiếu xuất kho, số lượng phải <= số lượng tồn kho khả dụng hiện tại. |
-| 4 | Lý do nhập/xuất | Text / Textarea | Y | Nhập nguyên nhân điều chỉnh tồn kho (VD: Nhập kho hoàn hàng, Kiểm đếm bù hàng, Xuất mẫu). |
-| 5 | Tệp chứng từ đính kèm | Upload | N | Đính kèm phiếu kiểm đếm hoặc chứng từ xác nhận (tối đa 10MB, định dạng .pdf, .png, .docx). |
-| 6 | Mã vận đơn (Tracking ID) | Text (Read-only) | N | Hiển thị mã vận đơn 247Express tham chiếu nếu là bản ghi Xuất kho tự động sinh ra từ Đơn hàng. |
-| 7 | Nút [Lưu / Gửi duyệt] | Button Action | N | Khởi tạo bản ghi ở trạng thái Chờ duyệt. Nếu xuất kho, tạm giữ tồn kho khả dụng tương ứng. |
-| 8 | Nút [Phê Duyệt] / [Từ Chối] | Button Action | N | Dành cho Quản lý kho (Checker): Duyệt để cập nhật tồn kho thực tế & in Phiếu in (PDF); hoặc Từ chối để hủy tạm giữ. |
+## 5. Màn hình Chi tiết Lô xuất (Đính kèm luồng Tự động từ Đơn hàng)
+Bên cạnh luồng thủ công trên, các **Bản ghi Xuất kho tự động** (do Admin duyệt đơn sinh ra) ban đầu sẽ nằm ở trạng thái **Chờ duyệt** (và tự động in Phiếu xuất kho). Bản ghi này không cho phép duyệt/từ chối thủ công mà sẽ tự động chuyển sang **Đã duyệt** (tiến hành trừ tồn kho thực tế) khi bưu tá đến lấy hàng. 
+* Tại màn hình chi tiết Bản ghi Xuất kho, người dùng có thể tải/in **Phiếu Xuất Kho**.
+* Hệ thống sẽ hiển thị rõ tham chiếu **Mã vận đơn (Tracking ID)** liên kết với lần xuất kho này.
 
 
 ---
