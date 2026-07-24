@@ -24,6 +24,8 @@ Tài liệu ghi lại lịch sử cập nhật cấu trúc và nội dung của 
 | **v1.3.2** | 2026-07-24 | @nlchis | Cập nhật đồng bộ 100% tài liệu srs.md: Chuẩn hóa BR-001 (Maker/Checker & Đã duyệt -> 247 trả mã -> Đã tiếp nhận), BR-003 (Hoàn 1 phần hoặc cả đơn), BR-004 (Auto Refund), Xóa mềm/Hủy đơn, đính kèm tệp Hợp đồng/Phụ lục trong Hồ sơ Khách hàng và liên kết 9 Use Cases (`UC-order-01` đến `09`). | `[srs]`, `[usecases]` |
 | **v1.3.3** | 2026-07-24 | @nlchis | Loại bỏ yêu cầu phi chức năng hạ tầng kỹ thuật (TLS/HTTPS encryption); Cập nhật lại Section 6 (NFR) theo 100% góc nhìn nghiệp vụ IT-BA (Tốc độ phản hồi thao tác 2s, Tính toàn vẹn lưu vết nhật ký Maker log/Tracking history, và Độ chính xác đối soát hạn mức Hợp đồng/Yêu cầu). | `[srs]` |
 | **v1.3.4** | 2026-07-24 | @nlchis | Nâng cấp giao diện xem trước `srs-preview.html`: Tích hợp thẻ giao diện (UC cards), bộ đếm thứ tự các bước (flex step badges), tối ưu font chữ Outfit/Inter, cập nhật Live Search Filter và đồng bộ xuất bản GitHub Pages (`DVM-SRS`). | `[prototype]`, `[srs]` |
+| **v1.3.5** | 2026-07-24 | @nlchis | Cập nhật cấu trúc `srs-preview.html`: Ẩn Section 5 (Đặc tả Giao diện) và chuẩn hóa Section 7 (Tài liệu đi kèm) hiển thị danh sách đường dẫn tham chiếu đến tên tệp thay vì nhúng nội dung chi tiết. | `[srs]`, `[prototype]` |
+
 
 
 
